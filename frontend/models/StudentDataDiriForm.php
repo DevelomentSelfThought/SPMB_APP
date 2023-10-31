@@ -24,6 +24,29 @@ class StudentDataDiriForm extends Model {
         '4' => 'Budha',
         '5' => 'Konghucu',
     ]; //list of relegion
+    //function to tell the current user_id from the current logged to system
+    public static function getCurrentUserId(){
+        //sql command to get the current user id from the current logged in user
+        $sql = "SELECT user_id FROM t_user WHERE username = '".Yii::$app->user->identity->username."'";
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //return the user_id
+        return $result['user_id'];
+        //return Yii::$app->user->identity->id;
+    }
+    //validate if the user_id from the current logged in user is already exist in the table t_pendaftar
+    public static function userIdExists(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
     public static array $gen  = [ '0' => 'Pria', '1' => 'Wanita']; //list of gender
     //rules for handling input data from user
     public function rules()
@@ -61,16 +84,20 @@ class StudentDataDiriForm extends Model {
     //method for saving data personal information to database, todo : exception handler for saving data
     //passing argument $id to this method, this argument is the id of student
     public function insertDataDiri(){
-        if($this->validate())
-        {
-            try{
-                //insertion data to table t_pendaftar 
-                Yii::$app->db->command()->insert('t_pendaftar',[
+        if($this->validate()) //this method is not enough to validate the data from user input 
+        { 
+            try{ //throw exception if error occured
+                if(!self::userIdExists()){
+                    //insert user_id to table t_pendaftar
+                    Yii::$app->db->command()->insert('t_pendaftar',['user_id'=>self::getCurrentUserId()])->execute();
+                }
+                //prefer update schema for all data member
+                Yii::$app->db->createCommand()->update('t_pendaftar',[
                     'nik'=>$this->nik,
                     'nisn'=>$this->nisn,
                     'no_kps'=>$this->no_kps,
                     'nama'=>$this->nama,
-                    'jenis_kelamin_id'=>$this->jenis_kelamin,
+                    'jenis_kelamin'=>$this->jenis_kelamin,
                     'tanggal_lahir'=>$this->tanggal_lahir,
                     'tempat_lahir'=>$this->tempat_lahir,
                     'agama_id'=>$this->agama_id,
@@ -78,12 +105,12 @@ class StudentDataDiriForm extends Model {
                     'kelurahan'=>$this->kelurahan,
                     'provinsi'=>$this->provinsi,
                     'kabupaten'=>$this->kabupaten,
-                    'alamat_kec'=>$this->alamat_kecamatan,
+                    'alamat_kecamatan'=>$this->alamat_kecamatan,
                     'kode_pos'=>$this->kode_pos,
                     'no_telepon_rumah'=>$this->no_telepon_rumah,
                     'no_telepon_mobile'=>$this->no_telepon_mobile,
                     'email'=>$this->email,
-                ])->execute();
+                ],'user_id = '.self::getCurrentUserId())->execute();
                 Yii::$app->session->setFlash('success', 'Data ekstrakurikuler berhasil disimpan');
                 return true;
             }catch (Exception $e){ //for debugging purpose
