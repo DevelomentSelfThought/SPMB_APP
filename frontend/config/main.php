@@ -44,6 +44,15 @@ return [
             ],
         ],
         */
+        'urlManager'=> [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules'=> [
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+            ],
+        ],
     ],
     'params' => $params,
+    //setting the default route
+    'defaultRoute' => 'student/index',
 ];

@@ -19,7 +19,7 @@
 
 <h3> Working as a colaborator </h3>
 <br>
-<p> Pull request are welcome. Before begin, please feel free to fork this repository, your changes will merge to main repository </p>
+<p> Pull request are welcome. Before begin, please feel free to fork this repository, your changes will merge to main repository.. <i> You may read about how to fork repository first. <i> </p>
 <br> <i> if you encounter a problem during fork this repository, feel free to tell us. </li>
 <br>
 <!-- Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
