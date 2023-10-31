@@ -6,6 +6,22 @@
     <br>
 </p>
 
+<h3> Testing on your local system</h3>
+<br>
+<p> <b>type :</b> php yii serve --docroot="frontend/web"   </p>
+<br>
+
+<h3> Testing directly from web browser </h3>
+<br>
+<p> <b>type :</b> http://172.22.42.182/"  </p>
+<br> <i> if you encounter a problem : feel free to tell us SDI team </li>
+<br>
+
+<h3> Working as a colaborator </h3>
+<br>
+<p> Pull request are welcome. Before begin, please feel free to fork this repository, your changes will merge to main repository </p>
+<br> <i> if you encounter a problem during fork this repository, feel free to tell us. </li>
+<br>
 <!-- Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
 developing complex Web applications with multiple tiers.
 
