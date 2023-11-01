@@ -11,9 +11,10 @@ class Student extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
+    //return the table name, table name : t_user
     public static function tableName()
     {
-        return '{{%students}}';
+        return '{{%t_user}}';
     }
 
     /**
@@ -31,9 +32,9 @@ class Student extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
+    public static function findIdentity($user_id)
     {
-        return static::findOne(['id' => $id]);
+        return static::findOne(['user_id' => $user_id]);
     }
 
     /**

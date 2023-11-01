@@ -16,7 +16,9 @@ return [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            //'identityClass' => 'common\models\User',
+            //uncomment the code above for setting to default identity
+            'identityClass' => 'app\models\Student',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],

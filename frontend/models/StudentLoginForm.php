@@ -5,35 +5,47 @@ use Yii;
 use yii\base\Model;
 //model for represent the data to handle login form from the student
 class StudentLoginForm extends Model {
+    const REMEMBER_ME_DURATION = 3600 * 24 * 30; // 30 days
+    public $rememberMe = true;
+    
     public $username; //member variable to store the username
     public $password; //store password
     //public bool $rememberMe = true; //store remember me
-    private $_user = false; //private property to store the user object
+    private $_student = false; //private property to store the user object
+
     public function rules() //rule for handling given data
     {
         return [
             [['username','password'],'required'],
             //['rememberMe','boolean'],
-           // ['password','validatePassword'],
+           ['password','validatePassword'],
         ];
+    }
+    //function to validate the password
+    public function validatePassword($attribute,$params)
+    {
+        if(!$this->hasErrors()){ //if there is no error
+            $student = $this->getStudent(); //get the user object
+            if(!$student || !$student->validatePassword($this->password)){ //if the user is not found or the password is not valid
+                $this->addError($attribute,'Username atau password salah'); //set error message
+            }
+        }
     }
     public function login(): bool //find username and and test the current password
     {
         if($this->validate()){ //if the given data is valid
-            $student = Student::find()->where(['username'=>$this->username])->one();
-            if ($student) {
-                if ($student->password === $this->password) {
-                    return true;
-                }
-                else { //if the password is not correct
-                    $this->addError('password','Password salah, silahkan coba lagi');
-                }
-            }
-            else { //if the username is not found
-                $this->addError('username','Username tersebut tidak terdaftar');
-            }
+            return Yii::$app->user->login($this->getStudent(),
+            $this->rememberMe ? self::REMEMBER_ME_DURATION : 0); //login the user
         }
-        return false;
+        return false; //return false if the given data is not valid
+    }
+    //function to get the user object
+    public function getStudent()
+    {
+        if($this->_student === false){ //if the user is not yet found
+            $this->_student = Student::findByUsername($this->username); //find the user
+        }
+        return $this->_student; //return the user
     }
 }
 ?>

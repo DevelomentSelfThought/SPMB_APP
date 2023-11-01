@@ -62,7 +62,7 @@ class StudentResetForm extends Model {
                         $link. "\n\nTerima kasih\n\nSalam,"."\n\n\nPanitia PMB IT Del"."\n\n\n".
                         "*Pesan ini dikirim secara otomatis oleh sistem*";
                     //$message = "Password baru anda adalah: ".$new_password;
-                    $this->sendWhatsApp($student->phone_number,$message); //send the new password to the user
+                    //$this->sendWhatsApp($student->phone_number,$message); //send the new password to the user
                     return true;
                 }
                 else { //if the new password is not saved

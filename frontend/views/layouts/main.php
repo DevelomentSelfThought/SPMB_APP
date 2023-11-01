@@ -37,7 +37,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         //'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
         'options' => [
             'class' => 'navbar-expand-md navbar-dark',
-            'style' => 'background: linear-gradient(to right, #0072ff, #00c6ff);',
+            'style' => 'background: linear-gradient(to bottom, #4b6cb7, #182848);',
         ],
     ]);
     echo Nav::widget([
@@ -47,7 +47,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Update Data', 'url' => ['/student/student-extra']],
             ['label' => 'Register', 'url' => ['/student/register-student']],
             Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
+                ? ['label' => 'Login', 'url' => ['/student/login']]
                 : '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'])
                     . Html::submitButton(
