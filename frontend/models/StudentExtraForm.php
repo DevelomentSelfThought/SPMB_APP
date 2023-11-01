@@ -99,12 +99,19 @@ class StudentExtraForm extends Model {
         if($this->validate()){
             //before doing insertion or update, we need an exception handling
             try{ //make sure exception is catched
+                //check the user_id is already exist in table t_pendaftar
+                if(!StudentDataDiriForm::userIdExists()){
+                    //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
+                    Yii::$app->db->createCommand()->insert('t_pendaftar',
+                        ['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
+                }
                 if(strlen($this->nama_kegiatan_1) > 2){ //wisely check if the value is null, need not to push the data
                     if($this->tanggal_kegiatan_1 && $this->tanggal_kegiatan_1_end && $this->predikat_kegiatan_1){
                         //if the value is not null, insert the data to table t_extrakurikuler
                         Yii::$app->db->createCommand()
                             ->insert('t_ekstrakurikuler', [
-                                'pendaftar_id' => 13547,
+                                //get pendaftar_id from function getCurrentPendaftarId()
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_kegiatan_1,
                                 'predikat_kelulusan_id' => $this->predikat_kegiatan_1,
                                 'mulai' => $this->tanggal_kegiatan_1,
@@ -117,7 +124,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_kegiatan_2 && $this->tanggal_kegiatan_2_end && $this->predikat_kegiatan_2){
                         Yii::$app->db->createCommand()
                             ->insert('t_ekstrakurikuler', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_kegiatan_2,
                                 'predikat_kelulusan_id' => $this->predikat_kegiatan_2,
                                 'mulai' => $this->tanggal_kegiatan_2,
@@ -130,7 +137,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_kegiatan_3 && $this->tanggal_kegiatan_3_end && $this->predikat_kegiatan_3){
                         Yii::$app->db->createCommand()
                             ->insert('t_ekstrakurikuler', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_kegiatan_3,
                                 'predikat_kelulusan_id' => $this->predikat_kegiatan_3,
                                 'mulai' => $this->tanggal_kegiatan_3,
@@ -143,7 +150,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_kegiatan_4 && $this->tanggal_kegiatan_4_end && $this->predikat_kegiatan_4){
                         Yii::$app->db->createCommand()
                             ->insert('t_ekstrakurikuler', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_kegiatan_4,
                                 'predikat_kelulusan_id' => $this->predikat_kegiatan_4,
                                 'mulai' => $this->tanggal_kegiatan_4,
@@ -157,7 +164,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_organisasi_1 && $this->tanggal_organisasi_1_end && $this->jabatan_organisasi_1){
                         Yii::$app->db->createCommand()
                             ->insert('t_organisasi', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_organisasi_1,
                                 'jabatan' => $this->jabatan_organisasi_1,
                                 'mulai' => $this->tanggal_organisasi_1,
@@ -170,7 +177,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_organisasi_2 && $this->tanggal_organisasi_2_end && $this->jabatan_organisasi_2){
                         Yii::$app->db->createCommand()
                             ->insert('t_organisasi', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_organisasi_2,
                                 'jabatan' => $this->jabatan_organisasi_2,
                                 'mulai' => $this->tanggal_organisasi_2,
@@ -183,7 +190,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_organisasi_3 && $this->tanggal_organisasi_3_end && $this->jabatan_organisasi_3){
                         Yii::$app->db->createCommand()
                             ->insert('t_organisasi', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_organisasi_3,
                                 'jabatan' => $this->jabatan_organisasi_3,
                                 'mulai' => $this->tanggal_organisasi_3,
@@ -196,7 +203,7 @@ class StudentExtraForm extends Model {
                     if($this->tanggal_organisasi_4 && $this->tanggal_organisasi_4_end && $this->jabatan_organisasi_4){
                         Yii::$app->db->createCommand()
                             ->insert('t_organisasi', [
-                                'pendaftar_id' => 13547,
+                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
                                 'nama' => $this->nama_organisasi_4,
                                 'jabatan' => $this->jabatan_organisasi_4,
                                 'mulai' => $this->tanggal_organisasi_4,

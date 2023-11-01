@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
 ?>
-
 <style>
     body {
         background-color: rgba(0, 0, 0, 0.5);
@@ -54,7 +53,7 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
         background-color: #0069d9;
         box-shadow: none;
         outline: none;
-    }
+    }       
 </style>
 <br><br><br>><br><br>
 <div class="row justify-content-center">
@@ -111,7 +110,6 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
         </div>
     </div>
 </div>
-
 <!-- <script>
     setInterval(function() {
         var colors = ['#00b4db', '#0083b0', '#00bfff', '#00ffff'];

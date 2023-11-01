@@ -91,11 +91,12 @@ class StudentDataOForm extends Model{
     //method for saving data personal information to database, todo : exception handler for saving data
     //passing argument $id to this method, this argument is the id of student is mandatory (todo)
     public function insertDataOTua(){
+            //check if the user_id already exists in table t_pendaftar
             if($this->validate())
             {
                 try{
                     if(!StudentDataDiriForm::userIdExists()){
-                        //insert user_id to table t_pendaftar
+                        //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
                         Yii::$app->db->createCommand()->insert('t_pendaftar',
                             ['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
                     }

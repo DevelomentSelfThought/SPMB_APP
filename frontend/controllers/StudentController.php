@@ -81,14 +81,14 @@ class StudentController extends Controller // StudentController extends the Cont
             return $this->render('entry', ['model' => $model]);
         }
     }
-    public function actionCountry(): string
+    public function actionCountry(): string //remove from project
     {
         $model  = new CountryForm();
         $countries = Country::find()->orderBy('name')->all();
         $country = Country::findOne('US');
         return $this->render('country', ['model' => $model, 'countries' => $countries, 'country' => $country]);
     }
-    public function actionShowCountry(): string
+    public function actionShowCountry(): string //remove from project
     {
         $query = Country::find(); //create active query object
         $pagination  = new Pagination([ // Pagination is a class that represents pagination

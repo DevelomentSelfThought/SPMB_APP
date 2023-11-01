@@ -34,6 +34,15 @@ class StudentDataDiriForm extends Model {
         return $result['user_id'];
         //return Yii::$app->user->identity->id;
     }
+    //get current pendaftar_id from the current logged in user
+    public static function getCurrentPendaftarId(){
+        //sql command to get the current pendaftar_id from the current logged in user
+        $sql = "SELECT pendaftar_id FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //return the pendaftar_id
+        return $result['pendaftar_id'];
+    }
     //validate if the user_id from the current logged in user is already exist in the table t_pendaftar
     public static function userIdExists(){
         //sql command to check whether the user_id is already exist in the table t_pendaftar
@@ -88,7 +97,7 @@ class StudentDataDiriForm extends Model {
         { 
             try{ //throw exception if error occured
                 if(!self::userIdExists()){
-                    //insert user_id to table t_pendaftar
+                    //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
                     Yii::$app->db->command()->insert('t_pendaftar',['user_id'=>self::getCurrentUserId()])->execute();
                 }
                 //prefer update schema for all data member
@@ -119,6 +128,39 @@ class StudentDataDiriForm extends Model {
             }
         }
         return false;
+    }
+    //function to tell that the current information is updated at the current time
+    public static function updatedAt(){
+        //return date without time
+        return date('Y-m-d');
+    }
+    //function to tell that the current information created at the current time
+    public static function createdAt(){
+        //return date without time
+        return date('Y-m-d');
+    }
+    //function to tell the current information is created by the current logged in user
+    public static function createdBy(){
+        //return the username of the current logged in user
+        return Yii::$app->user->identity->username;
+    }
+    //function to tell that the current information is updated by the current logged in user
+    public static function updatedBy(){
+        //return the username of the current logged in user
+        return Yii::$app->user->identity->username;
+    }
+    //insert information updateAT, createdAt, createdBy, updatedBy to table t_pendaftar
+    //current feature is not yet implemented to all table, only to t_pendaftar and t_user
+    public static function insertAudit($pendaftar_id){
+        //insert information to table t_pendaftar
+        Yii::$app->db->createCommand()->update('t_pendaftar',[
+            'updated_at'=>self::updatedAt(),
+            'created_at'=>self::createdAt(),
+            'created_by'=>self::createdBy(),
+            'updated_by'=>self::updatedBy(),
+        ],
+        //condition : user_id from the current logged in user using getCurrentUserId() method
+        'pendaftar_id = '.Self::getCurrentUserId())->execute();
     }
 }
 
