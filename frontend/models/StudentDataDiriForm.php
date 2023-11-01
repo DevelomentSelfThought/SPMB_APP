@@ -87,6 +87,7 @@ class StudentDataDiriForm extends Model {
             ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail)+\.(com|co.id)$/','message'=>'Email tidak valid'],
             //rule for tanggal_lahir must be date format and valid date format is yyyy-mm-dd
             ['tanggal_lahir','date','format'=>'yyyy-mm-dd','message'=>'Format tanggal lahir salah'],
+            ['no_telepon_rumah','match','pattern'=>'/^[0-9]*$/','message'=>'No Telepon tidak boleh mengandung huruf'],
         ];
     }
 
@@ -98,29 +99,32 @@ class StudentDataDiriForm extends Model {
             try{ //throw exception if error occured
                 if(!self::userIdExists()){
                     //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
-                    Yii::$app->db->command()->insert('t_pendaftar',['user_id'=>self::getCurrentUserId()])->execute();
+                    Yii::$app->db->createCommand()->insert('t_pendaftar',['user_id'=>self::getCurrentUserId()])->execute();
                 }
                 //prefer update schema for all data member
                 Yii::$app->db->createCommand()->update('t_pendaftar',[
+
                     'nik'=>$this->nik,
                     'nisn'=>$this->nisn,
                     'no_kps'=>$this->no_kps,
                     'nama'=>$this->nama,
-                    'jenis_kelamin'=>$this->jenis_kelamin,
+                    'jenis_kelamin_id'=>$this->jenis_kelamin,
                     'tanggal_lahir'=>$this->tanggal_lahir,
                     'tempat_lahir'=>$this->tempat_lahir,
+
                     'agama_id'=>$this->agama_id,
                     'alamat'=>$this->alamat,
                     'kelurahan'=>$this->kelurahan,
-                    'provinsi'=>$this->provinsi,
-                    'kabupaten'=>$this->kabupaten,
-                    'alamat_kecamatan'=>$this->alamat_kecamatan,
+                    'alamat_prov'=>$this->provinsi,
+                    'alamat_kab'=>$this->kabupaten,
+                    'alamat_kec'=>$this->alamat_kecamatan,
+
                     'kode_pos'=>$this->kode_pos,
                     'no_telepon_rumah'=>$this->no_telepon_rumah,
                     'no_telepon_mobile'=>$this->no_telepon_mobile,
                     'email'=>$this->email,
                 ],'user_id = '.self::getCurrentUserId())->execute();
-                Yii::$app->session->setFlash('success', 'Data ekstrakurikuler berhasil disimpan');
+                Yii::$app->session->setFlash('success', 'Data pribadi berhasil disimpan');
                 return true;
             }catch (Exception $e){ //for debugging purpose
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");

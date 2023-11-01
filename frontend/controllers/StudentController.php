@@ -23,34 +23,45 @@ use yii\data\Pagination; // Pagination is a class that represents pagination
 
 class StudentController extends Controller // StudentController extends the Controller class
 {
-    /*
+
     public function behaviors() //behavior test for logout and profile update, add other behaviors here
     {
         return [
             'access' => [
                 'class' => AccessControl::class,
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
-                'only' => ['student-data-diri', 'student-data-o-tua', 'student-extra'],
+                'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra'],
                 'rules' => [
                     [
                         'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [  //only guests can access the following actions : register-student
+                        'actions'=>['register-student'],
+                        'allow'=>true,
+                        'roles' =>['?'],
+                    ],
                 ],
             ],
-            'verbs' => [ //restrict the following actions to POST method
+            'verbs' => [
+                'class'=>VerbFilter::class,
+                'actions'=> [
+                    'logout'=>['post']
+                ],
+            ],
+            /*'verbs' => [ //restrict the following actions to POST method
                 'class' => VerbFilter::class,
                 'actions'=>[
                     'student-data-diri'=>['post'],
                     'student-data-o-tua'=>['post'],
                     'student-extra'=>['post'],
                 ]
-            ],
+            ],*/
         ];
-    }*/
+    }
     //redirect to the login page if the user is not already logged in
-   /* public function beforeAction($action)
+   public function beforeAction($action)
     {
         if (in_array($action->id, ['student-data-diri', 'student-data-o-tua', 'student-extra'])) {
             if (Yii::$app->user->isGuest) {
@@ -59,7 +70,7 @@ class StudentController extends Controller // StudentController extends the Cont
         }
         return parent::beforeAction($action);
     }
-    */
+
     public function actionUpdate(){
         return $this->render('entry-confirm');
     }
@@ -162,7 +173,7 @@ class StudentController extends Controller // StudentController extends the Cont
         $model_student_data_diri = new StudentDataDiriForm(); //create an instance of the StudentDataDiriForm class
         if($model_student_data_diri->load(Yii::$app->request->post())
             && $model_student_data_diri->insertDataDiri()){
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+            return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
         }
         return $this->render('student-data-diri',
             ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)

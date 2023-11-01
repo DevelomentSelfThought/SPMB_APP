@@ -102,34 +102,39 @@ class StudentDataOForm extends Model{
                     }
                     //update data to table t_pendaftar 
                     Yii::$app->db->createCommand()->update('t_pendaftar',[
+
                         'nama_ayah_kandung'=>$this->nama_ayah_kandung,
                         'nama_ibu_kandung'=>$this->nama_ibu_kandung,
                         'nik_ayah'=>$this->nik_ayah,
                         'nik_ibu'=>$this->nik_ibu,
                         'tanggal_lahir_ayah'=>$this->tanggal_lahir_ayah,
                         'tanggal_lahir_ibu'=>$this->tanggal_lahir_ibu,
+
                         'pendidikan_ayah_id'=>$this->pendidikan_ayah,
                         'pendidikan_ibu_id'=>$this->pendidikan_ibu,
                         'alamat_orang_tua'=>$this->alamat_orang_tua,
+
                         'kode_pos_orang_tua'=>$this->kode_pos_orang_tua,
                         'pekerjaan_ayah_id'=>$this->pekerjaan_ayah,
                         'pekerjaan_ibu_id'=>$this->pekerjaan_ibu,
                         'penghasilan_ayah'=>$this->penghasilan_ayah,
                         'penghasilan_ibu'=>$this->penghasilan_ibu,
                         'no_hp_orangtua'=>$this->no_hp_orangtua,
+                        
                         'alamat_kec_orangtua'=>$this->kecamatan,
                         'alamat_prov_orangtua'=>$this->provinsi,
-                        'alamat_kel_orangtua'=>$this->kelurahan,
+
+                        //'alamat_kel_orangtua'=>$this->kelurahan,
                         'alamat_kab_orangtua'=>$this->kabupaten,
                     ],
                     //condition : user_id from the current logged in user using getCurrentUserId() method
                     'user_id = '.StudentDataDiriForm::getCurrentUserId())->execute();
-                    Yii::$app->session->setFlash('success', 'Data orang tua berhasil disimpan');
+                    //Yii::$app->session->setFlash('success', 'Data orang tua berhasil disimpan');
                     return true;
                 }catch(Exception $e){ //for debugging purpose
                     //set error flash message
                     Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
-                    //echo $e->getMessage();
+                    echo $e->getMessage();
                 }
             }
             return false; //return false if validation failed

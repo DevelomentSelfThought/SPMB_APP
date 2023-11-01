@@ -14,3 +14,7 @@ describe t_user;
 alter table t_user alter column email set default 0;
 -- add field verf_code to t_user table
 alter table t_user add column verf_code varchar(255) not null;
+--update t_pendaftar structure, default value of pendaftaran_id 0
+alter table t_pendaftar alter column pendaftaran_id set default 0;
+-- select specific column from t_pendaftar table
+
