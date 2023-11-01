@@ -213,13 +213,14 @@ class StudentExtraForm extends Model {
                     }
                 }
                 //if the data successfully inserted, show bootstrap alert
-                Yii::$app->session->setFlash('success', 'Data ekstrakurikuler berhasil disimpan');
+                Yii::$app->session->setFlash('success', 'Data ekstrakurikuler dan organisasi berhasil disimpan');
                 return true;
             }catch(Exception $e){
                 //for debug purpose, show the error message, comment the line below for production
                 //Yii::$app->session->setFlash('error', $e->getMessage());
                 //show an error message if the exception is catched using bootstrap aler but encoded the message first
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
+                echo $e->getMessage();
             }   
         }
         return false;
