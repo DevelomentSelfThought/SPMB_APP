@@ -35,15 +35,15 @@ NavBar::begin([
     'brandLabel' => Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar navbar-expand-lg navbar-dark bg-primary',
+        'class' => 'navbar navbar-expand-lg navbar-light bg-light', // changed to light theme
     ],
 ]);
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav ml-auto'],
     'items' => [
-        ['label' => 'Home', 'url' => ['/student/token-student']],
+        ['label' => 'Verifikasi Akun', 'url' => ['/student/token-student']],
         ['label' => 'Update Data', 'url' => ['/student/student-extra']],
-        ['label' => 'Register', 'url' => ['/student/register-student']],
+        ['label' => 'Daftar Akun', 'url' => ['/student/register-student']],
         Yii::$app->user->isGuest
             ? ['label' => 'Login', 'url' => ['/student/login']]
             : '<li class="nav-item">'
@@ -70,12 +70,11 @@ NavBar::end();
     </div>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
+<footer id="footer" class="mt-auto py-3 bg-white"> <!-- changed to white -->
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
-        </div>
+            <div class="col-md-6 text-center text-md-start">&copy; SPMB App - IT Del </div>
+            <div class="col-md-6 text-center text-md-end">SDI Team <?= date('Y') ?></div> 
     </div>
 </footer>
 

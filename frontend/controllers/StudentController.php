@@ -14,6 +14,7 @@ use app\models\StudentLoginForm;
 use app\models\StudentRegisterForm;
 use app\models\StudentResetForm;
 use app\models\StudentTokenForm;
+use app\models\StudentAkademikForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -195,6 +196,29 @@ class StudentController extends Controller // StudentController extends the Cont
         }
         return $this->render('student-extra',
             ['model_student_extra'=>$model_student_extra]); //render the extra activity page
+    }
+    public function actionStudentAkademik(){
+        $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
+        if($model_student_akademik->load(Yii::$app->request->post())
+            && $model_student_akademik->insertStudentAkademik()){
+            //return $this->redirect(['student/student-data-akademik']);    
+            return $this->goBack(); //go to the previous page, customize this to go to the home page
+        }
+        return $this->render('student-akademik',
+            ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
+    }
+    public function actionAutocomplete($term) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $results = (new \yii\db\Query())
+            ->select('sekolah')
+            ->from('t_r_sekolah_dapodik')
+            ->where(['like', 'sekolah', $term])
+            ->all();
+    
+        return array_column($results, 'sekolah');
+    }
+    public function actionSearch(){
+        return $this->render('search');
     }
 }
 ?>

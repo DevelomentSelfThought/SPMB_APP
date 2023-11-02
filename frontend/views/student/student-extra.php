@@ -71,7 +71,7 @@ include 'TaskNavigation.php';
 <?php
 $title_extra  = "Data Pendidikan Ekstrakurikuler";
 ?>
-<?= Html::tag('div', '<span>Data Pendidikan Ekstrakurikuler</span>', ['class' => 'ruler']) ?>    <br>
+<?= Html::tag('div', '<span>Form Data Pendidikan Ekstrakurikuler</span>', ['class' => 'ruler']) ?>    <br>
     <div class="row">
     <div class="col-md-3">
         <?php echo \yii\bootstrap5\Html::label("<b>Nama Kegiatan</b><br><br>"); ?>
@@ -309,7 +309,7 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
     </div>
 </div>
 <br>
-<?= Html::tag('div', '<span>Data Pengalaman Organisasi</span>', ['class' => 'ruler']) ?>    <br>
+<?= Html::tag('div', '<span>Form Data Pengalaman Organisasi</span>', ['class' => 'ruler']) ?>    <br>
     <div class="row">
         <div class="col-md-3">
             <?php echo \yii\bootstrap5\Html::label("<b>Nama Organisasi</b><br><br>"); ?>

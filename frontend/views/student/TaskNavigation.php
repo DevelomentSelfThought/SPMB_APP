@@ -4,35 +4,40 @@ use yii\bootstrap5\Button;
 use yii\bootstrap5\ButtonGroup;
 ?>
 <html>
+
 <style>
     .my-button-group {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #f5f5f5;
+        background-image: linear-gradient(to right, #000 50%, transparent 50%), linear-gradient(to right, #000 50%, #fff 50%);
+        background-size: 10px 1px, 20px 1px;
+        background-position: bottom left, bottom left;
+        background-repeat: repeat-x;
         padding: 10px;
         border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     }
 
     .my-button {
-        background-color: #4b6cb7;
-        color: #fff;
-        border: none;
+        background-color: #fff;
+        color: #000;
         border-radius: 5px;
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
+        transition: all 0.3s ease;
     }
 
     .my-button:hover {
-        background-color: #182848;
-        color: #fff;
-
+        background-color: #f2f2f2;
+        color: #000;
+        transform: scale(1.05);
     }
 
     .my-button.active {
-        background-color: #b09003;
-        color: white;
+        background-color: #000;
+        color: #fff;
     }
 </style>
 </html>
@@ -55,5 +60,6 @@ use yii\bootstrap5\ButtonGroup;
                 Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 'onclick' => 'location.href="/task9"']]),
             ],
         ]);
+        echo "<br>";
 ?>
 
