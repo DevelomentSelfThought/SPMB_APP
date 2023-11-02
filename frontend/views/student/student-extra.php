@@ -3,6 +3,9 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
+    body {
+        /* background: #f5f5f5; */
+    }
     .ruler {
         position: relative;
         text-align: center;
@@ -34,11 +37,11 @@
         /*padding: 20px;*/
         /*border-radius: 10px;*/
         /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-        background: linear-gradient(to bottom, #4b6cb7, #182848);
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #fff;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+        color: #000000;
     }
     .my-form .form-control {
         border-radius: 5px;
@@ -306,10 +309,10 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
     </div>
 </div>
 <br>
-<?= Html::tag('div', '<span>Pengalaman Organisasi</span>', ['class' => 'ruler']) ?>    <br>
+<?= Html::tag('div', '<span>Data Pengalaman Organisasi</span>', ['class' => 'ruler']) ?>    <br>
     <div class="row">
         <div class="col-md-3">
-            <?php echo \yii\bootstrap5\Html::label("<b>Nama Kegiatan</b><br><br>"); ?>
+            <?php echo \yii\bootstrap5\Html::label("<b>Nama Organisasi</b><br><br>"); ?>
         </div>
         <div class="col-md-3">
             <?php echo \yii\bootstrap5\Html::label("<b>Mulai</b><br><br>"); ?>
@@ -545,15 +548,9 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
     </div>
 </div>
 <br>
-    <div class="form-group">
-        <div class="col-md-offset-6 col-md-6">
-            <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary',
-                'style' => 'background-color: #fff; color: #333;']) ?>
-            <?= Html::submitButton('Daftarkan', ['class' => 'btn btn-primary',
-                'name' => 'submit-button',
-                'onclick' => 'return confirm("Apakah anda yakin ingin menyimpan informasi extrakurikuler ?");',    
-                'style' => 'background-color: #fff; color: #333;']) ?>
-        </div>
-    </div>
+<div class="form-group" style="display: flex; justify-content: flex-end;">
+    <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
+    <?=  Html::submitButton('Simpan', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; width: 100px;']) ?>
+</div>
 
 <?php ActiveForm::end(); ?>

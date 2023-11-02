@@ -33,11 +33,12 @@
         /*padding: 20px;*/
         /*border-radius: 10px;*/
         /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-        background: linear-gradient(to bottom, #4b6cb7, #182848);
+        /* background: linear-gradient(to bottom, #4b6cb7, #182848); */
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        color: #fff;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+        color: #000000;
     }
     .my-form .form-control {
         border-radius: 5px;
@@ -73,13 +74,15 @@ include 'TaskNavigation.php';
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
     <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-    </svg></span>{input}</div>'])->label('NIK Ayah'); 
+    </svg></span>{input}</div>'])->label('NIK Ayah')
+    ->textInput(['placeholder' => 'Contoh: 1222031606152635']); 
 ?>
 <?php echo $form->field($model_student_data_o,'nik_ibu',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
     <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-    </svg></span>{input}</div>'])->label('NIK Ibu'); 
+    </svg></span>{input}</div>'])->label('NIK Ibu')
+    ->textInput(['placeholder' => 'Contoh: 1222031606152638']); 
 ?>
 <?php
 echo $form->field($model_student_data_o, 'tanggal_lahir_ayah',
@@ -224,9 +227,8 @@ echo $form->field($model_student_data_o, 'kecamatan',
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-diamond" viewBox="0 0 16 16">
     <path d="M7.987 16a1.526 1.526 0 0 1-1.07-.448L.45 9.082a1.531 1.531 0 0 1 0-2.165L6.917.45a1.531 1.531 0 0 1 2.166 0l6.469 6.468A1.526 1.526 0 0 1 16 8.013a1.526 1.526 0 0 1-.448 1.07l-6.47 6.469A1.526 1.526 0 0 1 7.988 16zM7.639 1.17 4.766 4.044 8 7.278l3.234-3.234L8.361 1.17a.51.51 0 0 0-.722 0zM8.722 8l3.234 3.234 2.873-2.873c.2-.2.2-.523 0-.722l-2.873-2.873L8.722 8zM8 8.722l-3.234 3.234 2.873 2.873c.2.2.523.2.722 0l2.873-2.873L8 8.722zM7.278 8 4.044 4.766 1.17 7.639a.511.511 0 0 0 0 .722l2.874 2.873L7.278 8z"/>
     </svg></span>{input}</div>'])->dropDownList(\app\models\StudentDataOForm::$salary, ['prompt' => 'Pilih Penghasilan Ibu']); ?>
-<div class="form-group">
-    <div>
-        <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333;']) ?>
-        <?=  Html::submitButton('Daftarkan', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333;']) ?>
-    </div>
+<div class="form-group" style="display: flex; justify-content: flex-end;">
+    <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
+    <?=  Html::submitButton('Simpan', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; width: 100px;']) ?>
+</div>
 <?php ActiveForm::end() ?>    

@@ -53,6 +53,10 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
         background-color: #0069d9;
         box-shadow: none;
         outline: none;
+    }
+    .card {
+        border: none;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     }       
 </style>
 <br><br><br>><br><br>
