@@ -165,7 +165,6 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for insert data akademik
 public function actionStudentAkademik(){
     $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
-
     if($model_student_akademik->load(Yii::$app->request->post())){
         $model_student_akademik->file = UploadedFile::getInstance($model_student_akademik, 'file');
         if($model_student_akademik->file){
@@ -175,7 +174,7 @@ public function actionStudentAkademik(){
                 if(!file_exists($uploadFolder)){ //not exist, make a new directory
                     mkdir($uploadFolder, 0777, true);
                 }
-                $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username;
+                $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
                 $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
                 $model_student_akademik->file->saveAs($filePath);
                 $model_student_akademik->file_sertifikat = $filePath; //save the path to the database

@@ -89,7 +89,10 @@ class StudentAkademikForm extends Model {
             //'nilai_kemampuan_bacaan'=>$this->nilai_kemampuan_bacaan,
             //'jumlah_pelajaran'=>$this->jumlah_pelajaran,
             'file_sertifikat'=>$this->file_sertifikat,
+            'created_at'=>date('Y-m-d'),
             'updated_at'=>date('Y-m-d'),
+            'updated_by'=>Yii::$app->user->identity->username,
+            'created_by'=>Yii::$app->user->identity->username,
         ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
     }
     //auxilary function to insert pendaftar_id to table t_utbk, worst case: first data is t_akademik
@@ -102,6 +105,8 @@ class StudentAkademikForm extends Model {
             'file_sertifikat'=>$this->file_sertifikat,
             'created_at'=>date('Y-m-d'),
             'updated_at'=>date('Y-m-d'),
+            'updated_by'=>Yii::$app->user->identity->username,
+            'created_by'=>Yii::$app->user->identity->username,
         ])->execute();
     }
     //check pendaftar_id exists on table t_utbk
