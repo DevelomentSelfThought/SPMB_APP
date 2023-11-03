@@ -63,24 +63,25 @@ use yii\web\JsExpression;
 include 'TaskNavigation.php';
 ?>
 
-<?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
+<?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form', 'enctype' => 'multipart/form-data']]); ?>
 <?= Html::tag('div', '<span>Form Data Sekolah</span>', ['class' => 'ruler']) ?>
 <?= $form->field($model_student_akademik, 'sekolah', [
     'template' => '<div class="input-group">{label}<span class="input-group-text">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
-    </svg></span>{input}{error}</div>',])->widget(AutoComplete::classname(), [
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
+  <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+</svg></span>{input}{error}</div>',])->widget(AutoComplete::classname(), [
     'clientOptions' => [
         'source' => new JsExpression("function(request, response) {
             $.getJSON('" . Url::to(['student/autocomplete']) . "', {
                 term: request.term
             }, response);
         }"),
-        'minLength' => '2',
+        'minLength' => '3',
     ],
     'options' => [
         'class' => 'form-control',
-        'placeholder' => 'Cari Sekolah...',
+        'placeholder' => 'Cari Sekolah (SMA/ SMK) ...',
     ],])->label('Asal Sekolah') ?>
 
     <?php 
@@ -95,29 +96,19 @@ include 'TaskNavigation.php';
     <?php
         echo $form->field($model_student_akademik, 'akreditasi_sekolah',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent" viewBox="0 0 16 16">
+        <path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
         </svg></span>{input}</div>'])
         ->dropDownList(\app\models\StudentAkademikForm::$acreditation, ['prompt' => 'Pilih Akreditasi Sekolah'])
         ->label('Akreditas');       
     ?>
-    <br>
-    <div class="form-group" style="display: flex; justify-content: flex-end;">
-        <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
-        <?=  Html::submitButton('Simpan', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; width: 100px;']) ?>
-    </div>
-<?php ActiveForm::end(); ?>
-
-<?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Data Nilai UTBK</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_akademik,'no_utbk',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
-        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
-        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-        <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-        </svg></span>{input}</div>'])->label('Nomor Peserta UTBK'); 
-    ?>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
+        <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+        </svg></span>{input}</div>'])->label('Nomor Peserta UTBK')->textInput(['placeholder'=>'Contoh : 23-1110-010002']); 
+?>
 
 <?php
 echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
@@ -136,21 +127,66 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
 ?>
 <?php echo $form->field($model_student_akademik,'nilai_kemampuan_umum',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
-        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
-        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-        <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
         </svg></span>{input}</div>'])->label('Penalaran Umum')
         ->textInput(['placeholder'=>'Masukan nilai kemampuan penalaran umum']); 
 ?>
 <?php echo $form->field($model_student_akademik,'nilai_kemampuan_kuantitatif',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
-        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
-        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-        <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-        </svg></span>{input}</div>'])->label('Penalaran Kuantitatif')
-        ->textInput(['placeholder'=>'Masukan nilai kemampuan penalaran kuantitatif']); 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+        </svg></span>{input}</div>'])->label('Pengetahuan Kuantitatif')
+        ->textInput(['placeholder'=>'Masukan nilai kemampuan pengetahuan kuantitatif']); 
+?>
+<?php echo $form->field($model_student_akademik,'nilai_kemampuan_pengetahuan_umum',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+        </svg></span>{input}</div>'])->label('Pengetahuan Umum')
+        ->textInput(['placeholder'=>'Masukan nilai kemampuan pengetahuan dan pemahamaan umum']); 
+?>
+<?php echo $form->field($model_student_akademik,'nilai_kemampuan_bacaan',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+        </svg></span>{input}</div>'])->label('Bacaan dan Menulis')
+        ->textInput(['placeholder'=>'Masukan nilai kemampuan memahami bacaan dan menulis']); 
+?>
+<?php //echo $form->field($model_student_akademik, 'file')->fileInput()->label("File Sertifikat UTBK") ?>
+<?= Html::tag('div', '<span>Form Data Nilai Rapor Semester VI</span>', ['class' => 'ruler']) ?>
+<?php echo $form->field($model_student_akademik,'jumlah_pelajaran',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+        <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2Zm1 2a1 1 0 0 0-2 0h2Zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11H5Z"/>
+        <path d="M14 7.599A2.986 2.986 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A2.986 2.986 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.599ZM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-3Z"/>
+        </svg></span>{input}</div>'])->label('Jumlah Pelajaran')
+        ->textInput(['placeholder'=>'Masukan jumlah pelajaran semester 6']); 
+?>
+<?php echo $form->field($model_student_akademik,'nilai_semester',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+        <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+        </svg></span>{input}</div>'])->label('Jumlah Nilai')
+        ->textInput(['placeholder'=>'Masukan jumlah nilai semester 6']); 
+?>
+<?= Html::tag('div', '<span>Form Data Hasil Ujian Nasional </span>', ['class' => 'ruler']) ?>
+<?php echo $form->field($model_student_akademik,'jumlah_pelajaran_un',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
+        <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2Zm1 2a1 1 0 0 0-2 0h2Zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11H5Z"/>
+        <path d="M14 7.599A2.986 2.986 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A2.986 2.986 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.599ZM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-3Z"/>
+        </svg></span>{input}</div>'])->label('Jumlah Pelajaran')
+        ->textInput(['placeholder'=>'Masukan jumlah pelajaran ujian nasional']); 
+?>
+<?php echo $form->field($model_student_akademik,'nilai_un',
+        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+        <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+        </svg></span>{input}</div>'])->label('Jumlah Nilai')
+        ->textInput(['placeholder'=>'Masukan jumlah nilai ujian nasional']); 
 ?>
     <br>
     <div class="form-group" style="display: flex; justify-content: flex-end;">

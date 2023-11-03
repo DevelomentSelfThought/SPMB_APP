@@ -1,3 +1,7 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</html>
 <?php
 //student registration view
 use yii\helpers\Html;
@@ -88,25 +92,44 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
                 <path d="M4 3h4v1H6.646A3.99 3.99 0 0 1 8 7v6h7V7a3 3 0 0 0-3-3V3a4 4 0 0 1 4 4v6a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V7a4 4 0 0 1 4-4Zm0 1a3 3 0 0 0-3 3v6h6V7a3 3 0 0 0-3-3Z"/>
                 </svg></span>{input}</div>']
                 )->textInput(['maxlength'=>true, 'placeholder'=>'Email'])->label(false) ?>
-                <?= $form->field($model_student_register, 'password', 
-                ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-lock2" viewBox="0 0 16 16">
-                <path d="M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1zm2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224z"/>
-                <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                </svg></span>{input}</div>'])->passwordInput(['maxlength'=>true, 'placeholder'=>'Password'])->label(false) ?>
-                <?= $form->field($model_student_register, 'password_repeat', 
-                ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-lock2" viewBox="0 0 16 16">
-                <path d="M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1zm2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224z"/>
-                <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                </svg></span>{input}</div>'])->passwordInput(['maxlength'=>true, 'placeholder'=>'Konfirmasi Password'])->label(false) ?>
+
+                <?= $form->field($model_student_register, 'password', [
+                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
+                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+                </svg></span>{input}<span id="password-eye" class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span></div>',
+                ])->passwordInput(['id' => 'password-input', 'maxlength'=>true, 'placeholder'=>'Password'])->label(false) ?>
+                
+                <?= $form->field($model_student_register, 'password_repeat', [
+                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
+                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
+                </svg></span>{input}<span id="password-eye" class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span></div>',
+                ])->passwordInput(['id' => 'password-input', 'maxlength'=>true, 'placeholder'=>'Konfirmasi Password'])->label(false) ?>
+                
                 <?= $form->field($model_student_register, 'no_HP', 
                 ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
                 <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
                 </svg></span>{input}</div>']
                 )->textInput(['maxlength'=>true, 'placeholder'=>'No. Whatsapp'])->label(false) ?>
-                <div class="form-group col-sm-12">
+                <div class="form-group c<script>
+$(document).ready(function() {
+    $('#password-eye').on('click', function() {
+        var passwordInput = $('#password-input');
+        var passwordEyeIcon = $('#password-eye i');
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            passwordEyeIcon.removeClass('fa-eye-slash');
+            passwordEyeIcon.addClass('fa-eye');
+        } else {
+            passwordInput.attr('type', 'password');
+            passwordEyeIcon.removeClass('fa-eye');
+            passwordEyeIcon.addClass('fa-eye-slash');
+        }
+    });
+});
+</script>ol-sm-12">
                     <?= Html::submitButton('Daftar Akun', ['class' => 'btn btn-primary btn-block form-control']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
@@ -132,4 +155,21 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
     }
 
     setInterval(changeBackgroundImage, 3000);
+</script>
+<script>
+$(document).ready(function() {
+    $('#password-eye').on('click', function() {
+        var passwordInput = $('#password-input');
+        var passwordEyeIcon = $('#password-eye i');
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            passwordEyeIcon.removeClass('fa-eye-slash');
+            passwordEyeIcon.addClass('fa-eye');
+        } else {
+            passwordInput.attr('type', 'password');
+            passwordEyeIcon.removeClass('fa-eye');
+            passwordEyeIcon.addClass('fa-eye-slash');
+        }
+    });
+});
 </script>

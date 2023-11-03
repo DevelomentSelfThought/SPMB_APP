@@ -134,7 +134,7 @@ class StudentDataOForm extends Model{
                 }catch(Exception $e){ //for debugging purpose
                     //set error flash message
                     Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
-                    echo $e->getMessage();
+                    //echo $e->getMessage();
                 }
             }
             return false; //return false if validation failed

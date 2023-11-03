@@ -72,50 +72,10 @@ class StudentController extends Controller // StudentController extends the Cont
         return parent::beforeAction($action);
     }
 
-    public function actionUpdate(){
-        return $this->render('entry-confirm');
-    }
-
     public function actionIndex(): string { // actionIndex() is the default action in a controller
         return $this->render('index');
     }
-    public function actionSay($message = 'Hello'): string { // actionSay() is a custom action in a controller
-        return $this->render('say', ['message' => $message]); // render() is  a method of the Controller class
-    }
-    public function actionEntry(): string // actionEntry() is a custom action in a controller
-    {
-        $model = new EntryForm(); // create an instance of the EntryForm class
-        // load() and validate() are methods of the Model class
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            //valid data received in $model
-            return $this->render('entry-confirm', ['model' => $model]);
-        } else{ //either the page is initially displayed or there is some validation error
-            return $this->render('entry', ['model' => $model]);
-        }
-    }
-    public function actionCountry(): string //remove from project
-    {
-        $model  = new CountryForm();
-        $countries = Country::find()->orderBy('name')->all();
-        $country = Country::findOne('US');
-        return $this->render('country', ['model' => $model, 'countries' => $countries, 'country' => $country]);
-    }
-    public function actionShowCountry(): string //remove from project
-    {
-        $query = Country::find(); //create active query object
-        $pagination  = new Pagination([ // Pagination is a class that represents pagination
-            'defaultPageSize' => 5,  //defaultPageSize is a property of the Pagination class
-            'totalCount' => $query->count()]); // totalCount is a property of the Pagination class
-        $countries  = $query->orderBy('name') //show countries in alphabetical order
-            //offset is a property of the Pagination class to indicate the starting row
-            ->offset($pagination->offset)
-            //limit is a property of the Pagination class to indicate the number of rows
-            ->limit($pagination->limit)->all();
-        return $this->render('show-country',[
-            'countries'=> $countries, // countries is an array of Country objects
-            'pagination'=> $pagination // pagination is an object of the Pagination class
-        ]);
-    }
+    //action for login
     public function actionLogin()
     {
         if(!Yii::$app->user->isGuest){ //if the user is not a guest
@@ -151,6 +111,7 @@ class StudentController extends Controller // StudentController extends the Cont
         //$model_student_reset->password = ''; //clear the password
         return $this->render('reset-password', ['model_student_reset' => $model_student_reset]); //render the reset password page
     }
+    //action for register student
     public function actionRegisterStudent(){ //action for handling registration form
         $model_student_register = new StudentRegisterForm(); //create an instance of the StudentRegisterForm class
         if($model_student_register->load(Yii::$app->request->post()) && $model_student_register->registerStudent()){
@@ -169,6 +130,7 @@ class StudentController extends Controller // StudentController extends the Cont
         }
         return $this->render('token-student',['model_student_token'=>$model_student_token]); //render the token student page
     }
+    //action for insert data diri
     public function actionStudentDataDiri() { //action for personal information form
         //action for personal information form
         $model_student_data_diri = new StudentDataDiriForm(); //create an instance of the StudentDataDiriForm class
@@ -179,6 +141,7 @@ class StudentController extends Controller // StudentController extends the Cont
         return $this->render('student-data-diri',
             ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)
     }
+    //action for insert data orang tua
     public function actionStudentDataOTua() {
         $model_student_data_o = new StudentDataOForm(); //create an instance of the StudentDataOForm class
         if($model_student_data_o->load(Yii::$app->request->post())
@@ -188,6 +151,7 @@ class StudentController extends Controller // StudentController extends the Cont
         return $this->render('student-data-o-tua',
             ['model_student_data_o'=>$model_student_data_o]); //render the parent information page(data orang tua)
     }
+    //action for insert extra activity
     public function actionStudentExtra(){
         $model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
         if($model_student_extra->load(Yii::$app->request->post())
@@ -197,16 +161,17 @@ class StudentController extends Controller // StudentController extends the Cont
         return $this->render('student-extra',
             ['model_student_extra'=>$model_student_extra]); //render the extra activity page
     }
+    //action for insert data akademik
     public function actionStudentAkademik(){
         $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
         if($model_student_akademik->load(Yii::$app->request->post())
             && $model_student_akademik->insertStudentAkademik()){
-            //return $this->redirect(['student/student-data-akademik']);    
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+            return $this->redirect(['student/student-bahasa']);    
         }
         return $this->render('student-akademik',
             ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
     }
+    //action for autocomplete for school name
     public function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $results = (new \yii\db\Query())
@@ -216,9 +181,6 @@ class StudentController extends Controller // StudentController extends the Cont
             ->all();
     
         return array_column($results, 'sekolah');
-    }
-    public function actionSearch(){
-        return $this->render('search');
     }
 }
 ?>
