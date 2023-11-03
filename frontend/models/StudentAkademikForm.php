@@ -17,6 +17,7 @@ class StudentAkademikForm extends Model {
     public $nilai_kemampuan_bacaan;
     public $jumlah_pelajaran;
     public $nilai_semester;
+    
     public $jumlah_pelajaran_un;
     public $nilai_un;
     public $file;
@@ -27,7 +28,7 @@ class StudentAkademikForm extends Model {
         return [
             [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah', 'no_utbk', 'tanggal_ujian_utbk', 
             'nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
-        'nilai_kemampuan_bacaan', 'jumlah_pelajaran', 'nilai_semester'], 'required'],
+            'nilai_kemampuan_bacaan', 'jumlah_pelajaran', 'nilai_semester'], 'required'],
             [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah', 'no_utbk', 'tanggal_ujian_utbk', 
             'nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
             'nilai_kemampuan_bacaan', 'jumlah_pelajaran', 'nilai_semester', 'jumlah_pelajaran_un', 'nilai_un'], 'safe'],
@@ -78,6 +79,23 @@ class StudentAkademikForm extends Model {
             'akreditasi_sekolah'=>$this->akreditasi_sekolah,
         ],['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
     }
+    //auxiliary function to update data nilai akademik to table t_nilai_rapor, condition getCurrenPendafarId()
+    public function tempDataNilaiAkademik(){
+        Yii::$app->db->createCommand()->update('t_nilai_rapor',[
+            'smt'=>$this->jumlah_pelajaran,
+            'nilai'=>$this->nilai_semester,
+        ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+    }
+    //auxilary function to insert pendaftar_id to table t_nilai_rapor, worst case: first data is t_nili_rapor
+    public function tempPendaftarIdNilaiAkademik(){ //good for research, new implementation
+        Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+        [
+            'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+            'mata_pelajaran_id'=>1, //may be changed later, since the structure of mata_pel_id is not clear
+            'smt'=>$this->jumlah_pelajaran,
+            'nilai'=>$this->nilai_semester,
+        ])->execute();
+    }
     //auxiliary function to update data nilai utbk to table t_utbk, condition getCurrenPendafarId()
     public function tempDataUtbk(){
         Yii::$app->db->createCommand()->update('t_utbk',[
@@ -96,7 +114,7 @@ class StudentAkademikForm extends Model {
         ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
     }
     //auxilary function to insert pendaftar_id to table t_utbk, worst case: first data is t_akademik
-    public function tempPendaftarId(){ //good for research, new implementation
+    public function tempPendaftarIdUtbk(){ //good for research, new implementation
         Yii::$app->db->createCommand()->insert('t_utbk',
         [
             'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
@@ -129,11 +147,20 @@ class StudentAkademikForm extends Model {
                 //ok, userIdExists, push pendaftar_id to t_utbk
                 self::tempDataSekolah(); //insert data sekolah to table t_pendaftar
                 if(!self::pendaftarIdExists()) //not exists, insert t_pendaftar_id to t_utbk
-                    self::tempPendaftarId(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
+                    self::tempPendaftarIdUtbk(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
                 else //ok current pendaftar_id exists on t_utbk, update data utbk
                     self::tempDataUtbk(); //update data utbk 
                 //update data to table t_pendaftar, sekolah_dapodik_id, jurusan_sekolah_id, akreditasi_sekolah
                 //set flash message 
+                //find pendaftar_id from table t_nila_rapor, if not exists, insert pendaftar_id to t_nilai_rapor
+                //using sql query, since we don't have a function 
+                //handling for t_nilai_rapor
+                $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+                $data = Yii::$app->db->createCommand($sql)->queryOne();
+                if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
+                    self::tempPendaftarIdNilaiAkademik(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
+                else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
+                    self::tempDataNilaiAkademik(); //update data nilai akademik  
                 Yii::$app->session->setFlash('success', "Data Akademik berhasil disimpan");
                 return true;
             } catch(Exception $e){
