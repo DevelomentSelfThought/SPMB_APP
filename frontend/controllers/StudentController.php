@@ -17,6 +17,7 @@ use app\models\StudentTokenForm;
 use app\models\StudentAkademikForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 //use app\controllers\AccessControl;
 
@@ -162,15 +163,36 @@ class StudentController extends Controller // StudentController extends the Cont
             ['model_student_extra'=>$model_student_extra]); //render the extra activity page
     }
     //action for insert data akademik
-    public function actionStudentAkademik(){
-        $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
-        if($model_student_akademik->load(Yii::$app->request->post())
-            && $model_student_akademik->insertStudentAkademik()){
-            return $this->redirect(['student/student-bahasa']);    
+public function actionStudentAkademik(){
+    $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
+
+    if($model_student_akademik->load(Yii::$app->request->post())){
+        $model_student_akademik->file = UploadedFile::getInstance($model_student_akademik, 'file');
+        if($model_student_akademik->file){
+            // Validate the uploaded file before moving it
+            if($model_student_akademik->validate()){
+                $uploadFolder ='uploads/';
+                if(!file_exists($uploadFolder)){ //not exist, make a new directory
+                    mkdir($uploadFolder, 0777, true);
+                }
+                $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username;
+                $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
+                $model_student_akademik->file->saveAs($filePath);
+                $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
+
+                //trying to insert data akademik to database
+                if($model_student_akademik->insertStudentAkademik()){
+                    return $this->redirect(['student/student-bahasa']);    
+                }
+                else{ //error message
+                    Yii::$app->session->setFlash('error', "Data Akademik gagal disimpan");
+                }
+            }
         }
-        return $this->render('student-akademik',
-            ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
     }
+    return $this->render('student-akademik',
+        ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
+}
     //action for autocomplete for school name
     public function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

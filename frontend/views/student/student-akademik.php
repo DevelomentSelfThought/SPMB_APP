@@ -153,7 +153,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         </svg></span>{input}</div>'])->label('Bacaan dan Menulis')
         ->textInput(['placeholder'=>'Masukan nilai kemampuan memahami bacaan dan menulis']); 
 ?>
-<?php //echo $form->field($model_student_akademik, 'file')->fileInput()->label("File Sertifikat UTBK") ?>
+<?php echo $form->field($model_student_akademik, 'file')->fileInput()->label("File Sertifikat UTBK") ?>
 <?= Html::tag('div', '<span>Form Data Nilai Rapor Semester VI</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_akademik,'jumlah_pelajaran',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">

@@ -17,4 +17,7 @@ alter table t_user add column verf_code varchar(255) not null;
 --update t_pendaftar structure, default value of pendaftaran_id 0
 alter table t_pendaftar alter column pendaftaran_id set default 0;
 -- select specific column from t_pendaftar table
-
+-- tingkat = IPA (MA)
+update t_r_jurusan_sekolah set tingkat = 'IPA (MA)' where jurusan_sekolah_id=21;
+--remove all data from t_utbk
+delete from t_utbk;
