@@ -41,7 +41,7 @@ NavBar::begin([
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav ml-auto'],
     'items' => [
-        ['label' => 'Verifikasi Akun', 'url' => ['/student/token-student']],
+        ['label' => 'Verifikasi Akun', 'url' => ['/student/student-token-activate']],
         ['label' => 'Update Data', 'url' => ['/student/student-extra']],
         ['label' => 'Daftar Akun', 'url' => ['/student/register-student']],
         Yii::$app->user->isGuest

@@ -15,6 +15,7 @@ use app\models\StudentRegisterForm;
 use app\models\StudentResetForm;
 use app\models\StudentTokenForm;
 use app\models\StudentAkademikForm;
+use app\models\StudentTokenActivate;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -192,16 +193,23 @@ public function actionStudentAkademik(){
     return $this->render('student-akademik',
         ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
 }
-    //action for autocomplete for school name
-    public function actionAutocomplete($term) {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $results = (new \yii\db\Query())
-            ->select('sekolah')
-            ->from('t_r_sekolah_dapodik')
-            ->where(['like', 'sekolah', $term])
-            ->all();
-    
-        return array_column($results, 'sekolah');
+//action for autocomplete for school name
+public function actionAutocomplete($term) {
+    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    $results = (new \yii\db\Query())
+        ->select('sekolah')
+        ->from('t_r_sekolah_dapodik')
+        ->where(['like', 'sekolah', $term])
+        ->all();
+    return array_column($results, 'sekolah');
+}
+//action for token activate
+public function actionStudentTokenActivate(){
+    $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
+    if($model->load(Yii::$app->request->post()) && $model->activate()){
+        return $this->redirect(['student/login']); //go to the login page
     }
+    return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
+}
 }
 ?>
