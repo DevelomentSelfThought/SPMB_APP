@@ -29,6 +29,11 @@ class StudentLoginForm extends Model {
             if(!$student || !$student->validatePassword($this->password)){ //if the user is not found or the password is not valid
                 $this->addError($attribute,'Username atau password salah'); //set error message
             }
+        } //ok username and password is valid, but  is the account active?
+        if($student && $student->active !=1){
+            $this->addError($attribute,'Akun anda belum aktif, silahkan cek kode verifikasi yang telah dikirimkan');
+            //redirect to activation page
+            Yii::$app->response->redirect(['student/student-token-activate']);
         }
     }
     public function login(): bool //find username and and test the current password

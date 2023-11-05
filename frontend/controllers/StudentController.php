@@ -118,7 +118,7 @@ class StudentController extends Controller // StudentController extends the Cont
         $model_student_register = new StudentRegisterForm(); //create an instance of the StudentRegisterForm class
         if($model_student_register->load(Yii::$app->request->post()) && $model_student_register->registerStudent()){
             //if the form is submitted and the registration is successful
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+            return $this->redirect(['student/student-token-activate']); //go to the next page, customize this to go to the home page
         }
         return $this->render('register-student',['model_student_register'=>$model_student_register]); //render the registration page
 

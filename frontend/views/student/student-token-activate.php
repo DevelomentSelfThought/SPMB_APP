@@ -24,14 +24,14 @@ body {
 
 .code-inputs {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     gap: 10px;
 }
 
 .code-inputs input {
     text-align: center;
-    padding: 17px;
-    font-size: 14px;
+    padding: 10px; /* Reduce the padding */
+    font-size: 16px; /* Increase the font size */
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
@@ -93,6 +93,7 @@ $this->title = 'Verifikasi Akun';
         <?= $form->field($model, 'code6')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
         <?= $form->field($model, 'code7')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
         <?= $form->field($model, 'code8')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
+        <?= $form->field($model, 'code9')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
     </div>
     <br>
 <div class="form-group">
