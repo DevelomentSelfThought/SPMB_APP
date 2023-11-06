@@ -19,8 +19,7 @@
         "yiisoft/yii2-bootstrap5": "~2.0.2",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "yiisoft/yii2-jui": "^2.0",
-        "yiisoft/yii2-swiftmailer": "^2.0",
-        "vlucas/phpdotenv": "^5.5"
+        "telegram-bot/api": "^2.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

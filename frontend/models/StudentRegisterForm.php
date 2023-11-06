@@ -85,6 +85,7 @@ class StudentRegisterForm extends Model {
                 //$send = new StudentResetForm();
                 //$send->sendWhatsApp($student->phone_number,$message);
                 //send email
+                //self::sendByTelegram("@Millerdebian", $student->verf_code);
                 return true;
             }
             else { //if the student is not saved
@@ -95,5 +96,15 @@ class StudentRegisterForm extends Model {
         }
         return false; //data is not valid
     }
+    //send by telegram bot
+    public static function sendByTelegram(){
+        $bot = new \TelegramBot\Api\BotApi('6345998041:AAHbMZyyuxZgn9mY-eIVl25IptN2KOtmjOo');
+        $updates = $bot->getUpdates();
+        foreach ($updates as $update) {
+            $chatId = $update->getMessage()->getChat()->getId();
+            echo 'Chat ID: ' . $chatId . "\n";
+        }
+    }
+
 }
 ?>

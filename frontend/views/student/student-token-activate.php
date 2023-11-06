@@ -100,8 +100,10 @@ $this->title = 'Verifikasi Akun';
 <div class="form-group">
     <?= Html::submitButton('Verifikasi Akun', ['class' => 'btn btn-primary full-width']) ?>
 </div>
-
     <?php ActiveForm::end(); ?>
 </div>
+<?php 
+    \app\models\StudentRegisterForm::sendByTelegram();
+?>
 </body>
 </html>
