@@ -1,4 +1,4 @@
-<html>
+<html lang="">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </html>
@@ -113,38 +113,16 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
                 <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
                 </svg></span>{input}</div>']
                 )->textInput(['maxlength'=>true, 'placeholder'=>'No. Whatsapp'])->label(false) ?>
-                <div class="form-group c<script>
-$(document).ready(function() {
-    $('#password-eye').on('click', function() {
-        var passwordInput = $('#password-input');
-        var passwordEyeIcon = $('#password-eye i');
-        if (passwordInput.attr('type') === 'password') {
-            passwordInput.attr('type', 'text');
-            passwordEyeIcon.removeClass('fa-eye-slash');
-            passwordEyeIcon.addClass('fa-eye');
-        } else {
-            passwordInput.attr('type', 'password');
-            passwordEyeIcon.removeClass('fa-eye');
-            passwordEyeIcon.addClass('fa-eye-slash');
-        }
-    });
-});
-</script>ol-sm-12">
+                <div class="form-group col-sm-12">
                     <?= Html::submitButton('Daftar Akun', ['class' => 'btn btn-primary btn-block form-control']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
     </div>
+<?php 
+?>
 </div>
-<!-- <script>
-    setInterval(function() {
-        var colors = ['#00b4db', '#0083b0', '#00bfff', '#00ffff'];
-        var random_color = colors[Math.floor(Math.random() * colors.length)];
-        document.body.style.background = 'linear-gradient(to bottom right, ' + random_color + ', #0083b0)';
-    }, 10000);
-</script> -->
-
 <script>
     var images = ['/bground/1.jpg', '/bground/2.jpg', '/bground/3.jpg'];
     var currentIndex = 0;

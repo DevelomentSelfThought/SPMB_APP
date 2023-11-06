@@ -34,7 +34,7 @@ class StudentResetForm extends Model {
     //method for generate random string, used for generating new password automatically
     //the current implementation is not safe, because it is possible to have duplicate
     //need to be improved, but password reset is not the main focus of this project
-    public function generateRandomString($length = 10): string
+    public function generateRandomString($length = 9): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters); //get the length of the characters
@@ -51,7 +51,7 @@ class StudentResetForm extends Model {
         if($this->validate()){ //if the given data is valid
             $student = Student::find()->where(['username'=>$this->username])->one();
             if ($student) {
-                $new_password = $this->generateRandomString(8); //generate random string
+                $new_password = $this->generateRandomString(); //generate random string
                 $student->password = $new_password; //set the new password
                 if($student->save()){ //if the new password is saved
                     $link ='http://localhost:8080/index.php?r=student%2Flogin';

@@ -5,15 +5,17 @@ use Yii;
 use yii\base\Model;
 use yii\helpers\Html;
 
+//use exception class
+use Exception;
 //model for registration form, the table name is t_user with additional fields 'phone_number'
-class StudentRegisterForm extends Model{
+class StudentRegisterForm extends Model {
     public $nik;
     public $username;
     public $email;
     public $password;
     public $password_repeat;
     public $no_HP;
-
+    //send activation code via email
     public function rules(): array //return an array of rules
     {
         //rules for handling input
@@ -34,7 +36,7 @@ class StudentRegisterForm extends Model{
             ['username','string','min'=>4],
             ['no_HP','string','min'=>11,'max'=>13,'message'=>'No Telepon harus 11-13 digit'],
         ];
-    }
+    }   
     //generate unique access token: 9 random string, (possible to have duplicate!!!!)
     //student copy the access token and send it through given url
     public function generateAccessToken($length = 5): string
@@ -74,14 +76,15 @@ class StudentRegisterForm extends Model{
             //$student->verf_code = Yii::$app->security->generatePasswordHash($student->verf_code);
             if($student->save()){ //if the student is saved
                 //then send access token via WhatsApp
-                $link ='http://172.22.42.182/student/token-student';
-                $message = "Hallo *".$student->username."*, anda telah melakukan pendaftaran pada Website PMB IT Del.".
-                " Masukan kode verifikasi berikut pada link yang diberikan agar akun anda dapat digunakan\n\nKode verifikasi : *".
-                $student->verf_code."*\n\n".
-                $link. "\n\nTerima kasih\n\nSalam,"."\n\n\nPanitia PMB IT Del"."\n\n\n".
-                "*Pesan ini dikirim secara otomatis oleh sistem*";
-                $send = new StudentResetForm();
+                //$link ='http://172.22.42.182/student/token-student';
+                //$message = "Hallo *".$student->username."*, anda telah melakukan pendaftaran pada Website PMB IT Del.".
+                //" Masukan kode verifikasi berikut pada link yang diberikan agar akun anda dapat digunakan\n\nKode verifikasi : *".
+                //$student->verf_code."*\n\n".
+                //$link. "\n\nTerima kasih\n\nSalam,"."\n\n\nPanitia PMB IT Del"."\n\n\n".
+                //"*Pesan ini dikirim secara otomatis oleh sistem*";
+                //$send = new StudentResetForm();
                 //$send->sendWhatsApp($student->phone_number,$message);
+                //send email
                 return true;
             }
             else { //if the student is not saved

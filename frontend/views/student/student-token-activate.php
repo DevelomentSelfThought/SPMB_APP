@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Student Token Activation</title>
+</head>
 <style>
 body {
     font-family: Arial, sans-serif;

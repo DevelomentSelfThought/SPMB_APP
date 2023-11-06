@@ -27,14 +27,6 @@
 
     }
     .my-form {
-        /*background-color: #f5f5f5;*/
-        /*padding: 20px;*/
-
-        /*background-color: #f2f2f2;*/
-        /*padding: 20px;*/
-        /*border-radius: 10px;*/
-        /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-        /* background: linear-gradient(to bottom, #4b6cb7, #182848); */
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
@@ -82,14 +74,13 @@ include 'TaskNavigation.php';
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
         <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-        </svg></span>{input}</div>'])->label('No KPS')->input('number'); ?>
+        </svg></span>{input}</div>'])->label('No KPS')->input('number')->textInput(['placeholder'=>'Masukan nomor KPS (bagi penerima KPS)']); ?>
     <?php echo $form->field($model_student_data_diri,'nama',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
         <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
         <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z"/>
-        </svg></span>{input}</div>'])->label('Nama'); 
-    ?>
+        </svg></span>{input}</div>'])->label('Nama')->textInput(['placeholder'=>'Contoh: John Doe']); ?>
     <?php
         echo $form->field($model_student_data_diri, 'jenis_kelamin',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -119,7 +110,7 @@ include 'TaskNavigation.php';
         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
         <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
         <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-        </svg></span>{input}</div>'])->label('Tempat Lahir'); 
+        </svg></span>{input}</div>'])->label('Tempat Lahir')->textInput(['placeholder'=>'Contoh: Jakarta']);; 
     ?>
     <?php
         echo $form->field($model_student_data_diri, 'agama_id',
@@ -135,7 +126,7 @@ include 'TaskNavigation.php';
         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
         <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
         <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-        </svg></span>{input}</div>'])->label('Alamat'); 
+        </svg></span>{input}</div>'])->label('Alamat')->textInput(['placeholder'=>'Contoh: Jl. Jend. Sudirman No. 1']);; 
     ?>
     <?php echo $form->field($model_student_data_diri,'kelurahan',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -143,7 +134,7 @@ include 'TaskNavigation.php';
         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
         <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
         <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-        </svg></span>{input}</div>'])->label('Kelurahan'); 
+        </svg></span>{input}</div>'])->label('Kelurahan')->textInput(['placeholder'=>'Contoh: Karet Semanggi']); 
     ?>
     <?php
     echo $form->field($model_student_data_diri, 'provinsi',

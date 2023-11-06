@@ -35,6 +35,8 @@ return [
                 ],
             ],
         ],
+        
+        //smtp configuration
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

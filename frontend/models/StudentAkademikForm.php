@@ -4,7 +4,6 @@ use Exception;
 use Yii;
 use yii\base\Model;
 use yii\db\ActiveRecord;
-
 class StudentAkademikForm extends Model {
     public $sekolah;
     public $jurusan_sekolah;
@@ -17,12 +16,10 @@ class StudentAkademikForm extends Model {
     public $nilai_kemampuan_bacaan;
     public $jumlah_pelajaran;
     public $nilai_semester;
-    
     public $jumlah_pelajaran_un;
     public $nilai_un;
     public $file;
     public $file_sertifikat;
-
     public function rules()
     {
         return [
@@ -38,7 +35,7 @@ class StudentAkademikForm extends Model {
             //nilai un and nilai utbk can be integer and float
             [['nilai_un', 'nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
             'nilai_kemampuan_bacaan'], 'number'],
-            [['no_utbk'], 'string', 'min'=>5,'max' => 20],
+            [['no_utbk'], 'string', 'min'=>6,'max' => 20],
             [['sekolah'], 'string', 'min'=>5,'max' => 100],
             [['jurusan_sekolah'], 'string', 'max' => 50],
             //limit tanggal ujian utbk
@@ -57,8 +54,6 @@ class StudentAkademikForm extends Model {
         $data = \yii\helpers\ArrayHelper::map($data, 'jurusan_sekolah_id', 'nama');
         return $data;
     }
-    //list of available school, we use availabele school from database
- 
     //generate school acreditation
     public static array $acreditation = [
         'A' => 'A',
@@ -105,14 +100,8 @@ class StudentAkademikForm extends Model {
         Yii::$app->db->createCommand()->update('t_utbk',[
             'no_peserta'=>self::removeNonInteger_noPeserta($this->no_utbk),
             'tanggal_ujian'=>$this->tanggal_ujian_utbk,
-            //'nilai_kemampuan_umum'=>$this->nilai_kemampuan_umum,
-            //'nilai_kemampuan_kuantitatif'=>$this->nilai_kemampuan_kuantitatif,
-            //'nilai_kemampuan_pengetahuan_umum'=>$this->nilai_kemampuan_pengetahuan_umum,
-            //'nilai_kemampuan_bacaan'=>$this->nilai_kemampuan_bacaan,
-            //'jumlah_pelajaran'=>$this->jumlah_pelajaran,
             'file_sertifikat'=>$this->file_sertifikat,
-            'created_at'=>date('Y-m-d'),
-            'updated_at'=>date('Y-m-d'),
+            'updated_at'=>date('Y-m-d H:i:s'),
             'updated_by'=>Yii::$app->user->identity->username,
             'created_by'=>Yii::$app->user->identity->username,
         ],['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
@@ -130,6 +119,10 @@ class StudentAkademikForm extends Model {
             'utbk_id'=>self::tempGetUtbkId(),
             'bidang_utbk_id'=>18,
             'nilai'=>$this->nilai_kemampuan_umum, 
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'created_by'=>Yii::$app->user->identity->username,
+            'updated_by'=>Yii::$app->user->identity->username,
 
         ])->execute();
         //do the same thing like above, but with different bidang_utbk_id
@@ -138,6 +131,10 @@ class StudentAkademikForm extends Model {
             'utbk_id'=>self::tempGetUtbkId(),
             'bidang_utbk_id'=>19,
             'nilai'=>$this->nilai_kemampuan_kuantitatif, 
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'created_by'=>Yii::$app->user->identity->username,
+            'updated_by'=>Yii::$app->user->identity->username,
 
         ])->execute();
         //do the same thing like above, but with different bidang_utbk_id
@@ -146,6 +143,10 @@ class StudentAkademikForm extends Model {
             'utbk_id'=>self::tempGetUtbkId(),
             'bidang_utbk_id'=>20,
             'nilai'=>$this->nilai_kemampuan_pengetahuan_umum, 
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'created_by'=>Yii::$app->user->identity->username,
+            'updated_by'=>Yii::$app->user->identity->username,
 
         ])->execute();
         //do the same thing like above, but with different bidang_utbk_id
@@ -154,26 +155,39 @@ class StudentAkademikForm extends Model {
             'utbk_id'=>self::tempGetUtbkId(),
             'bidang_utbk_id'=>21,
             'nilai'=>$this->nilai_kemampuan_bacaan, 
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'created_by'=>Yii::$app->user->identity->username,
+            'updated_by'=>Yii::$app->user->identity->username,
 
         ])->execute();
     }
-    //update t_nilai_utbk, condition tempGetUtbkId()
-    public function tempUpdateNilaiUtbk(){
+    //auxilary function to update nilai kemampuan to t_nilai_utbk, worst case: first data is t_utbk
+    //the following condition must meet, utbk_id and bidang_utbk_id
+    public function tempUpdatePendaftarNilaiUtbk(){
         //update nilai kemampuan umum
         Yii::$app->db->createCommand()->update('t_nilai_utbk',[
             'nilai'=>$this->nilai_kemampuan_umum,
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'updated_by'=>Yii::$app->user->identity->username,
         ],['utbk_id'=>self::tempGetUtbkId(), 'bidang_utbk_id'=>18])->execute();
         //update nilai kemampuan kuantitatif
         Yii::$app->db->createCommand()->update('t_nilai_utbk',[
             'nilai'=>$this->nilai_kemampuan_kuantitatif,
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'updated_by'=>Yii::$app->user->identity->username,
         ],['utbk_id'=>self::tempGetUtbkId(), 'bidang_utbk_id'=>19])->execute();
         //update nilai kemampuan pengetahuan umum
         Yii::$app->db->createCommand()->update('t_nilai_utbk',[
             'nilai'=>$this->nilai_kemampuan_pengetahuan_umum,
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'updated_by'=>Yii::$app->user->identity->username,
         ],['utbk_id'=>self::tempGetUtbkId(), 'bidang_utbk_id'=>20])->execute();
         //update nilai kemampuan bacaan
         Yii::$app->db->createCommand()->update('t_nilai_utbk',[
             'nilai'=>$this->nilai_kemampuan_bacaan,
+            'updated_at'=>date('Y-m-d H:i:s'),
+            'updated_by'=>Yii::$app->user->identity->username,
         ],['utbk_id'=>self::tempGetUtbkId(), 'bidang_utbk_id'=>21])->execute();
     }
     //auxilary function to insert pendaftar_id to table t_utbk, worst case: first data is t_akademik
@@ -184,8 +198,9 @@ class StudentAkademikForm extends Model {
             'no_peserta'=>self::removeNonInteger_noPeserta($this->no_utbk),
             'tanggal_ujian'=>$this->tanggal_ujian_utbk,
             'file_sertifikat'=>$this->file_sertifikat,
-            'created_at'=>date('Y-m-d'),
-            'updated_at'=>date('Y-m-d'),
+            //at specific time not only date, so we use date('Y-m-d H:i:s') instead of date('Y-m-d')
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),
             'updated_by'=>Yii::$app->user->identity->username,
             'created_by'=>Yii::$app->user->identity->username,
         ])->execute();
@@ -223,12 +238,13 @@ class StudentAkademikForm extends Model {
                     self::tempPendaftarIdNilaiAkademik(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
                 else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
                     self::tempDataNilaiAkademik(); //update data nilai akademik 
-                
-                //handling for t_nilai_utbk
-                /*if(!self::tempPendaftarSekolahUtbk()) //not exists, insert pendaftar_id to t_utbk
-                    self::tempPendaftarNilaiUtbk(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
-                else //ok current pendaftar_id exists on t_utbk, update data nilai utbk
-                    self::tempUpdateNilaiUtbk(); //update data nilai utbk*/
+                //worst case test for t_nilai_utbk
+                $sql = "SELECT utbk_id FROM t_nilai_utbk WHERE utbk_id = ".self::tempGetUtbkId();
+                $data = Yii::$app->db->createCommand($sql)->queryOne();
+                if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
+                    self::tempPendaftarNilaiUtbk(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
+                else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
+                    self::tempUpdatePendaftarNilaiUtbk(); //update data nilai akademik                
                 Yii::$app->session->setFlash('success', "Data Akademik berhasil disimpan");
                 return true;
             } catch(Exception $e){

@@ -61,14 +61,14 @@ include 'TaskNavigation.php';
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
     <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
     <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z"/>
-    </svg></span>{input}</div>'])->label('Nama Ayah Kandung'); 
+    </svg></span>{input}</div>'])->label('Nama Ayah Kandung')->textInput(['placeholder' => 'Contoh: Budi Santoso']); 
 ?>
 <?php echo $form->field($model_student_data_o,'nama_ibu_kandung',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
     <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
     <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z"/>
-    </svg></span>{input}</div>'])->label('Nama Ibu Kandung'); 
+    </svg></span>{input}</div>'])->label('Nama Ibu Kandung')->textInput(['placeholder' => 'Contoh: Siti Nurjanah']); 
 ?>
 <?php echo $form->field($model_student_data_o,'nik_ayah',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -140,7 +140,7 @@ echo $form->field($model_student_data_o, 'tanggal_lahir_ibu',
     <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
     <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-    </svg></span>{input}</div>'])->label('Alamat Orang Tua'); 
+    </svg></span>{input}</div>'])->label('Alamat Orang Tua')->textInput(['placeholder' => 'Contoh: Jl. Raya Ciputat No. 1']); 
 ?>
 <?php
 //map for all indonesia province, need more improvement like store in model
@@ -172,23 +172,12 @@ echo $form->field($model_student_data_o, 'kecamatan',
     <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
     </svg></span>{input}</div>'])->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_o->kabupaten), ['prompt' => 'Pilih Kecamatan']);
 ?>
-<?php //echo $form->field($model_student_data_orang_tua,'kelurahan')->label('Kelurahan'); ?>
-<?php
-    /*echo $form->field($model_student_data_o, 'provinsi')
-        ->dropDownList(\app\models\StudentDataDiriForm::$provinces, ['prompt' => 'Pilih Provinsi','id' => 'province-dropdown']);*/
-    ?>
-<?php
-   /* echo $form->field($model_student_data_o, 'kabupaten')
-        ->dropDownList(\app\models\StudentDataDiriForm::$cities, ['prompt' => 'Pilih Kabupaten/ Kota']);*/
-    ?>
-<?php //echo $form->field($model_student_data_o,'kecamatan')->label('Kecamatan'); ?>
-
 <?php echo $form->field($model_student_data_o,'kode_pos_orang_tua',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-code" viewBox="0 0 16 16">
     <path d="M6.646 5.646a.5.5 0 1 1 .708.708L5.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zm2.708 0a.5.5 0 1 0-.708.708L10.293 8 8.646 9.646a.5.5 0 0 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2z"/>
     <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
-    </svg></span>{input}</div>'])->label('Kode Pos'); 
+    </svg></span>{input}</div>'])->label('Kode Pos')->textInput(['placeholder' => 'Contoh: 15412']); 
 ?>
 <?php echo $form->field($model_student_data_o,'no_hp_orangtua',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
