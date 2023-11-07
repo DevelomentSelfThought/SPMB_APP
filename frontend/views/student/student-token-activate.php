@@ -102,8 +102,5 @@ $this->title = 'Verifikasi Akun';
 </div>
     <?php ActiveForm::end(); ?>
 </div>
-<?php 
-    \app\models\StudentRegisterForm::sendByTelegram();
-?>
 </body>
 </html>

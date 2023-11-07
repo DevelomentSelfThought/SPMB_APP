@@ -96,15 +96,5 @@ class StudentRegisterForm extends Model {
         }
         return false; //data is not valid
     }
-    //send by telegram bot
-    public static function sendByTelegram(){
-        $bot = new \TelegramBot\Api\BotApi('6345998041:AAHbMZyyuxZgn9mY-eIVl25IptN2KOtmjOo');
-        $updates = $bot->getUpdates();
-        foreach ($updates as $update) {
-            $chatId = $update->getMessage()->getChat()->getId();
-            echo 'Chat ID: ' . $chatId . "\n";
-        }
-    }
-
 }
 ?>

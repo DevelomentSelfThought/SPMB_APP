@@ -16,6 +16,8 @@ use app\models\StudentResetForm;
 use app\models\StudentTokenForm;
 use app\models\StudentAkademikForm;
 use app\models\StudentTokenActivate;
+use app\models\StudentBahasaForm;
+use app\models\StudentPrestasiForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -194,7 +196,7 @@ public function actionStudentAkademik(){
         ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
 }
 //action for autocomplete for school name
-public function actionAutocomplete($term) {
+public static function actionAutocomplete($term) {
     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     $results = (new \yii\db\Query())
         ->select('sekolah')
@@ -210,6 +212,22 @@ public function actionStudentTokenActivate(){
         return $this->redirect(['student/login']); //go to the login page
     }
     return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
+}
+//action for data bahasa
+public function actionStudentBahasa(){
+    $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
+    if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
+        return $this->redirect(['student/student-extra']);
+    }
+    return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
+}
+//action for data prestasi
+public function actionStudentPrestasi(){
+    $model  = new StudentPrestasiForm();
+    if($model->load(Yii::$app->request->post()) && $model->insertPrestasi()){
+        return $this->redirect(['student/informasi']);
+    }
+    return $this->render('student-prestasi',['model'=>$model]);
 }
 }
 ?>
