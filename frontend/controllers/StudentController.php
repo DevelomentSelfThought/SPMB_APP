@@ -225,9 +225,17 @@ public function actionStudentBahasa(){
 public function actionStudentPrestasi(){
     $model  = new StudentPrestasiForm();
     if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
-        return $this->redirect(['student/informasi']);
+        return $this->redirect(['student/student-informasi']);
     }
     return $this->render('student-prestasi',['model'=>$model]);
+}
+//action for store information, to do more clean up on this action
+public function actionStudentInformasi(){
+    $model = new \app\models\StudentInformasiForm();
+    if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
+        return $this->redirect(['student/student-biaya']);
+    }
+    return $this->render('student-informasi',['model'=>$model]);
 }
 }
 ?>
