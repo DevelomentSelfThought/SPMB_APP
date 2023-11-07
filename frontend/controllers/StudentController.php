@@ -35,10 +35,12 @@ class StudentController extends Controller // StudentController extends the Cont
             'access' => [
                 'class' => AccessControl::class,
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
-                'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra'],
+                'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra',
+                    'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'],
                 'rules' => [
                     [
-                        'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra'],
+                        'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
+                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
