@@ -2,9 +2,6 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
-    body {
-        /* background: #f5f5f5; */
-    }
     .ruler {
         position: relative;
         text-align: center;
