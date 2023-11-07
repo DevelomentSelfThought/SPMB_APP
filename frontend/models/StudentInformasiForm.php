@@ -35,15 +35,13 @@ class StudentInformasiForm extends Model{
         9 => 9,
         10 => 10,
     ];
-    //generate sumber informasi value, key value pair, text and text
-    public static array $get_sumber_informasi = [
-        'Internet' => 'Internet',
-        'Keluarga' => 'Keluarga',
-        'Teman' => 'Teman',
-        'Sekolah' => 'Sekolah',
-        'Brosur' => 'Brosur',
-        'Lainnya' => 'Lainnya',
-    ];
+    //generate sumber informasi value, key value pair, from table t_r_informasi_del, 
+    //field: informasi_del_id,and desc
+    public static function getSumberInformasi(){
+        $sumber = Yii::$app->db->createCommand('SELECT informasi_del_id, `desc` FROM t_r_informasi_del')->queryAll();
+        $sumber = array_column($sumber, 'desc', 'informasi_del_id');
+        return $sumber;
+    }
     //generate motivasi value, key value pair, text and text
     public static array $get_motivasi = [
         'Prestasi' => 'Prestasi',

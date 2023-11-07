@@ -35,7 +35,7 @@ class StudentController extends Controller // StudentController extends the Cont
             'access' => [
                 'class' => AccessControl::class,
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
-                'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra',
+                'only' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
                     'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'],
                 'rules' => [
                     [
@@ -57,20 +57,13 @@ class StudentController extends Controller // StudentController extends the Cont
                     'logout'=>['post']
                 ],
             ],
-            /*'verbs' => [ //restrict the following actions to POST method
-                'class' => VerbFilter::class,
-                'actions'=>[
-                    'student-data-diri'=>['post'],
-                    'student-data-o-tua'=>['post'],
-                    'student-extra'=>['post'],
-                ]
-            ],*/
         ];
     }
     //redirect to the login page if the user is not already logged in
    public function beforeAction($action)
     {
-        if (in_array($action->id, ['student-data-diri', 'student-data-o-tua', 'student-extra'])) {
+        if (in_array($action->id, ['student-data-diri', 'student-data-o-tua', 'student-extra',
+            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'])) {
             if (Yii::$app->user->isGuest) {
                 return $this->redirect(['student/login']);
             }
@@ -162,7 +155,7 @@ class StudentController extends Controller // StudentController extends the Cont
         $model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
         if($model_student_extra->load(Yii::$app->request->post())
             && $model_student_extra->insertStudentExtra()){
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+            return $this->redirect(['student/student-prestasi']);
         }
         return $this->render('student-extra',
             ['model_student_extra'=>$model_student_extra]); //render the extra activity page
