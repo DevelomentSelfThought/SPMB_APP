@@ -30,17 +30,9 @@
 
     }
     .my-form {
-        /*background-color: #f5f5f5;*/
-        /*padding: 20px;*/
-
-        /*background-color: #f2f2f2;*/
-        /*padding: 20px;*/
-        /*border-radius: 10px;*/
-        /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
         color: #000000;
     }
     .my-form .form-control {

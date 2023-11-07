@@ -205,7 +205,7 @@ public static function actionAutocomplete($term) {
         ->all();
     return array_column($results, 'sekolah');
 }
-//action for token activate
+//action for token activate, this is already cleaned up
 public function actionStudentTokenActivate(){
     $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
     if($model->load(Yii::$app->request->post()) && $model->activate()){
@@ -213,7 +213,7 @@ public function actionStudentTokenActivate(){
     }
     return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
 }
-//action for data bahasa
+//action for data bahasa, this is already cleaned up
 public function actionStudentBahasa(){
     $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
     if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
@@ -221,10 +221,10 @@ public function actionStudentBahasa(){
     }
     return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
 }
-//action for data prestasi
+//action for data prestasi, to do more clean up on this action
 public function actionStudentPrestasi(){
     $model  = new StudentPrestasiForm();
-    if($model->load(Yii::$app->request->post()) && $model->insertPrestasi()){
+    if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
         return $this->redirect(['student/informasi']);
     }
     return $this->render('student-prestasi',['model'=>$model]);
