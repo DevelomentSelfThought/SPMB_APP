@@ -59,7 +59,8 @@ use yii\bootstrap5\ButtonGroup;
                 'onclick' => 'location.href="/student/student-prestasi"']]),
                 Button::widget(['label' => 'Informasi Del', 'options' => ['class' => 'my-button', 
                 'onclick' => 'location.href="/student/student-informasi"']]),
-                Button::widget(['label' => 'Biaya dan VA', 'options' => ['class' => 'my-button', 'onclick' => 'location.href="/task8"']]),
+                Button::widget(['label' => 'Biaya dan VA', 'options' => ['class' => 'my-button', 
+                'onclick' => 'location.href="/student/student-biaya"']]),
                 Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 'onclick' => 'location.href="/task9"']]),
             ],
         ]);

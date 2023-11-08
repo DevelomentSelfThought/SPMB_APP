@@ -233,5 +233,15 @@ public function actionStudentInformasi(){
     }
     return $this->render('student-informasi',['model'=>$model]);
 }
+//action for store biaya, to do more clean up on this action
+public function actionStudentBiaya(){
+    $model = new \app\models\StudentBiayaForm();
+    //set flash message if the data is successfully inserted to database
+    if($model->load(Yii::$app->request->post()) && $model->insertBiayaData()){
+        Yii::$app->session->setFlash('success', "Data berhasil disimpan");
+        return $this->redirect(['student/student-penggumuman']);
+    }
+    return $this->render('student-biaya',['model'=>$model]);
+}
 }
 ?>
