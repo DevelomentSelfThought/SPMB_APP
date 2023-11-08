@@ -36,11 +36,11 @@ class StudentController extends Controller // StudentController extends the Cont
                 'class' => AccessControl::class,
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
                 'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra',
-                    'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'],
+                    'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya'],
                 'rules' => [
                     [
                         'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
-                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'],
+                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,7 +63,7 @@ class StudentController extends Controller // StudentController extends the Cont
    public function beforeAction($action)
     {
         if (in_array($action->id, ['student-data-diri', 'student-data-o-tua', 'student-extra',
-            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi'])) {
+            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi', 'student-biaya'])) {
             if (Yii::$app->user->isGuest) {
                 return $this->redirect(['student/login']);
             }
@@ -237,11 +237,22 @@ public function actionStudentInformasi(){
 public function actionStudentBiaya(){
     $model = new \app\models\StudentBiayaForm();
     //set flash message if the data is successfully inserted to database
-    if($model->load(Yii::$app->request->post()) && $model->insertBiayaData()){
-        Yii::$app->session->setFlash('success', "Data berhasil disimpan");
-        return $this->redirect(['student/student-penggumuman']);
+    if($model->load(Yii::$app->request->post())){
+        //set flash message ok if the voucher is valid
+        if($model->validateVoucher()){
+            Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
+        }
     }
     return $this->render('student-biaya',['model'=>$model]);
+}
+//action for pengunguman, to do more clean up on this action
+public function actionStudentPengumuman(){
+    $model = new \app\models\StudentPengumumanForm();
+    //set flash message if the data is successfully inserted to database
+    if($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()){
+        return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
+    }
+    return $this->render('student-pengumuman',['model'=>$model]);
 }
 }
 ?>

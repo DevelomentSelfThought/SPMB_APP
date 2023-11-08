@@ -41,6 +41,8 @@ use yii\bootstrap5\ButtonGroup;
     }
 </style>
 </html>
+
+
 <?php
     echo  ButtonGroup::widget([
             'options' => ['class' => 'my-button-group'],
@@ -61,7 +63,8 @@ use yii\bootstrap5\ButtonGroup;
                 'onclick' => 'location.href="/student/student-informasi"']]),
                 Button::widget(['label' => 'Biaya dan VA', 'options' => ['class' => 'my-button', 
                 'onclick' => 'location.href="/student/student-biaya"']]),
-                Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 'onclick' => 'location.href="/task9"']]),
+                Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 
+                'onclick' => 'location.href="/student/student-pengumuman"']]),
             ],
         ]);
         echo "<br>";

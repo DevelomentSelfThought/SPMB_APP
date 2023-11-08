@@ -40,10 +40,10 @@ class StudentBiayaForm extends Model{
             $params = [
                 ':kode' => $this->voucher,
             ];
-            $result = Yii::$app->db->createCommand($sql)->bindValues($params)->queryOne();
-            return $this->biaya_awal - $result['nominal']; //possibly using other operation, like multiplication
+            $result = $sql->bindValues($params)->queryOne();
+            return $this->getBiayaAwal() - $result['nominal']; //possibly using other operation, like multiplication
         }
-        return $this->biaya_awal; //return biaya awal if voucher not valid
+        return $this->getBiayaAwal();
     }
     //function for get Status Pembayaran from table
     public function getStatusPembayaran(){
@@ -51,15 +51,8 @@ class StudentBiayaForm extends Model{
     }
     //function for set status pembayaran
     public function setStatusPembayaran(){
-        if($this->status_pembayaran()){
-            //set status pembarayan : lunas
-            $status_pembayaran="Lunas";
-            return $status_pembayaran;
-        }
-        //set status pembayaran : belum lunas
-        $status_pembayaran="Belum Lunas";
+        $status_pembayaran="Lunas";
         return $status_pembayaran;
-
     }
 }
 
