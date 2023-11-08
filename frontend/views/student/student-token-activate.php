@@ -7,7 +7,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f6f8fa;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .site-device-activation {

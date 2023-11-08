@@ -10,10 +10,10 @@ use yii\bootstrap5\ButtonGroup;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-image: linear-gradient(to right, #000 50%, transparent 50%), linear-gradient(to right, #000 50%, #fff 50%);
-        background-size: 10px 1px, 20px 1px;
-        background-position: bottom left, bottom left;
-        background-repeat: repeat-x;
+        /* background-image: linear-gradient(to right, #000 50%, transparent 50%), linear-gradient(to right, #000 50%, #fff 50%); */
+        /* background-size: 10px 1px, 20px 1px; */
+        /* background-position: bottom left, bottom left; */
+        /* background-repeat: repeat-x; */
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
@@ -39,13 +39,17 @@ use yii\bootstrap5\ButtonGroup;
         background-color: #000;
         color: #fff;
     }
+    .my-navbar {
+        padding: 0.5rem 0.5rem;  
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
 </style>
 </html>
 
 
 <?php
     echo  ButtonGroup::widget([
-            'options' => ['class' => 'my-button-group'],
+            'options' => ['class' => 'my-button-group my-navbar'],
             'buttons' => [
                 Button::widget(['label' => 'Data Pribadi', 'options' => ['class' => 'my-button',
                 'onclick' => 'location.href="/student/student-data-diri"']]),

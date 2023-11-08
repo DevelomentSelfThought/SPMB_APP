@@ -13,13 +13,13 @@
         background-color: #007bff;
         border-color: #007bff;
     }
-    .form-control {
+    .form-control_ {
         border: 1px solid #ced4da;
     }
     body {
         font-family: Arial, sans-serif;
         background-color: #f6f8fa;
-        padding: 20px;
+        /* padding: 20px; */
     }
 </style>
 <body>

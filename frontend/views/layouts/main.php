@@ -26,12 +26,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <style>
-    .navbar {
-        padding: 1rem 1rem; /* Increase padding to make the navbar bigger */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Increase alpha value to make the shadow darker */
-    }
-</style>
+    <?php
+    $this->registerCss("
+        .my-navbar {
+            padding: 1rem 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    ");
+    ?>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -42,13 +44,12 @@ NavBar::begin([
     'brandLabel' => Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar navbar-expand-lg navbar-light bg-light', // changed to light theme
+        'class' => 'navbar navbar-expand-lg navbar-light bg-light my-navbar', // changed to light theme
     ],
 ]);
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav ml-auto'],
     'items' => [
-        ['label' => 'Verifikasi Akun', 'url' => ['/student/student-token-activate']],
         ['label' => 'Daftar Akun', 'url' => ['/student/register-student']],
         Yii::$app->user->isGuest
             ? ['label' => 'Login', 'url' => ['/student/login']]
