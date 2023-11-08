@@ -55,7 +55,6 @@ class StudentBahasaForm extends Model{
                 //update bahasa to t_pendaftar
                 self::updateBahasa();
                 //flash message if the data is successfully inserted to database
-                Yii::$app->session->setFlash('success', "Data Bahasa Berhasil Disimpan");
                 return true;
             }catch(Exception $e) {
                 //flash message if the data is failed to be inserted to database

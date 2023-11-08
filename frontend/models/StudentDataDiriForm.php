@@ -124,7 +124,7 @@ class StudentDataDiriForm extends Model {
                     'no_telepon_mobile'=>$this->no_telepon_mobile,
                     'email'=>$this->email,
                 ],'user_id = '.self::getCurrentUserId())->execute();
-                Yii::$app->session->setFlash('success', 'Data pribadi berhasil disimpan');
+                //Yii::$app->session->setFlash('success', 'Data pribadi berhasil disimpan');
                 return true;
             }catch (Exception $e){ //for debugging purpose
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");

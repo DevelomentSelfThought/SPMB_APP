@@ -135,10 +135,27 @@ $data  =  [
     </table>
 </div>
 <br>
+
 <?= $form->field($model, 'agree')->checkbox(['label' => 'Saya menyatakan bahwa saya telah memberikan data yang valid.']) ?>
 <br>
 <div class="form-group" style="display: flex; justify-content: flex-end;">
     <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
-    <?=  Html::submitButton('Simpan', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; width: 100px;']) ?>
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+<?php
+$script = <<< JS
+$('.my-form').on('beforeSubmit', function(event) {
+    event.preventDefault();
+
+    // Show the alert
+    alert('Data Informasi Berhasil Disimpan');
+
+    // Delay the form submission
+    setTimeout(function() {
+        $('.my-form').yiiActiveForm('submitForm');
+    }, 1000);
+});
+JS;
+$this->registerJs($script);
+?>

@@ -245,7 +245,7 @@ class StudentAkademikForm extends Model {
                     self::tempPendaftarNilaiUtbk(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
                 else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
                     self::tempUpdatePendaftarNilaiUtbk(); //update data nilai akademik                
-                Yii::$app->session->setFlash('success', "Data Akademik berhasil disimpan");
+                //Yii::$app->session->setFlash('success', "Data Akademik berhasil disimpan");
                 return true;
             } catch(Exception $e){
                 //flash error message

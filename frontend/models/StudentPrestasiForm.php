@@ -197,11 +197,10 @@ class StudentPrestasiForm extends Model{
                 self::updatePrestasiAkademik();
                 self::updatePrestasiNonAkademik();
                 //flash message if the data is successfully inserted to database
-                Yii::$app->session->setFlash('success', "Data Prestasi Berhasil Disimpan");
                 return true;
             }catch(Exception $e) {
                 //flash message if the data is failed to inserted to database
-                echo $e->getMessage();
+                //echo $e->getMessage();
                 Yii::$app->session->setFlash('error', "Data Prestasi Gagal Disimpan");
                 return false;
             }

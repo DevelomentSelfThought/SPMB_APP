@@ -43,11 +43,10 @@ class StudentInformasiForm extends Model{
                 //update data to t_pendaftar table
                 self::updateData();
                 //flash message if the data is successfully inserted to database
-                Yii::$app->session->setFlash('success', "Data Informasi Berhasil Disimpan");
                 return true;
             }catch(Exception $e) {
                 //flash message if the data is failed to insert to database
-                echo $e->getMessage();
+                //echo $e->getMessage();
                 Yii::$app->session->setFlash('error', "Data Informasi Gagal Disimpan");
                 return false;
             }

@@ -227,6 +227,7 @@ public function actionStudentPrestasi(){
 //action for store information, to do more clean up on this action
 public function actionStudentInformasi(){
     $model = new \app\models\StudentInformasiForm();
+    //set flash message if the data is successfully inserted to database
     if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
         return $this->redirect(['student/student-biaya']);
     }
