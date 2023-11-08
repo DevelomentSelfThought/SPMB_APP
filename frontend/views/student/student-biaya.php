@@ -61,7 +61,8 @@ include 'TaskNavigation.php';
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backpack-fill" viewBox="0 0 16 16">
     <path d="M5 13v-3h4v.5a.5.5 0 0 0 1 0V10h1v3H5Z"/>
     <path d="M6 2v.341C3.67 3.165 2 5.388 2 8v5.5A2.5 2.5 0 0 0 4.5 16h7a2.5 2.5 0 0 0 2.5-2.5V8a6.002 6.002 0 0 0-4-5.659V2a2 2 0 1 0-4 0Zm2-1a1 1 0 0 1 1 1v.083a6.04 6.04 0 0 0-2 0V2a1 1 0 0 1 1-1Zm0 3a4 4 0 0 1 3.96 3.43.5.5 0 1 1-.99.14 3 3 0 0 0-5.94 0 .5.5 0 1 1-.99-.14A4 4 0 0 1 8 4ZM4.5 9h7a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5Z"/>
-  </svg></span>{input}</div>'])->label('Biaya Pendaftaran')->textInput(['placeholder' => 'Rp.150,000', 'disabled' => true])
+  </svg></span>{input}</div>'])->label('Biaya Pendaftaran')
+  ->textInput(['value' => 'Rp. '.number_format($model->getBiayaAwal(), 0, ',', '.'), 'disabled' => true])
 ?>
 <?php echo $form->field($model,'virtual_account',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -80,12 +81,14 @@ include 'TaskNavigation.php';
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
     <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-    </svg></span>{input}</div>'])->label('Total Bayar')->textInput(['placeholder' => 'Rp.110,000', 'disabled' => true])
-?>
+    </svg></span>{input}</div>'])->label('Total Bayar')
+    ->textInput(['value' => 'Rp. '.number_format($model->getTotalBayar(), 0, ',', '.'), 'disabled' => true])
+    ?>
 <?php echo $form->field($model,'status_pembayaran',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
     <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
-  </svg></span>{input}</div>'])->label('Status Pembayaran')->textInput(['placeholder' => 'N/A', 'disabled' => true])
-?>      
+  </svg></span>{input}</div>'])->label('Status Pembayaran')
+  ->textInput(['value' => $model->setStatusPembayaran(), 'disabled' => true])
+  ?>      
 <?php ActiveForm::end(); ?>
