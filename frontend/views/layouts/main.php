@@ -73,8 +73,8 @@ NavBar::end();
 <footer id="footer" class="mt-auto py-3 bg-white"> <!-- changed to white -->
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; SPMB App - IT Del </div>
-            <div class="col-md-6 text-center text-md-end">SDI Team <?= date('Y') ?></div> 
+            <div class="col-md-6 text-center text-md-start"> SPMB App - IT Del </div>
+            <div class="col-md-6 text-center text-md-end"> &copy <?= date('Y')?> Michael Sipayung </div> 
     </div>
 </footer>
 
