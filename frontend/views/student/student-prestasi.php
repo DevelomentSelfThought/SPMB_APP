@@ -47,7 +47,7 @@ $title = 'Data Prestasi';
 ?>
 <?php
 //include task navigation component
-include 'TaskNavigation.php';
+// include 'TaskNavigation.php';
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 
 'id' => 'student-extra-form',
@@ -80,7 +80,8 @@ $title_extra  = "Data Prestasi";
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002H7.971L6.072 5.385v1.271l1.834-1.318h.065V12h1.312V4.002Z"/>
-                </svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Prestasi']) ?>
+                </svg></span>{input}</div>'])->textInput(['maxlength' => true, 
+                'placeholder'=>'Nama Prestasi', 'value' => $model->nama_prestasi_1]) ?>
     </div>
     <div class="col-md-4">
 <?= $form->field($model, 'tanggal_prestasi_1',

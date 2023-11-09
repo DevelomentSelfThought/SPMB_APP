@@ -43,7 +43,7 @@ $title  = 'Data Informasi Mahasiswa Baru';
 ?>
 <?php
 //include task navigation component
-include 'TaskNavigation.php';
+// include 'TaskNavigation.php';
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Informasi Penerimaan Mahasiswa Baru</span>', ['class' => 'ruler']) ?>

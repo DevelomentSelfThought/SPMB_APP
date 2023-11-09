@@ -1,7 +1,9 @@
 <?php
+use yii\bootstrap5\Nav;
 use yii\base\Widget;
 use yii\bootstrap5\Button;
 use yii\bootstrap5\ButtonGroup;
+use yii\bootstrap5\Progress;
 ?>
 <html>
 
@@ -42,13 +44,14 @@ use yii\bootstrap5\ButtonGroup;
     .my-navbar {
         padding: 0.5rem 0.5rem;  
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
+    }
 </style>
 </html>
 
 
 <?php
-    echo  ButtonGroup::widget([
+
+echo  ButtonGroup::widget([
             'options' => ['class' => 'my-button-group my-navbar'],
             'buttons' => [
                 Button::widget(['label' => 'Data Pribadi', 'options' => ['class' => 'my-button',
@@ -67,10 +70,10 @@ use yii\bootstrap5\ButtonGroup;
                 'onclick' => 'location.href="/student/student-informasi"']]),
                 Button::widget(['label' => 'Biaya dan VA', 'options' => ['class' => 'my-button', 
                 'onclick' => 'location.href="/student/student-biaya"']]),
-                Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 
-                'onclick' => 'location.href="/student/student-pengumuman"']]),
+                /*Button::widget(['label' => 'Pengumuman', 'options' => ['class' => 'my-button', 
+                'onclick' => 'location.href="/student/student-pengumuman"']]),*/
             ],
         ]);
-        echo "<br>";
+    echo "<br>";
 ?>
 

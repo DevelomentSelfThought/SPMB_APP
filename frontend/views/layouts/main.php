@@ -24,14 +24,37 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
+    <!-- Other head elements... -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <?php
     $this->registerCss("
         .my-navbar {
-            padding: 1rem 1rem;
+            padding: 1.2rem 1.2rem !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
+        .bi {
+            font-size: 1.5em; /* Adjust size as needed */
+        }
+        .nav-label {
+            font-size: 1.3em; /* Adjust size as needed */
+        }
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+        main{
+            text-align: left !important;
+        }
+        .navbar-nav .dropdown-menu a {
+            border-bottom: 1px solid #ddd; /* Add border at the bottom */
+            padding: 10px 20px; /* Add some padding */
+        }
+        .navbar-nav .dropdown-menu a:last-child {
+            border-bottom: none; /* Remove border for the last item */
+        }
+        
     ");
     ?>
 </head>
@@ -39,30 +62,53 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <?php $this->beginBody() ?>
 
 <header id="header">
-<?php
+<?php     
 NavBar::begin([
-    'brandLabel' => Yii::$app->name,
+    'brandLabel' => '<img src="/bground/itdel.jpg" class="logo"> ' . Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-expand-lg navbar-light bg-light my-navbar', // changed to light theme
     ],
 ]);
+
+$menuItems = [
+    ['label' => '<i class="bi bi-person-plus-fill"></i> <span class="nav-label">Daftar Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
+];
+
+if (Yii::$app->user->isGuest) {
+    $menuItems[] = ['label' => '<i class="bi bi-person-fill"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
+} else {
+    // $menuItems[] = ['label' => str_repeat('&nbsp;', 0), 'url' => '#', 'linkOptions' => ['style' => 'pointer-events: none;'], 'encode' => false];
+    $menuItems[] = [
+        'label' => '<i class="bi bi-pencil-square"></i> <span class="nav-label">Update Data</span>', 
+        'url' => ['/student/student-data-diri'], 
+        'encode' => false,
+        'items' => [
+            ['label' => 'Data Pribadi', 'url' => '/student/student-data-diri'],
+            ['label' => 'Data Orang Tua', 'url' => '/student/student-data-o-tua'],
+            ['label' => 'Data Akademik', 'url' => '/student/student-akademik'],
+            ['label' => 'Data Bahasa', 'url' => '/student/student-bahasa'],
+            ['label' => 'Data Ekstrakurikuler', 'url' => '/student/student-extra'],
+            ['label' => 'Data Prestasi', 'url'=>'/student/student-prestasi'],
+            ['label' => 'Data Sumber Informasi', 'url'=>'/student/student-informasi'],
+            ['label' => 'Data Biaya dan VA', 'url'=>'/student/student-biaya'],
+
+        ]
+    ];
+    $menuItems[] = ['label' => '<i class="bi bi-megaphone"></i> <span class="nav-label">Pengumuman</span>', 
+    'url' => ['/student/student-pengumuman'], 
+    'encode' => false];
+    $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right"></i> <span class="nav-label">Logout (' . Yii::$app->user->identity->username . ')</span>', 
+                    'url' => ['/site/logout'], 
+                    'linkOptions' => ['data-method' => 'post'], 
+                    'encode' => false];
+}
+
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav ml-auto'],
-    'items' => [
-        ['label' => 'Daftar Akun', 'url' => ['/student/register-student']],
-        Yii::$app->user->isGuest
-            ? ['label' => 'Login', 'url' => ['/student/login']]
-            : '<li class="nav-item">'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link nav-link']
-                )
-                . Html::endForm()
-                . '</li>'
-    ]
+    'items' => $menuItems
 ]);
+
 NavBar::end();
 ?>
 </header>

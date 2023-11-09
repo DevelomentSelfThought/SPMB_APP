@@ -36,6 +36,9 @@
     .my-form .form-control {
         border-radius: 5px;
     }
+    .btn-primary {
+        background-color: #212529 !important; /* Replace #yourColor with your specific color */
+    }
 </style>
 </html>
 <?php
@@ -51,7 +54,7 @@ $title  = 'Data Diri Mahasiswa';
 ?>
 <?php
 //include task navigation component
-include 'TaskNavigation.php';
+// include 'TaskNavigation.php';
 ?>
 
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
