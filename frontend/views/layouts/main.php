@@ -54,6 +54,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         .navbar-nav .dropdown-menu a:last-child {
             border-bottom: none; /* Remove border for the last item */
         }
+        .menu-icon {
+            font-size: 0.8em; /* Adjust as needed */
+        }
         
     ");
     ?>
@@ -84,14 +87,14 @@ if (Yii::$app->user->isGuest) {
         'url' => ['/student/student-data-diri'], 
         'encode' => false,
         'items' => [
-            ['label' => 'Data Pribadi', 'url' => '/student/student-data-diri'],
-            ['label' => 'Data Orang Tua', 'url' => '/student/student-data-o-tua'],
-            ['label' => 'Data Akademik', 'url' => '/student/student-akademik'],
-            ['label' => 'Data Bahasa', 'url' => '/student/student-bahasa'],
-            ['label' => 'Data Ekstrakurikuler', 'url' => '/student/student-extra'],
-            ['label' => 'Data Prestasi', 'url'=>'/student/student-prestasi'],
-            ['label' => 'Data Sumber Informasi', 'url'=>'/student/student-informasi'],
-            ['label' => 'Data Biaya dan VA', 'url'=>'/student/student-biaya'],
+            ['label' => '<i class="bi bi-tags-fill menu-icon"></i> Data Pribadi', 'url' => '/student/student-data-diri', 'encode'=>false],
+            ['label' => '<i class="bi bi-people-fill menu-icon"></i> Data Orang Tua', 'url' => '/student/student-data-o-tua', 'encode'=>false],
+            ['label' => '<i class="bi bi-person-lines-fill menu-icon"></i> Data Akademik', 'url' => '/student/student-akademik','encode'=>false],
+            ['label' => '<i class="bi bi-file-earmark-plus-fill menu-icon"></i> Data Bahasa', 'url' => '/student/student-bahasa', 'encode'=>false],
+            ['label' => '<i class="bi bi-pin-fill menu-icon"></i> Data Ekstrakurikuler', 'url' => '/student/student-extra', 'encode'=>false],
+            ['label' => '<i class="bi bi-trophy-fill menu-icon"></i> Data Prestasi', 'url'=>'/student/student-prestasi','encode'=>false],
+            ['label' => ' <i class="bi bi-webcam-fill menu-icon"></i> Data Sumber Informasi', 'url'=>'/student/student-informasi', 'encode'=>false],
+            ['label' => '<i class="bi bi-wallet-fill menu-icon"></i> Data Biaya dan VA', 'url'=>'/student/student-biaya','encode'=>false],
 
         ]
     ];

@@ -55,7 +55,7 @@
 // include 'TaskNavigation.php';
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
-<?= Html::tag('div', '<span style="color: #0093ad; font-size: 20px; font-weight: bold;">Form Data Orang Tua</span>', ['class' => 'ruler']) ?>
+<?= Html::tag('div', '<span>Form Data Orang Tua</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_data_o,'nama_ayah_kandung',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">

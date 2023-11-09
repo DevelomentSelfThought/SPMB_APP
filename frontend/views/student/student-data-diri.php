@@ -54,7 +54,7 @@ $title  = 'Data Diri Mahasiswa';
 ?>
 
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
-<?= Html::tag('div', '<span style="color: #0093ad; font-size: 20px; font-weight: bold;">Form Data Pribadi</span>', ['class' => 'ruler']) ?>
+<?= Html::tag('div', '<span>Form Data Pribadi</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_data_diri,'nama',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
