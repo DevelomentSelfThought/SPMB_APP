@@ -166,6 +166,19 @@ class StudentDataDiriForm extends Model {
         //condition : user_id from the current logged in user using getCurrentUserId() method
         'pendaftar_id = '.Self::getCurrentUserId())->execute();
     }
+    //signal for telling that the data is already filled
+    public static function isFillDataPribadi(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT nama FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
 
 ?>

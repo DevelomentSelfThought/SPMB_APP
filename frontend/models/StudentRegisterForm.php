@@ -15,6 +15,7 @@ class StudentRegisterForm extends Model {
     public $password;
     public $password_repeat;
     public $no_HP;
+    private $active = 0;
     //send activation code via email
     public function rules(): array //return an array of rules
     {
@@ -72,6 +73,7 @@ class StudentRegisterForm extends Model {
             $student->no_HP = $this->no_HP; //hash the phone number
             //save the access token to database
             $student->verf_code = $this->generateAccessToken();
+            $student->active = $this->active;               
             //hash the access token, for production
             //$student->verf_code = Yii::$app->security->generatePasswordHash($student->verf_code);
             if($student->save()){ //if the student is saved

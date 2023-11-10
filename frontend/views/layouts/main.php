@@ -4,6 +4,8 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
+use app\models\StudentDataDiri;
+use app\models\StudentDataDiriForm;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
@@ -73,24 +75,26 @@ NavBar::begin([
         'class' => 'navbar navbar-expand-lg navbar-light bg-light my-navbar', // changed to light theme
     ],
 ]);
-
-$menuItems = [
-    ['label' => '<i class="bi bi-person-plus-fill"></i> <span class="nav-label">Daftar Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
-];
-
+if(Yii::$app->user->isGuest){
+    $menuItems = [
+        ['label' => '<i class="bi bi-person-plus-fill"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
+        ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
+    ];
+}
 if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => '<i class="bi bi-person-fill"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
 } else {
     // $menuItems[] = ['label' => str_repeat('&nbsp;', 0), 'url' => '#', 'linkOptions' => ['style' => 'pointer-events: none;'], 'encode' => false];
+    $icon = StudentDataDiriForm::isFillDataPribadi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
     $menuItems[] = [
         'label' => '<i class="bi bi-pencil-square"></i> <span class="nav-label">Update Data</span>', 
         'url' => ['/student/student-data-diri'], 
         'encode' => false,
         'items' => [
-            ['label' => '<i class="bi bi-tags-fill menu-icon"></i> Data Pribadi', 'url' => '/student/student-data-diri', 'encode'=>false],
+            ['label' => '<i class="bi bi-tags-fill menu-icon"></i> Data Pribadi'.$icon, 'url' => '/student/student-data-diri', 'encode'=>false],
             ['label' => '<i class="bi bi-people-fill menu-icon"></i> Data Orang Tua', 'url' => '/student/student-data-o-tua', 'encode'=>false],
             ['label' => '<i class="bi bi-person-lines-fill menu-icon"></i> Data Akademik', 'url' => '/student/student-akademik','encode'=>false],
-            ['label' => '<i class="bi bi-file-earmark-plus-fill menu-icon"></i> Data Bahasa', 'url' => '/student/student-bahasa', 'encode'=>false],
+            ['label' => '<i class="bi bi-file-earmark-plus-fill menu-icon"></i> Data Kemampuan Bahasa', 'url' => '/student/student-bahasa', 'encode'=>false],
             ['label' => '<i class="bi bi-pin-fill menu-icon"></i> Data Ekstrakurikuler', 'url' => '/student/student-extra', 'encode'=>false],
             ['label' => '<i class="bi bi-trophy-fill menu-icon"></i> Data Prestasi', 'url'=>'/student/student-prestasi','encode'=>false],
             ['label' => ' <i class="bi bi-webcam-fill menu-icon"></i> Data Sumber Informasi', 'url'=>'/student/student-informasi', 'encode'=>false],
@@ -101,6 +105,8 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => '<i class="bi bi-megaphone"></i> <span class="nav-label">Pengumuman</span>', 
     'url' => ['/student/student-pengumuman'], 
     'encode' => false];
+    // $menuItems[] = ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Ubah Password</span>', 'url' => ['/student/change-password'], 'encode'=>false];
+
     $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right"></i> <span class="nav-label">Logout (' . Yii::$app->user->identity->username . ')</span>', 
                     'url' => ['/site/logout'], 
                     'linkOptions' => ['data-method' => 'post'], 
