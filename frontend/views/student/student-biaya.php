@@ -36,9 +36,6 @@
     .my-form .form-control {
         border-radius: 5px;
     }
-    .btn-primary {
-        background-color: #212529 !important; /* Replace #yourColor with your specific color */
-    }
 </style>
 </html>
 <?php
@@ -56,7 +53,7 @@ $title  = 'Data Diri Mahasiswa';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
-
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Biaya Pendaftaran UTBK  '.date('Y'). '</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model,'biaya_awal',
@@ -84,7 +81,7 @@ $title  = 'Data Diri Mahasiswa';
             </span>
             {input}
             <span class="input-group-btn" style="margin-left: 10px;">
-            <button class="btn btn-primary" type="submit">Claim Voucher</button>            
+            <button class="btn btn-primary" type="submit">Pakai Voucher</button>            
             </span>
         </div>'
 ])->label('Voucher')->textInput(['placeholder' => 'Masukan Kode Voucher']);
@@ -104,3 +101,4 @@ $title  = 'Data Diri Mahasiswa';
   ->textInput(['value' => $model->setStatusPembayaran(), 'disabled' => true])
   ?>      
 <?php ActiveForm::end(); ?>
+</div>

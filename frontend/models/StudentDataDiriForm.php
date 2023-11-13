@@ -179,6 +179,25 @@ class StudentDataDiriForm extends Model {
         //if the user_id is not yet exist, return false
         return false;
     }
+    //get nik from t_user, and send it to the view
+    public static function getNikUser()
+    {
+        $sql = "SELECT nik FROM t_user WHERE user_id = ".self::getCurrentUserId();
+        $result  = Yii::$app->db->createCommand($sql)->queryOne();
+        return $result['nik'];
+    }
+    //get email from t_user, and send it to the view
+    public static function getEmailUser(){
+        $sql = "SELECT email FROM t_user WHERE user_id = ".self::getCurrentUserId();
+        $result  = Yii::$app->db->createCommand($sql)->queryOne();
+        return $result['email'];
+    }
+        //get email from t_user, and send it to the view
+    public static function getWaUser(){
+        $sql = "SELECT no_HP FROM t_user WHERE user_id = ".self::getCurrentUserId();
+        $result  = Yii::$app->db->createCommand($sql)->queryOne();
+        return $result['no_HP'];
+    }
 }
 
 ?>

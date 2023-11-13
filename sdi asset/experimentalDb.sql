@@ -12,6 +12,7 @@ create table t_user (
 describe t_user;
 -- update t_user structure, email column default value is null
 alter table t_user alter column email set default 0;
+ALTER table t_prestasi alter column jenis_prestasi set jenis_prestasi(varchar (50));
 -- add field verf_code to t_user table
 alter table t_user add column verf_code varchar(255) not null;
 --update t_pendaftar structure, default value of pendaftaran_id 0
@@ -220,3 +221,5 @@ create table `t_pendaftar`(
   KEY `fk_t_pendaftar_t_gelombang_pendaftaran1_idx` (`gelombang_pendaftaran_id`),
   KEY `fk_t_pendaftar_t_r_lokasi_ujian` (`lokasi_ujian_id`)
 );
+-- change the structure table t_prestasi
+ALTER TABLE t_prestasi MODIFY COLUMN jenis_prestasi varchar(50);

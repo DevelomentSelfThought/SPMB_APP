@@ -45,6 +45,7 @@ $title  = 'Data Informasi Mahasiswa Baru';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Informasi Penerimaan Mahasiswa Baru</span>', ['class' => 'ruler']) ?>
     <?php
@@ -143,6 +144,7 @@ $data  =  [
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

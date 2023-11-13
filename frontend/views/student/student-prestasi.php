@@ -49,6 +49,7 @@ $title = 'Data Prestasi';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 
 'id' => 'student-extra-form',
 'fieldConfig' => [
@@ -374,6 +375,7 @@ $title_extra  = "Data Prestasi";
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

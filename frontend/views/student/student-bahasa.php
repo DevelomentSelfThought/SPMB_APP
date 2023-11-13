@@ -45,6 +45,7 @@ $title  = 'Data Kemampuan Bahasa Asing';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Kemampuan Bahasa Asing</span>', ['class' => 'ruler']) ?>
     <?php
@@ -81,6 +82,7 @@ $title  = 'Data Kemampuan Bahasa Asing';
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

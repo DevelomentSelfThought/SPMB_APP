@@ -54,6 +54,7 @@
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Data Orang Tua</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_data_o,'nama_ayah_kandung',
@@ -279,6 +280,8 @@ echo $form->field($model_student_data_o, 'kecamatan',
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
+
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

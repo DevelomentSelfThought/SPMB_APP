@@ -115,7 +115,7 @@ $this->title = 'Registrasi Akun Calon Mahasiswa Baru';
                 </svg></span>{input}</div>']
                 )->textInput(['maxlength'=>true, 'placeholder'=>'No. Whatsapp'])->label(false) ?>
                 <div class="form-group col-sm-12">
-                    <?= Html::submitButton('Daftar Akun', ['class' => 'btn btn-primary btn-block form-control']) ?>
+                    <?= Html::submitButton('Buat Akun', ['class' => 'btn btn-primary btn-block form-control']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

@@ -41,6 +41,9 @@
 //this page is intended to be used as a view for student personal information (data diri)
 // Path: views/student/student-data-diri.php
 // current status is experimental, need more improvement with the design
+
+use app\models\StudentDataDiri;
+use app\models\StudentDataDiriForm;
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap5\ActiveForm;
@@ -52,7 +55,7 @@ $title  = 'Data Diri Mahasiswa';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
-
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Data Pribadi</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_data_diri,'nama',
@@ -80,7 +83,8 @@ $title  = 'Data Diri Mahasiswa';
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
         <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
         </svg></span>{input}</div>'])->label('NIK')->input('number')
-        ->textInput(['placeholder' => 'Contoh: 1222031606152635'])
+        ->textInput(['placeholder' => 'Contoh: 1222031606152635',
+        'value'=>StudentDataDiriForm::getNikUser(), 'readonly'=>true])
     ?>
     </div>
     <div class="col">
@@ -182,7 +186,9 @@ $title  = 'Data Diri Mahasiswa';
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mailbox-flag" viewBox="0 0 16 16">
         <path d="M10.5 8.5V3.707l.854-.853A.5.5 0 0 0 11.5 2.5v-2A.5.5 0 0 0 11 0H9.5a.5.5 0 0 0-.5.5v8h1.5ZM5 7c0 .334-.164.264-.415.157C4.42 7.087 4.218 7 4 7c-.218 0-.42.086-.585.157C3.164 7.264 3 7.334 3 7a1 1 0 0 1 2 0Z"/>
         <path d="M4 3h4v1H6.646A3.99 3.99 0 0 1 8 7v6h7V7a3 3 0 0 0-3-3V3a4 4 0 0 1 4 4v6a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V7a4 4 0 0 1 4-4Zm0 1a3 3 0 0 0-3 3v6h6V7a3 3 0 0 0-3-3Z"/>
-        </svg>  </span>{input}</div>'])->label('Email')->textInput(['placeholder'=>'@gmail.com, @yahoo.com']); 
+        </svg>  </span>{input}</div>'])->label('Email')
+        ->textInput(['placeholder'=>'@gmail.com, @yahoo.com', 
+        'value'=>StudentDataDiriForm::getEmailUser(), 'readonly'=>true]); 
     ?>
     </div>
 </div>    
@@ -266,7 +272,8 @@ $title  = 'Data Diri Mahasiswa';
         <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
         </svg></span>{input}</div>'])
         ->label('Whatsapp')
-        ->textInput(['placeholder' => 'Contoh: 081234567890']); ?>
+        ->textInput(['placeholder' => 'Contoh: 081234567890',
+        'value'=>StudentDataDiriForm::getWaUser(), 'readonly'=>true]); ?>
 </div>
 </div>        
 
@@ -275,6 +282,8 @@ $title  = 'Data Diri Mahasiswa';
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+
+</div>
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

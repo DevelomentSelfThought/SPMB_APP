@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style> 
 .custom-background {
         background-color: #f8f9fa;
@@ -50,43 +51,116 @@ h2{
     font-weight: bold;
     color: #0093ad;
 }
+.row {
+        display: flex;
+        align-items: center;
+    }
+    .img-fluid {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: cover;
+    }
+    .full-width-btn {
+        display: block;
+        width: 100%;
+    }
 </style>
 </head>
 <body>                            
 <?php
 /** @var yii\web\View $this */
-
+use yii\helpers\Html;
 $this->title = 'SPMB App-IT Del';
 ?>
 <div class="site-index">
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-6 order-lg-2">
+            <h2 class="display-4">Selamat Datang di Portal Penerimaan Mahasiswa Baru IT Del</h2> <br><br>
+            <p class="lead">Portal seleksi penerimaan mahasiswa baru ini merupakan portal informasi  untuk calon mahasiswa baru 
+                Institut Teknologi Del. Temukan informasi terkait penerimaan mahasiswa baru di portal ini. </p>
+                <br>
+                <?= Html::a('Buat Akun', ['register-student'], ['class' => 'btn btn-primary full-width-btn']) ?>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <img src="/bground/asset_prodi.png" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
 
+<div class="regpro">    
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="display-4">Kembangkan Diri dan Berinovasi Untuk Indonesia</h2> <br>
+            <p class="lead">IT Del hadir sebagai jawaban untuk kamu yang ingin mengembangkan diri, 
+                mendapatkan pengalaman dan berkontribusi langsung menghasilkan karya terbaik bagi bangsa melalui pendidikan, 
+                serta membangun networking untuk modal kamu di masa depan. </p>
+        </div>
+        <div class="col-lg-6">
+            <img src="/bground/1.jpg" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
+</div>
+<br><br>
+<div class="regpro">  
+<h2>Menjadi Mahasiswa dengan Karakter 3M</h2>  <br>  <br>
+<div class="container">    
+    <div class="row align-items-start text-center">
+        <div class="col">
+            <i class="fas fa-cross fa-3x mb-3"></i>
+            <h2 class="mb-3">MarTuhan</h2>
+            <p>MarTuhan adalah keyakinan akan keberadaan Tuhan dan kesetiaan 
+            untuk mengenal dan mengasihi Tuhan, sebagai sambutan atas kasih Tuhan kepada manusia, 
+            yang membangkitkan gairah belajar disiplin kontemplatif spiritual yang membentuk pembaharuan 
+            budi sehingga menimbulkan kepedulian.</p>
+        </div>
+        <div class="col">
+            <i class="fas fa-heart fa-3x mb-3"></i>
+            <h2 class="mb-3">MarRoha</h2>
+            <p>MarRoha adalah sikap dalam bertindak berlandaskan pada kerendahan hati dengan 
+            penuh tanggung jawab, melakukan apapun dengan hati, dan tunduk pada nilai-nilai moral dalam kaitannya 
+            dengan makhluk hidup lainnya. Integritas: kesadaran moral dan etika menuju kebajikan.</p>
+        </div>
+        <div class="col">
+            <i class="fas fa-book fa-3x mb-3"></i>
+            <h2 class="mb-3">MarBisuk</h2>
+            <p>MarBisuk adalah bijaksana berdasarkan hikmat yang mengedepankan kearifan dan pengertian 
+            berdasarkan penguasaan pengetahuan dan kecakapan dalam bekerja dan kesediaan belajar sepanjang hayat. 
+            Ilmu: cakap dan berkarya dengan akal budi menuju hikmat.</p>
+        </div>
+    </div>
+</div>
+</div> 
+<br>
 <div class="regpro">
-    <h2>Alur Pendaftaran Mahasiswa Baru</h2>    <br>
+    <h2>Alur Pendaftaran Mahasiswa Baru</h2>  <br>  <br>
     <ol class="timeline">
     <li class="timeline-item">
-        <strong>Step 1:<br></strong> Registrasi Akun
+        <strong>Tahap 1:<br></strong> Registrasi Akun
     </li>
     <li class="timeline-item">
-        <strong>Step 2:<br></strong> Pengisian Data Diri
+        <strong>Tahap 2:<br></strong> Pengisian Data Diri
     </li>
     <li class="timeline-item">
-        <strong>Step 3:<br></strong> Upload Berkas Persyaratan
+        <strong>Tahap 3:<br></strong> Upload Berkas Persyaratan
     </li>
     <li class="timeline-item">
-        <strong>Step 4:<br></strong> Pembayaran Biaya Pendaftaran
+        <strong>Tahap 4:<br></strong> Pembayaran Biaya Pendaftaran
     </li>
     <li class="timeline-item">
-        <strong>Step 5:<br></strong> Seleksi Administrasi & Akademik
+        <strong>Tahap 5:<br></strong> Seleksi Administrasi & Akademik
     </li>
     <li class="timeline-item">
-        <strong>Step 6:<br></strong> Pendaftaran Ulang
+        <strong>Tahap 6:<br></strong> Pendaftaran Ulang
     </li>
     </ol>
-    <br>
+    <br> <br>
 </div>
 <br>       
 <div class="custom-background">
-        <h2 style="text-align: center;"> Pertanyaan yang Paling Sering Ditanyakan </h2> <br>
+        <h2 style="text-align: center;"> Pertanyaan yang Paling Sering Ditanyakan </h2> <br><br>
         <!-- Add your content here -->
     <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">  
     <div class="accordion-item">

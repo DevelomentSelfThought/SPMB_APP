@@ -51,8 +51,7 @@ class StudentBiayaForm extends Model{
     }
     //function for set status pembayaran
     public function setStatusPembayaran(){
-        $status_pembayaran="Lunas";
-        return $status_pembayaran;
+        return self::getStatusPembayaran() ? "Lunas" : "Belum Lunas";
     }
 }
 

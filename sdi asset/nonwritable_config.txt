@@ -1,0 +1,2 @@
+sudo restorecon /var/www/html/myproject/upload -R
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/myproject/upload -R

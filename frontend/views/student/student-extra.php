@@ -3,9 +3,6 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
-    body {
-        /* background: #f5f5f5; */
-    }
     .ruler {
         position: relative;
         text-align: center;
@@ -52,6 +49,7 @@ $title = 'Pengalaman Organisasi';
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 
 'id' => 'student-extra-form',
 'fieldConfig' => [
@@ -545,6 +543,7 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
+</div>
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {

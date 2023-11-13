@@ -24,10 +24,10 @@ class StudentRegisterForm extends Model {
             [['nik','username','email','password','password_repeat','no_HP'],'required'],
             ['email','email'],
             ['password_repeat','compare','compareAttribute'=>'password'],
-            ['nik','unique','targetClass'=>'\app\models\Student','message'=>'NIK anda sudah terdaftar'],
+            // ['nik','unique','targetClass'=>'\app\models\Student','message'=>'NIK anda sudah terdaftar'],
             ['username','unique','targetClass'=>'\app\models\Student','message'=>'Username sudah digunakan, harap gunakan username lain !'],
-            ['email','unique','targetClass'=>'\app\models\Student','message'=>'Email anda sudah terdaftar !'],
-            ['no_HP','unique','targetClass'=>'\app\models\Student','message'=>'Nomor telepon anda sudah terdaftar !'],
+            // ['email','unique','targetClass'=>'\app\models\Student','message'=>'Email anda sudah terdaftar !'],
+            // ['no_HP','unique','targetClass'=>'\app\models\Student','message'=>'Nomor telepon anda sudah terdaftar !'],
             
             ['nik','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
             ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail)+\.(com|co.id)$/','message'=>'Email tidak valid'],
