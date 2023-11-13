@@ -259,5 +259,18 @@ class StudentAkademikForm extends Model {
         $no_utbk = preg_replace("/[^0-9]/", "", $no_utbk);
         return $no_utbk;
     }
+    //check if the data akademik is filled
+    public static function isFillDataAkademik(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT sekolah_dapodik_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result['sekolah_dapodik_id'] != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
 ?>

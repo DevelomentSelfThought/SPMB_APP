@@ -225,5 +225,19 @@ class StudentExtraForm extends Model {
         }
         return false;
     }
+    //function to check whether the data is already filled, need modification since the table is indepedent
+    public static function isFillDataExtra(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT nama FROM t_organisasi WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        $sql_extrakur= "SELECT nama FROM t_ekstrakurikuler WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $result_extrakur = Yii::$app->db->createCommand($sql_extrakur)->queryOne();
+        if(is_array($result) && $result['nama'] != null 
+            && is_array($result_extrakur) && $result_extrakur['nama'] != null){
+            return true;
+        }
+        return false;
+    }
 }
 ?>

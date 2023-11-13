@@ -65,6 +65,19 @@ class StudentBahasaForm extends Model{
         return false;
         //sql command to insert bahasa data to database
     }
+    //function to check if the data bahasa is filled
+    public static function isFillDataBahasa(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT kemampuan_bahasa_inggris FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result['kemampuan_bahasa_inggris'] != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
 
 ?>

@@ -145,7 +145,7 @@ class StudentController extends Controller // StudentController extends the Cont
         $model_student_data_o = new StudentDataOForm(); //create an instance of the StudentDataOForm class
         if($model_student_data_o->load(Yii::$app->request->post())
             && $model_student_data_o->insertDataOTua()){
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+            return $this->redirect(['student/student-akademik']);        
         }
         return $this->render('student-data-o-tua',
             ['model_student_data_o'=>$model_student_data_o]); //render the parent information page(data orang tua)

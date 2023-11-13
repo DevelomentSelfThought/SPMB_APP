@@ -46,8 +46,8 @@ class StudentBiayaForm extends Model{
         return $this->getBiayaAwal();
     }
     //function for get Status Pembayaran from table
-    public function getStatusPembayaran(){
-        return true;
+    public static function getStatusPembayaran(){
+        return false;
     }
     //function for set status pembayaran
     public function setStatusPembayaran(){

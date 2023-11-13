@@ -173,7 +173,7 @@ class StudentDataDiriForm extends Model {
         //execute the sql command
         $result = Yii::$app->db->createCommand($sql)->queryOne();
         //if the user_id is already exist, return true
-        if($result != null){
+        if($result['nama'] != null){
             return true;
         }
         //if the user_id is not yet exist, return false

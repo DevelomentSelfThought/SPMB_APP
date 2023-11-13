@@ -207,6 +207,18 @@ class StudentPrestasiForm extends Model{
         }
         return false;
     }
-    
+    //function to check if the data prestasi is filled
+    public static function isFillDataPrestasi(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT nama FROM t_prestasi WHERE pendaftar_id = (SELECT pendaftar_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId().")";
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if(is_array($result) && $result['nama'] != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
 ?>

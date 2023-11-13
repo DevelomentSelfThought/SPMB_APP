@@ -80,5 +80,18 @@ class StudentInformasiForm extends Model{
         'Pekerjaan' => 'Pekerjaan',
         'Lainnya' => 'Lainnya',
     ];
+    //function to check if the data informasi is filled
+    public static function isFillDataInformasi(){
+        //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT motivasi FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result['motivasi'] != null){
+            return true;
+        }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
 ?>

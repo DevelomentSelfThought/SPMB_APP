@@ -66,7 +66,7 @@ class StudentDataOForm extends Model{
         return [
             [['nama_ayah_kandung','nama_ibu_kandung','tanggal_lahir_ayah','tanggal_lahir_ibu',
                 'pendidikan_ayah', 'pendidikan_ibu','pekerjaan_ayah','pekerjaan_ibu',
-                'penghasilan_ayah','penghasilan_ibu','kelurahan','provinsi','kecamatan','kabupaten'
+                'penghasilan_ayah','penghasilan_ibu','provinsi','kecamatan','kabupaten'
                 ,'alamat_orang_tua',/*'keluruhan','provinsi','kabupaten','kecamatan,'*/'no_hp_orangtua',], 'required'],
 
             ['nik_ayah','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
@@ -138,6 +138,19 @@ class StudentDataOForm extends Model{
                 }
             }
             return false; //return false if validation failed
+    }
+    public static function isFillDataOTua(){
+            //sql command to check whether the user_id is already exist in the table t_pendaftar
+        $sql = "SELECT nama_ayah_kandung FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+            //execute the sql command
+        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        //if the user_id is already exist, return true
+        if($result['nama_ayah_kandung'] != null){
+            return true;
         }
+        //if the user_id is not yet exist, return false
+        return false;
+    }
 }
+
 ?>
