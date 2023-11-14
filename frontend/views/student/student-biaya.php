@@ -1,4 +1,5 @@
 <html lang="">
+<title>Informasi Biaya Pendaftaran</title>
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>

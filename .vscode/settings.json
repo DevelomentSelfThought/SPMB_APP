@@ -1,0 +1,31 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "spmb",
+            "database": "spmb",
+            "username": "sdi",
+            "askForPassword": true
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "172.21.1.13",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "spm",
+            "database": "spmbapp_itdel",
+            "username": "spmbapp_del"
+        }
+    ]
+}
