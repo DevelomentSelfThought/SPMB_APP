@@ -4,6 +4,7 @@
 namespace app\models;
 use Yii;
 use Exception;
+use PhpParser\Node\Stmt\Return_;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 
@@ -192,11 +193,22 @@ class StudentDataDiriForm extends Model {
         $result  = Yii::$app->db->createCommand($sql)->queryOne();
         return $result['email'];
     }
-        //get email from t_user, and send it to the view
+    //get email from t_user, and send it to the view
     public static function getWaUser(){
         $sql = "SELECT no_HP FROM t_user WHERE user_id = ".self::getCurrentUserId();
         $result  = Yii::$app->db->createCommand($sql)->queryOne();
         return $result['no_HP'];
+    }
+    //repopulated the data to the form
+    public static function findDataDiri(){
+        $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if($data !== false){
+            $model  = new self();
+            $model->setAttributes($data, false); //populated the data to the form
+            return $model;
+        }
+        return null;
     }
 }
 

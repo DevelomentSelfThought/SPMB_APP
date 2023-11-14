@@ -20,17 +20,17 @@ class StudentDataOForm extends Model{
     //parent education list
     public  static $education = [
         //generate all available education level as key value pair
-        '1' => 'Tidak Sekolah',
-        '2' => 'SD',
-        '3' => 'SMP',
-        '4' => 'SMA',
-        '5' => 'D1',
-        '6' => 'D2',
-        '7' => 'D3',
-        '8' => 'D4',
-        '9' => 'S1',
-        '10' => 'S2',
-        '11' => 'S3',
+        1 => 'Tidak Sekolah',
+        2 => 'SD',
+        3 => 'SMP',
+        4 => 'SMA',
+        5 => 'D1',
+        6 => 'D2',
+        7 => 'D3',
+        8 => 'D4',
+        9 => 'S1',
+        10 => 'S2',
+        11 => 'S3',
     ];
     //parent job list
     public static $job =[
@@ -150,6 +150,17 @@ class StudentDataOForm extends Model{
         }
         //if the user_id is not yet exist, return false
         return false;
+    }
+    //populating the data to the form data orang tua
+    public static function findDataOTua(){
+        $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if($data !== false){
+            $model  = new self();
+            $model->setAttributes($data, false); //populated the data to the form
+            return $model;
+        }
+        return null;
     }
 }
 

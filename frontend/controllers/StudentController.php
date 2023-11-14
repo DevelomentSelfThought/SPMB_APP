@@ -132,7 +132,19 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for insert data diri
     public function actionStudentDataDiri() { //action for personal information form
         //action for personal information form
-        $model_student_data_diri = new StudentDataDiriForm(); //create an instance of the StudentDataDiriForm class
+
+        /*$model_student_data_diri = new StudentDataDiriForm(); //create an instance of the StudentDataDiriForm class
+        if($model_student_data_diri->load(Yii::$app->request->post())
+            && $model_student_data_diri->insertDataDiri()){
+            return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
+        }
+        return $this->render('student-data-diri',
+            ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)
+        */
+        $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
+        if($model_student_data_diri === null){
+            $model_student_data_diri = new StudentDataDiriForm();
+        }
         if($model_student_data_diri->load(Yii::$app->request->post())
             && $model_student_data_diri->insertDataDiri()){
             return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
@@ -142,7 +154,15 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for insert data orang tua
     public function actionStudentDataOTua() {
-        $model_student_data_o = new StudentDataOForm(); //create an instance of the StudentDataOForm class
+        /*$model_student_data_o = new StudentDataOForm(); //create an instance of the StudentDataOForm class
+        if($model_student_data_o->load(Yii::$app->request->post())
+            && $model_student_data_o->insertDataOTua()){
+            return $this->redirect(['student/student-akademik']);        
+        }*/
+        $model_student_data_o = StudentDataOForm::findDataOTua(); //create an instance of the StudentDataDiriForm class
+        if($model_student_data_o === null){
+            $model_student_data_o = new StudentDataOForm();
+        }
         if($model_student_data_o->load(Yii::$app->request->post())
             && $model_student_data_o->insertDataOTua()){
             return $this->redirect(['student/student-akademik']);        

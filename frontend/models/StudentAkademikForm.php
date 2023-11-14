@@ -272,5 +272,59 @@ class StudentAkademikForm extends Model {
         //if the user_id is not yet exist, return false
         return false;
     }
+    //fetch Asal Sekolah from t_pendaftar
+    public static function fetchAsalSekolah(){
+        $sql = "SELECT sekolah_dapodik_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        $sql = "SELECT sekolah FROM t_r_sekolah_dapodik WHERE npsn = '$data'";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch no peserta utbk  
+    public static function fetchNoPesertaUtbk(){
+        $sql = "SELECT no_peserta FROM t_utbk WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch tanggal ujian utbk
+    public static function fetchTanggalUjianUtbk(){
+        $sql = "SELECT tanggal_ujian FROM t_utbk WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch nilai penalaran umum
+    public static function fetchNilaiPenalaranUmum(){
+        
+        $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 18";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch nilai penalaran kuantitatif
+    public static function fetchNilaiPenalaranKuantitatif(){
+        
+        $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 19";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch nilai penalaran pengetahuan umum
+    public static function fetchNilaiPenalaranPengetahuanUmum(){
+        
+        $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 20";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch nilai penalaran bacaan
+    public static function fetchNilaiPenalaranBacaan(){
+        
+        $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 21";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
+    //fetch utbk_id from t_utbk
+    public static function fetchUtbkId(){
+        $sql = "SELECT utbk_id FROM t_utbk WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        return $data;
+    }
 }
 ?>

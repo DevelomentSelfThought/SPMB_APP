@@ -50,6 +50,8 @@
 //this page is intended to be used as a view for student personal information (data diri)
 // Path: views/student/student-data-diri.php
 // current status is experimental, need more improvement with the design
+
+use app\models\StudentAkademikForm;
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap5\ActiveForm;
@@ -81,7 +83,7 @@ use yii\web\JsExpression;
     ],
     'options' => [
         'class' => 'form-control',
-        'placeholder' => 'Cari Sekolah (SMA/ SMK) ...',
+        'placeholder' => 'Cari Sekolah (SMA/ SMK) ...', 'value' => StudentAkademikForm::fetchAsalSekolah(),
     ],])->label('Asal Sekolah') ?>
 
     <?php 
@@ -107,7 +109,8 @@ use yii\web\JsExpression;
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
         <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
-        </svg></span>{input}</div>'])->label('Nomor Peserta UTBK')->textInput(['placeholder'=>'Contoh : 23-1110-010002']); 
+        </svg></span>{input}</div>'])->label('Nomor Peserta UTBK')
+        ->textInput(['placeholder'=>'Contoh : 23-1110-010002','value' => StudentAkademikForm::fetchNoPesertaUtbk()]); 
 ?>
 
 <?php
@@ -123,7 +126,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         'changeMonth' => true,
         'yearRange' => '-100:+0',
     ],
-    ])->textInput(['placeholder'=>'Contoh: 2002-01-31'])->label('Tanggal Ujian UTBK');
+    ])->textInput(['placeholder'=>'Contoh: 2002-01-31', 'value'=> StudentAkademikForm::fetchTanggalUjianUtbk()])->label('Tanggal Ujian UTBK');
 ?>
 <?php echo $form->field($model_student_akademik, 'file')->fileInput()->label("File Sertifikat UTBK") ?>
 
@@ -136,7 +139,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
         </svg></span>{input}</div>'])->label('Penalaran Umum')
-        ->textInput(['placeholder'=>'Nilai penalaran umum']); 
+        ->textInput(['placeholder'=>'Nilai penalaran umum', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
 ?>
     </div>
     <div class="col">
@@ -147,7 +150,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
         </svg></span>{input}</div>'])->label('Pengetahuan Kuantitatif')
-        ->textInput(['placeholder'=>'Nilai pengetahuan kuantitatif']); 
+        ->textInput(['placeholder'=>'Nilai pengetahuan kuantitatif', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
 ?>
     </div>
     <div class="col">
@@ -158,7 +161,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
         </svg></span>{input}</div>'])->label('Pengetahuan Umum')
-        ->textInput(['placeholder'=>'Pengetahuan dan pemahamaan']); 
+        ->textInput(['placeholder'=>'Pengetahuan dan pemahamaan', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
 ?>
     </div>
     <div class="col">
@@ -169,7 +172,7 @@ echo $form->field($model_student_akademik, 'tanggal_ujian_utbk',
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
         </svg></span>{input}</div>'])->label('Bacaan dan Menulis')
-        ->textInput(['placeholder'=>'Memahami bacaan dan menulis']); 
+        ->textInput(['placeholder'=>'Memahami bacaan dan menulis', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
 ?>
     </div>
 </div>
