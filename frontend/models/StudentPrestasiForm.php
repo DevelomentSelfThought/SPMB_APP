@@ -212,13 +212,50 @@ class StudentPrestasiForm extends Model{
         //sql command to check whether the user_id is already exist in the table t_pendaftar
         $sql = "SELECT nama FROM t_prestasi WHERE pendaftar_id = (SELECT pendaftar_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId().")";
         //execute the sql command
-        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        $result = Yii::$app->db->createCommand($sql)->queryScalar();
         //if the user_id is already exist, return true
-        if(is_array($result) && $result['nama'] != null){
+        if($result)
             return true;
-        }
         //if the user_id is not yet exist, return false
         return false;
+    }
+    //fetch data prestasi from database
+    public static function fetchDataPrestasi(){
+        //sql count total pendaftar_id from table t_organisasi
+        $sql = "SELECT COUNT(pendaftar_id) FROM t_prestasi WHERE jenis_prestasi='Akademik' AND pendaftar_id = ".
+            StudentDataDiriForm::getCurrentPendaftarId() ;
+        //execute the sql command
+        $count = Yii::$app->db->createCommand($sql)->queryScalar();
+        $maks = 4; //maximum number of prestasi, ensure while fetch the data index is not out of bound
+        $data = array_fill(0, $maks, array_fill(0, 2, null));
+        if($count) {
+            $sql_ekstra  = "SELECT nama, tahun from t_prestasi where jenis_prestasi='Akademik' AND pendaftar_id =".
+                StudentDataDiriForm::getCurrentPendaftarId();
+            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
+            foreach ($ekstraku_data as $index => $row){
+                $data[$index]  = [$row['nama'], $row['tahun']];
+            }
+        }
+        return $data;
+    }
+    //fetch data prestasi non-akademik from database
+    public static function fetchDataPrestasiNon(){
+        //sql count total pendaftar_id from table t_organisasi
+        $sql = "SELECT COUNT(pendaftar_id) FROM t_prestasi WHERE jenis_prestasi='Non Akademik' AND pendaftar_id = ".
+            StudentDataDiriForm::getCurrentPendaftarId() ;
+        //execute the sql command
+        $count = Yii::$app->db->createCommand($sql)->queryScalar();
+        $maks = 4; //maximum number of prestasi, ensure while fetch the data index is not out of bound
+        $data = array_fill(0, $maks, array_fill(0, 2, null));
+        if($count) {
+            $sql_ekstra  = "SELECT nama, tahun from t_prestasi where jenis_prestasi='Non Akademik' AND pendaftar_id =".
+                StudentDataDiriForm::getCurrentPendaftarId();
+            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
+            foreach ($ekstraku_data as $index => $row){
+                $data[$index]  = [$row['nama'], $row['tahun']];
+            }
+        }
+        return $data;
     }
 }
 ?>

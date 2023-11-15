@@ -243,11 +243,15 @@ public function actionStudentBahasa(){
 }
 //action for data prestasi, to do more clean up on this action
 public function actionStudentPrestasi(){
+    $populate_pres  = StudentPrestasiForm::fetchDataPrestasi(); //fetch prestasi data
+    $populate_pres_non  = StudentPrestasiForm::fetchDataPrestasiNon(); //fetch prestasi non akademik data
     $model  = new StudentPrestasiForm();
     if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
         return $this->redirect(['student/student-informasi']);
     }
-    return $this->render('student-prestasi',['model'=>$model]);
+    return $this->render('student-prestasi',[
+        'model'=>$model, 'populate_pres'=>$populate_pres,'populate_pres_non'=>$populate_pres_non
+    ]);
 }
 //action for store information, to do more clean up on this action
 public function actionStudentInformasi(){
