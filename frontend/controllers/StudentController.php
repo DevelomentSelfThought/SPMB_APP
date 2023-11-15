@@ -11,6 +11,7 @@ use app\models\StudentDataOForm;
 use app\models\StudentDataOrangTuaForm;
 use app\models\StudentExtraForm;
 use app\models\StudentLoginForm;
+use app\models\StudentAnnouncement;
 use app\models\StudentRegisterForm;
 use app\models\StudentResetForm;
 use app\models\StudentTokenForm;
@@ -36,11 +37,13 @@ class StudentController extends Controller // StudentController extends the Cont
                 'class' => AccessControl::class,
                 //only registered users can access the following actions : student-data-diri, student-data-o-tua, student-extra
                 'only' => ['register-student','student-data-diri', 'student-data-o-tua', 'student-extra',
-                    'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya'],
+                    'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya',
+                    'student-announcement'],
                 'rules' => [
                     [
                         'actions' => ['student-data-diri', 'student-data-o-tua', 'student-extra',
-                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya'],
+                            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi','student-biaya',
+                            'student-announcement'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,7 +66,8 @@ class StudentController extends Controller // StudentController extends the Cont
    public function beforeAction($action)
     {
         if (in_array($action->id, ['student-data-diri', 'student-data-o-tua', 'student-extra',
-            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi', 'student-biaya'])) {
+            'student-akademik', 'student-bahasa', 'student-prestasi', 'student-informasi', 'student-biaya',
+            'student-announcement'])) {
             if (Yii::$app->user->isGuest) {
                 return $this->redirect(['student/login']);
             }
@@ -282,6 +286,15 @@ public function actionStudentPengumuman(){
         return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
     }
     return $this->render('student-pengumuman',['model'=>$model]);
+}
+//action for announcement, to do more clean up on this action
+public function actionStudentAnnouncement(){
+    $model = new StudentAnnouncement();
+    //set flash message if the data is successfully inserted to database
+    /*if($model->load(Yii::$app->request->post()) && $model->insertAnnouncementData()){
+        return $this->redirect(['student/student-biaya']); //to do: change this to announcement page
+    }*/
+    return $this->render('student-announcement',['model'=>$model]);
 }
 }
 ?>
