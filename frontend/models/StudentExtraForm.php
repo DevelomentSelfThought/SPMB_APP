@@ -220,7 +220,7 @@ class StudentExtraForm extends Model {
                 //Yii::$app->session->setFlash('error', $e->getMessage());
                 //show an error message if the exception is catched using bootstrap aler but encoded the message first
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
-                echo $e->getMessage();
+                //echo $e->getMessage();
             }   
         }
         return false;
@@ -238,6 +238,52 @@ class StudentExtraForm extends Model {
             return true;
         }
         return false;
+    }
+    //fetch data extrakurikuler from database, need modification since the table is indepedent
+    public static function fetchEkstrakurikuler(){
+        //sql count total pendaftar_id from table t_ekstrakurikuler
+        $sql = "SELECT COUNT(pendaftar_id) FROM t_ekstrakurikuler WHERE pendaftar_id = ".
+            StudentDataDiriForm::getCurrentPendaftarId();
+        //execute the sql command
+        $count = Yii::$app->db->createCommand($sql)->queryScalar();
+        $maks = 4; //maximum number of ekstrakurikuler, ensure while fetch the data index is not out of bound
+        //define matrix size to store data ekstrakurikuler from database, size is $count x 3
+        $data = array_fill(0, $maks, array_fill(0, 3, null));
+        //sql command to fetch data ekstrakurikuler from database
+        if($count) {
+            //fill matrix with data ekstrakurikuler who already store in table t_ekstrakurikuler
+            //the field will ready and store to matrix is nama,mulai, berakhir
+            $sql_ekstra  = "SELECT nama, mulai, berakhir from t_ekstrakurikuler where pendaftar_id =".
+                StudentDataDiriForm::getCurrentPendaftarId();
+            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
+            foreach ($ekstraku_data as $index => $row){
+                $data[$index]  = [$row['nama'], $row['mulai'],$row['berakhir']];
+            }
+        }
+        return $data;
+    }
+        //fetch data extrakurikuler from database, need modification since the table is indepedent
+    public static function fetchOrganisai(){
+        //sql count total pendaftar_id from table t_ekstrakurikuler
+        $sql = "SELECT COUNT(pendaftar_id) FROM t_organisasi WHERE pendaftar_id = ".
+            StudentDataDiriForm::getCurrentPendaftarId();
+        //execute the sql command
+        $count = Yii::$app->db->createCommand($sql)->queryScalar();
+        $maks = 4; //maximum number of ekstrakurikuler, ensure while fetch the data index is not out of bound
+        //define matrix size to store data ekstrakurikuler from database, size is $count x 3
+        $data = array_fill(0, $maks, array_fill(0, 3, null));
+        //sql command to fetch data ekstrakurikuler from database
+        if($count) {
+            //fill matrix with data ekstrakurikuler who already store in table t_ekstrakurikuler
+            //the field will ready and store to matrix is nama,mulai, berakhir
+            $sql_ekstra  = "SELECT nama, mulai, berakhir from t_organisasi where pendaftar_id =".
+                StudentDataDiriForm::getCurrentPendaftarId();
+            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
+            foreach ($ekstraku_data as $index => $row){
+                $data[$index]  = [$row['nama'], $row['mulai'],$row['berakhir']];
+            }
+        }
+        return $data;
     }
 }
 ?>

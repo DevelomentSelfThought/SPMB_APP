@@ -294,28 +294,36 @@ class StudentAkademikForm extends Model {
     }
     //fetch nilai penalaran umum
     public static function fetchNilaiPenalaranUmum(){
-        
+        if(self::fetchUtbkId() == null){ //handling for first time user, worst case
+            return null;
+        }
         $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 18";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
     }
     //fetch nilai penalaran kuantitatif
     public static function fetchNilaiPenalaranKuantitatif(){
-        
+        if(self::fetchUtbkId() == null){ //handling for first time user, worst case
+            return null;
+        }
         $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 19";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
     }
     //fetch nilai penalaran pengetahuan umum
     public static function fetchNilaiPenalaranPengetahuanUmum(){
-        
+        if(self::fetchUtbkId() == null){ //handling for first time user, worst case
+            return null;
+        }
         $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 20";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
     }
     //fetch nilai penalaran bacaan
     public static function fetchNilaiPenalaranBacaan(){
-        
+        if(self::fetchUtbkId() == null){ //handling for first time user, worst case
+            return null;
+        }
         $sql = "SELECT nilai FROM t_nilai_utbk WHERE utbk_id = ".self::fetchUtbkId()." AND bidang_utbk_id = 21";
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
