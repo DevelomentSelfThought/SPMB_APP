@@ -1,6 +1,9 @@
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style> 
 .custom-background {
         background-color: #f8f9fa;
@@ -138,8 +141,31 @@ h2{
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-    
+
+.nav-pills .nav-link {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-pills .nav-link i {
+    margin-right: 5px;
+} 
 </style>
+<script>
+    $(document).ready(function() {
+    $('#pills-tab a').on('click', function (e) {
+        e.preventDefault();
+        // Perform additional actions here
+        $(this).tab('show');
+    });
+});
+</script>
 </head>
 <body>                            
 <?php
@@ -348,6 +374,46 @@ $this->title = 'SPMB App-IT Del';
 </div>
 </div>
 <br>
+<div class="regpro">    
+<h2>Timeline SPMB IT Del</h2>
+<!-- Registration Timeline Section -->
+<section id="registration-timeline" class="my-5">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="pills-registration-tab" data-toggle="pill" href="#pills-registration" role="tab" aria-controls="pills-registration" aria-selected="true">
+                    <i class="fa fa-calendar"></i> Jadwal Pendaftaran
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-exam-tab" data-toggle="pill" href="#pills-exam" role="tab" aria-controls="pills-exam" aria-selected="false">
+                    <i class="fa fa-pencil-square-o"></i> Jenis Tes
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="pills-location-tab" data-toggle="pill" href="#pills-location" role="tab" aria-controls="pills-location" aria-selected="false">
+                    <i class="fa fa-map-marker"></i> Lokasi
+                </a>
+            </li>
+        </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-registration" role="tabpanel" aria-labelledby="pills-registration-tab">
+            <h4>Registration Begins: January 1, 2023</h4>
+            <p>Registration for the new semester begins. Make sure to sign up early to secure your spot!</p>
+            <h4>Registration Ends: February 28, 2023</h4>
+            <p>Last day to register for the new semester. Don't miss out!</p>
+        </div>
+        <div class="tab-pane fade" id="pills-exam" role="tabpanel" aria-labelledby="pills-exam-tab">
+            <h4>Exam Type: Final Exam</h4>
+            <p>The final exam will be held at the end of the semester. Study hard!</p>
+        </div>
+        <div class="tab-pane fade" id="pills-location" role="tabpanel" aria-labelledby="pills-location-tab">
+            <h4>Location: Main Campus</h4>
+            <p>All exams will be held at the main campus. Please arrive early to find your exam room.</p>
+        </div>
+    </div>
+</section>
+</div>
+<br>
 <div class="custom-background">
         <h2 style="text-align: center;"> Pertanyaan yang Paling Sering Ditanyakan </h2> <br><br>
         <!-- Add your content here -->
@@ -444,12 +510,53 @@ $this->title = 'SPMB App-IT Del';
 </div>
 </div>
 </div>
+<!-- Feedback/Testimonials Section -->
+<section id="testimonials" class="my-5">
+    <h2 class="h4 mb-3">Testimonial atau ulasan para mahasiswa</h2>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-laptop-code fa-2x mb-3"></i> <!-- Software Developer -->
+                    <blockquote class="blockquote mb-0">
+                        <p>"Great course! I learned a lot."</p>
+                        <footer class="blockquote-footer">John Doe, <cite title="Source Title">Software Developer</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-tasks fa-2x mb-3"></i> <!-- Product Manager -->
+                    <blockquote class="blockquote mb-0">
+                        <p>"I would recommend this to anyone."</p>
+                        <footer class="blockquote-footer">Jane Smith, <cite title="Source Title">Product Manager</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-2x mb-3"></i> <!-- Data Analyst -->
+                    <blockquote class="blockquote mb-0">
+                        <p>"Best learning experience ever."</p>
+                        <footer class="blockquote-footer">Bob Johnson, <cite title="Source Title">Data Analyst</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 </div>
 
 </body>
 </html>
     <!-- ChatWith.io WhatsApp chat widget code -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
         (function () {
             var options = {
                 whatsapp: "+62-822-7219-4708", // WhatsApp number
@@ -461,5 +568,5 @@ $this->title = 'SPMB App-IT Del';
             s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
             var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
         })();
-    </script> -->
+    </script>
 

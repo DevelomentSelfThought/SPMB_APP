@@ -67,6 +67,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         .menu-icon {
             font-size: 0.8em; /* Adjust as needed */
         }
+        #footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        #footer a:hover {
+            color: #ddd;
+        }
+        
+        #footer .fab {
+            margin: 0 10px;
+            font-size: 1.5em;
+        }
         
     ");
     ?>
@@ -146,12 +159,47 @@ NavBar::end();
         <?= $content ?>
     </div>
 </main>
-
-<footer id="footer" class="mt-auto py-3 bg-white"> <!-- changed to white -->
+<br>
+<footer id="footer" class="mt-auto py-3 bg-dark text-white"> <!-- changed to dark -->
     <div class="container">
-        <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start"> SPMB App - IT Del </div>
-            <div class="col-md-6 text-center text-md-end"> &copy <?= date('Y')?> Michael Sipayung </div> 
+        <div class="row">
+            <div class="col-md-3">
+                <h5>SPMB App - IT Del</h5>
+                <ul class="list-unstyled text-white"> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Product</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Features</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Enterprise</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Support</a></li> <!-- changed to white -->
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-white"> <!-- changed to white -->
+                    <li><a class="text-white" href="#">FAQ SPMB</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="#">Dashboard</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="#">Forgot Password</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="#">Registration</a></li> <!-- changed to white -->
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>About</h5>
+                <ul class="list-unstyled text-white"> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Team</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Locations</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Privacy</a></li> <!-- changed to white -->
+                    <li><a class="text-white" href="https://github.com/MichaelSipayung">Terms</a></li> <!-- changed to white -->
+                </ul>
+            </div>
+            <div class="col-md-3 text-center text-md-end">
+                <h5>&copy <?= date('Y')?> Michael Sipayung</h5>
+                <div>
+                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/MichaelSipayung"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div> 
+        </div>
     </div>
 </footer>
 

@@ -40,8 +40,9 @@ class StudentResetForm extends Model {
         $link ='http://172.22.42.160/student/login';
         $message = "Hallo *".$username."*, anda telah melakukan reset password pada aplikasi SPMB IT Del.".
                     "Silahkan login dengan password baru anda melalui link dibawah ini."."\n\nPassword anda : *".
-                    $password."*\n\n". "\n".$link. "\n\nTerima kasih\n\nSalam,"."\n\n\nPanitia PMB IT Del"."\n\n\n".
-                    "*Pesan ini dikirim secara otomatis oleh sistem*";
+                    $password."*\n\n". "\n".$link. "\n\n"."Setelah berhasil login, anda disarankan untuk segera 
+                    melakukan perubahan password pada menu ubah password."."\n\nTerima kasih\n\nSalam,".
+                    "\n\n\nPanitia PMB IT Del"."\n\n\n"."*Pesan ini dikirim secara otomatis oleh sistem*";
         return $message;
     }
     //method for generate random string, used for generating new password automatically
