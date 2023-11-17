@@ -40,7 +40,7 @@ class StudentRegisterForm extends Model {
     }   
     //generate unique access token: 9 random string, (possible to have duplicate!!!!)
     //student copy the access token and send it through given url
-    public function generateAccessToken($length = 5): string
+    public function generateAccessToken($length = 6): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters); //get the length of the characters
@@ -49,7 +49,6 @@ class StudentRegisterForm extends Model {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         //get 4 characters from username and combine to random string variable
-        $randomString = substr($this->username,0,4).$randomString;
         return $randomString;
     }
     //method for registering new user

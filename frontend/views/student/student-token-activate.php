@@ -16,28 +16,36 @@ body {
 
 .activation-form {
     background-color: #fff;
-    padding: 80px;
+    padding: 40px; /* Reduced padding */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 50%;
+    width: 40%; /* Reduced width */
     margin: 0 auto;
 }
 
 .code-inputs {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2px;
+    justify-content: center; /* Center the input fields */
+
 }
 
 .code-inputs input {
     text-align: center;
-    padding: 10px; /* Reduce the padding */
-    font-size: 16px; /* Increase the font size */
+    padding: 2px;
+    font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    width: 100%;
+    width: 80%;
+    height: 40px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Added box shadow */
+    transition: box-shadow 0.3s ease; /* Added transition for box shadow */
 }
 
+.code-inputs input:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Added box shadow for focus state */
+}
 .btn-primary {
     padding: 10px 20px;
     font-size: 16px;
@@ -80,7 +88,7 @@ $this->title = 'Verifikasi Akun';
 ?>
 <div class="site-device-activation">
 
-<h1><img src="/bground/itdel.jpg" width=120 alt="GitHub Logo"></h1><br>
+<h1><img src="/bground/itdel.jpg" width=120 alt="IT Del Logo"></h1><br>
 
     <?php $form = ActiveForm::begin(['options' => ['class' => 'activation-form']]); ?>
     <h1><b><?= Html::encode($this->title) ?> </b></h1><br>
@@ -92,9 +100,6 @@ $this->title = 'Verifikasi Akun';
         <?= $form->field($model, 'code4')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
         <?= $form->field($model, 'code5')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
         <?= $form->field($model, 'code6')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
-        <?= $form->field($model, 'code7')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
-        <?= $form->field($model, 'code8')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
-        <?= $form->field($model, 'code9')->textInput(['maxlength' => 1])->label(false)->error(false) ?>
     </div>
     <br>
 <div class="form-group">

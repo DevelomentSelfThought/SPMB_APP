@@ -87,10 +87,7 @@ class StudentController extends Controller // StudentController extends the Cont
         }
         $model_student  = new StudentLoginForm(); //create an instance of the StudentLoginForm class
         if($model_student->load(Yii::$app->request->post()) && $model_student->login()){
-            //if the form is submitted and the login is successful
-            //redirect to student-data-diri
             return $this->redirect(['student/student-data-diri']);
-            //return $this->redirect('student/student-data-diri') //render the login success page
         }
         $model_student->password = ''; //clear the password
         return $this->render('login', ['model_student' => $model_student]); //render the login page
@@ -107,8 +104,6 @@ class StudentController extends Controller // StudentController extends the Cont
         $model_student_reset  = new StudentResetForm(); //create an instance of the StudentLoginForm class
         if($model_student_reset->load(Yii::$app->request->post()) && 
             $model_student_reset->resetPassword()){
-            //if the form is submitted and the password is reset
-            Yii::$app->session->setFlash('success', 'Password berhasil direset. Silakan login untuk melanjutkan.');
             return $this->redirect(['student/login']);
         }
         //$model_student_reset->password = ''; //clear the password
