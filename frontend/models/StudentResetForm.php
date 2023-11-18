@@ -15,6 +15,46 @@ class StudentResetForm extends Model {
             ['no_HP','match','pattern'=>'/^[0-9]*$/','message'=>'No HP tidak boleh mengandung huruf'],
         ];
     }
+    //mail api for sending message, need to be improved to handle error
+    //while sending message to the user (e.g. no internet connection)
+    //experimental version using mailgun api (free version)
+    public function sendMail($email, $message){
+        $apiKey = getenv('SENDINBLUE_API_KEY');
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode(array(
+                'sender' => array('name' => 'Panitia PMB IT Del', 'email' => 'michaelsipayung123@gmail.com'),
+                'to' => array(array('email' => $email)),
+                'subject' => 'Your activation code',
+                'textContent' => $message
+            )),
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "api-key: ". $apiKey,
+                "content-type: application/json"
+            ),
+        ));
+    
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+    
+        curl_close($curl);
+    
+        if ($err) {
+            //flash message 
+            Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
+    }
     //whatsApp api for sending message, need to be improved to handle error
     //while sending message to the user (e.g. no internet connection)
     public function sendWhatsApp($phone, $message){
@@ -38,11 +78,56 @@ class StudentResetForm extends Model {
     //method for reset message, used for sending message to the user
     public function resetMessage($username, $password){
         $link ='http://172.22.42.160/student/login';
-        $message = "Hallo *".$username."*, anda telah melakukan reset password pada aplikasi SPMB IT Del.".
-                    "Silahkan login dengan password baru anda melalui link dibawah ini."."\n\nPassword anda : *".
-                    $password."*\n\n". "\n".$link. "\n\n"."Setelah berhasil login, anda disarankan untuk segera 
-                    melakukan perubahan password pada menu ubah password."."\n\nTerima kasih\n\nSalam,".
-                    "\n\n\nPanitia PMB IT Del"."\n\n\n"."*Pesan ini dikirim secara otomatis oleh sistem*";
+        $message = "
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    color: #333;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f4f4f4;
+                }
+                .container {
+                    width: 80%;
+                    margin: auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+                    border-radius: 10px;
+                }
+                .button {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 14px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 10px 0;
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h2>Hello, <b>".$username."</b></h2>
+                <p>Anda telah melakukan reset password pada aplikasi SPMB IT Del. 
+                Untuk melanjutkan proses pendaftaran calon mahasiswa baru, 
+                silahkan masuk ke akun baru anda dengan password dibawah ini. <br>
+                Anda dapat masuk ke akun anda dengan cara mengklik 
+                link dibawah ini atau dengan memilih menu masuk ke akun pada aplikasi SPMB.</p>
+                <p><b>Password baru anda: ".$password."</b></p>
+                <a href='".$link."' class='button'>Login</a>
+                <p>Setelah berhasil masuk, anda disarankan melakukan perubahan password. 
+                Hal ini bertujuan untuk menjaga kerahasian akun anda. </p>
+                <p>Thank you,</p>
+                <p>Panitia PMB IT Del</p>
+                <p><i>This message was automatically sent by the system</i></p>
+            </div>
+        </body>
+        </html>";
+    
         return $message;
     }
     //method for generate random string, used for generating new password automatically
@@ -69,6 +154,11 @@ class StudentResetForm extends Model {
                 $student->password = Yii::$app->security->generatePasswordHash($new_password); //hash the new password
                 if($student->save()){ //if the new password is saved
                     $message = $this->resetMessage($student->username,$new_password);
+                    //find mail address given the username in table t_user using create command
+                    $mail_destination = "Select email from t_user where username = '".$student->username."'";
+                    $mail_destination = Yii::$app->db->createCommand($mail_destination)->queryScalar();
+                    //after fetch the address, send the new password to the user
+                    $this->sendMail($mail_destination,$message); //send the new password to the user
                     //$this->sendWhatsApp($student->phone_number,$message); //send the new password to the user
                     return true;
                 }

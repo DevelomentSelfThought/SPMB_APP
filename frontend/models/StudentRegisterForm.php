@@ -30,7 +30,7 @@ class StudentRegisterForm extends Model {
             // ['no_HP','unique','targetClass'=>'\app\models\Student','message'=>'Nomor telepon anda sudah terdaftar !'],
             
             ['nik','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
-            ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail)+\.(com|co.id)$/','message'=>'Email tidak valid'],
+            ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail|del)+\.(com|co.id|ac.id)$/','message'=>'Email tidak valid'],
             ['no_HP','match','pattern'=>'/^[0-9]*$/','message'=>'No HP tidak boleh mengandung huruf'],
             
             ['password','string','min'=>4],
@@ -87,6 +87,9 @@ class StudentRegisterForm extends Model {
                 //$send->sendWhatsApp($student->phone_number,$message);
                 //send email
                 //self::sendByTelegram("@Millerdebian", $student->verf_code);
+                $message = $this->registerMessage($student->username,$student->verf_code);
+                $mail_send  = new StudentResetForm(); //create new object, for sending email
+                $mail_send->sendMail($student->email,$message); //send the token to the user
                 return true;
             }
             else { //if the student is not saved
@@ -96,6 +99,62 @@ class StudentRegisterForm extends Model {
             }
         }
         return false; //data is not valid
+    }
+    //send email using mailgun api, case: registration form
+    public function registerMessage($username, $token){
+        $link ='http://localhost:8080/student/student-token-activate';
+        $message = "
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    color: #333;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f4f4f4;
+                }
+                .container {
+                    width: 80%;
+                    margin: auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+                    border-radius: 10px;
+                }
+                .button {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 14px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 10px 0;
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h2>Hello, <b>".$username."</b></h2>
+                <p>Anda telah melakukan pendaftaran akun calon mahasiswa baru pada aplikasi SPMB IT Del. 
+                Untuk melanjutkan proses pendaftaran calon mahasiswa baru, anda harus terlebih dahulu 
+                mengaktifkan akun anda. 
+                Gunakan kode aktivasi dibawah ini, agar akun anda aktif atau dapat digunakan. <br>
+                Anda dapat mengaktifkan akun anda dengan cara mengklik 
+                link dibawah ini atau dengan memilih menu aktivasi akun pada aplikasi SPMB.</p>
+                <p><b>Kode aktivasi anda: ".$token."</b></p>
+                <a href='".$link."' class='button'>Verifikasi Akun</a>
+                <p>Setelah kode tersebut berhasil digunakan, anda dapat masuk ke akun anda dengan username 
+                dan password yang anda daftarkan. </p>
+                <p>Thank you,</p>
+                <p>Panitia PMB IT Del</p>
+                <p><i>This message was automatically sent by the system</i></p>
+            </div>
+        </body>
+        </html>";
+    
+        return $message;
     }
 }
 ?>
