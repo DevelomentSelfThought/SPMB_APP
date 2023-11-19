@@ -102,41 +102,14 @@ class StudentRegisterForm extends Model {
     }
     //send email using mailgun api, case: registration form
     public function registerMessage($username, $token){
-        $link ='http://localhost:8080/student/student-token-activate';
+        $link ='http://172.22.42.160/student/student-token-activate';
+        $logoUrl = 'https://i.imgur.com/RLYAEtG.jpg'; // replace with your logo URL
         $message = "
         <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    color: #333;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f4f4f4;
-                }
-                .container {
-                    width: 80%;
-                    margin: auto;
-                    padding: 20px;
-                    background-color: #fff;
-                    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-                    border-radius: 10px;
-                }
-                .button {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 14px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 10px 0;
-                    border-radius: 5px;
-                }
-            </style>
-        </head>
-        <body>
-            <div class='container'>
-                <h2>Hello, <b>".$username."</b></h2>
+        <body style='font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;'>
+            <div style='width: 80%; margin: auto; padding: 20px; background-color: #fff; box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1); border-radius: 10px; text-align: center;'>
+                <img src='".$logoUrl."' alt='Company Logo' style='max-width: 100px; display: block; margin: 0 auto;'>
+                <h2 style='color: green;'>Hello, <b>".$username."</b></h2>
                 <p>Anda telah melakukan pendaftaran akun calon mahasiswa baru pada aplikasi SPMB IT Del. 
                 Untuk melanjutkan proses pendaftaran calon mahasiswa baru, anda harus terlebih dahulu 
                 mengaktifkan akun anda. 
@@ -144,7 +117,7 @@ class StudentRegisterForm extends Model {
                 Anda dapat mengaktifkan akun anda dengan cara mengklik 
                 link dibawah ini atau dengan memilih menu aktivasi akun pada aplikasi SPMB.</p>
                 <p><b>Kode aktivasi anda: ".$token."</b></p>
-                <a href='".$link."' class='button'>Verifikasi Akun</a>
+                <a href='".$link."' style='background-color: #4CAF50; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; width: 200px; margin: 10px auto; border-radius: 5px; border: none;'>Verifikasi Akun</a><br>
                 <p>Setelah kode tersebut berhasil digunakan, anda dapat masuk ke akun anda dengan username 
                 dan password yang anda daftarkan. </p>
                 <p>Thank you,</p>
@@ -153,7 +126,6 @@ class StudentRegisterForm extends Model {
             </div>
         </body>
         </html>";
-    
         return $message;
     }
 }

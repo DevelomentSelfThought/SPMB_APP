@@ -78,48 +78,21 @@ class StudentResetForm extends Model {
     //method for reset message, used for sending message to the user
     public function resetMessage($username, $password){
         $link ='http://172.22.42.160/student/login';
+        $logoUrl = 'https://i.imgur.com/RLYAEtG.jpg'; // replace with your logo URL
         $message = "
         <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    color: #333;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f4f4f4;
-                }
-                .container {
-                    width: 80%;
-                    margin: auto;
-                    padding: 20px;
-                    background-color: #fff;
-                    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-                    border-radius: 10px;
-                }
-                .button {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 14px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 10px 0;
-                    border-radius: 5px;
-                }
-            </style>
-        </head>
-        <body>
-            <div class='container'>
-                <h2>Hello, <b>".$username."</b></h2>
+        <body style='font-family: Arial, sans-serif; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;'>
+            <div style='width: 80%; margin: auto; padding: 20px; background-color: #fff; box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1); border-radius: 10px; text-align: center;'>
+                <img src='".$logoUrl."' alt='Company Logo' style='max-width: 100px; display: block; margin: 0 auto;'>
+                <h2 style='color: green;'>Hello, <b>".$username."</b></h2>
                 <p>Anda telah melakukan reset password pada aplikasi SPMB IT Del. 
                 Untuk melanjutkan proses pendaftaran calon mahasiswa baru, 
                 silahkan masuk ke akun baru anda dengan password dibawah ini. <br>
                 Anda dapat masuk ke akun anda dengan cara mengklik 
                 link dibawah ini atau dengan memilih menu masuk ke akun pada aplikasi SPMB.</p>
                 <p><b>Password baru anda: ".$password."</b></p>
-                <a href='".$link."' class='button'>Login</a>
-                <p>Setelah berhasil masuk, anda disarankan melakukan perubahan password. 
+                <a href='".$link."' style='background-color: #4CAF50; color: white; padding: 12px 24px; text-align: center; text-decoration: none; display: inline-block; width: 200px; margin: 10px auto; border-radius: 5px; border: none;'>Masuk ke Akun</a>
+                <br><p>Setelah berhasil masuk, anda disarankan melakukan perubahan password. 
                 Hal ini bertujuan untuk menjaga kerahasian akun anda. </p>
                 <p>Thank you,</p>
                 <p>Panitia PMB IT Del</p>
@@ -127,7 +100,6 @@ class StudentResetForm extends Model {
             </div>
         </body>
         </html>";
-    
         return $message;
     }
     //method for generate random string, used for generating new password automatically
