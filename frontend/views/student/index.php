@@ -171,7 +171,11 @@ h2{
 <?php
 /** @var yii\web\View $this */
 use yii\helpers\Html;
+use yii\bootstrap5\Modal;
+
 $this->title = 'SPMB App-IT Del';
+$this->registerJs('$(document).ready(function(){$("#developmentModal").modal("show");});');
+
 ?>
 <div class="site-index">
 <div class="container my-5">
@@ -552,7 +556,19 @@ $this->title = 'SPMB App-IT Del';
 </section>
 
 </div>
-
+<!-- develoment status -->
+<?php Modal::begin([
+    'title' => '<h2 class="text-center">Under Development</h2>',
+    'id' => 'developmentModal',
+    'options' => ['class' => 'fade modal-dialog-centered'],
+]); ?>
+<div class="modal-body">
+    <p class="text-center">This application is still under development and may contain bugs. We are working hard to improve it. Thank you for your patience and understanding.</p>
+</div>
+<div class="text-center mt-3">
+    <small>Developed by <strong>Michael Sipayung</strong></small>
+</div>
+<?php Modal::end(); ?>
 </body>
 </html>
     <!-- ChatWith.io WhatsApp chat widget code -->

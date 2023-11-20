@@ -80,11 +80,11 @@ body {
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\DeviceActivationForm */
+use yii\bootstrap5\Modal;
 
 $this->title = 'Verifikasi Akun';
+$this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show");});');
+
 ?>
 <div class="site-device-activation">
 
@@ -107,5 +107,30 @@ $this->title = 'Verifikasi Akun';
 </div>
     <?php ActiveForm::end(); ?>
 </div>
+<?php 
+Modal::begin([
+    'title' => '<h2 class="text-center">Instruksi Verifikasi Akun</h2>',
+    'id' => 'welcomeModal',
+    'options' => ['class' => 'fade modal-dialog-centered'],
+]); ?>
+<div class="modal-body">
+    <p class="text-center"><i class="fas fa-info-circle"></i> Harap memperhatikan instruksi berikut :</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Token atau Kode Aktivasi:</strong> 
+        Masukan 6 digit kode yang telah dikirimkan ke email anda. 
+        Tiap digit anda harus memasukan kode yang tepat pada kolom yang tersedia.</li>
+
+    </li>
+    </ul>
+    <p class="mt-3">
+        Tidak perlu panik jika token tidak muncul pada email. Jika email sudah valid, 
+        anda hanya perlu menunggu beberapa menit untuk mendapatkan token. Jika email anda tidak valid,
+        silahkan melakukan pendaftaran ulang dengan email yang valid.
+    </p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Saya Memahami</button>
+</div>
+<?php Modal::end(); ?>
 </body>
 </html>

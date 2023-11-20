@@ -38,7 +38,9 @@ body {
 <?php
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\Modal;
 $this->title = 'Registrasi Akun';
+$this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show");});');
 ?>
 <div class="text-center mb-2">
     <img src="/bground/itdel.jpg" alt="Logo" class="mb-1" width="120">
@@ -111,6 +113,31 @@ $this->title = 'Registrasi Akun';
         </div>
     </div>
 </div>
+
+<?php 
+Modal::begin([
+    'title' => '<h2 class="text-center">Instruksi Pendaftaran</h2>',
+    'id' => 'welcomeModal',
+    'options' => ['class' => 'fade modal-dialog-centered'],
+]); ?>
+<div class="modal-body">
+    <p class="text-center"><i class="fas fa-info-circle"></i> Harap memperhatikan instruksi berikut :</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>NIK:</strong> Masukan NIK anda sesuai dengan format yang tertera pada KTP.</li>
+        <li class="list-group-item"><strong>Username:</strong> Masukan username yang unik, seperti gabungan kata dengan angka.</li>
+        <li class="list-group-item"><strong>Email:</strong> Masukan email yang valid, karena email akan digunakan untuk verifikasi akun.</li>
+        <li class="list-group-item"><strong>Password:</strong> Gunakan password yang mudah diingat, jumlah kata > 4 kata.</li>
+        <li class="list-group-item"><strong>Konfirmasi Password:</strong> Password dan Konfirmasi Password tidak boleh berbeda.</li>
+        <li class="list-group-item"><strong>No. Whatsapp:</strong> Gunakan nomor whatsApp anda saat ini.</li>
+    </ul>
+    <p class="mt-3"> Sistem akan mendeteksi jika terdapat ketidaksesuaian data yang diberikan. 
+        Jika terdapat ketidaksesuaian data, maka sistem akan menolak pendaftaran akun calon mahasiswa.</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Saya Memahami</button>
+</div>
+<?php Modal::end(); ?>
+
 </body>
 </html>
 <script>
