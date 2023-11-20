@@ -59,7 +59,7 @@ class StudentRegisterForm extends Model {
             //check username if it is already exist
             if (Student::find()->where(['username'=>$this->username])->one()) {
                 //set flash message
-                Yii::$app->session->setFlash('error','Username sudah digunakan, harap gunakan username lain !');
+                //echo "<script>alert('Username sudah digunakan, harap gunakan username lain !')</script>";
                 return false;
             }
             //fill the student object with the given data
@@ -71,23 +71,14 @@ class StudentRegisterForm extends Model {
             $student->password = Yii::$app->security->generatePasswordHash($this->password);; //hash the password
             $student->no_HP = $this->no_HP; //hash the phone number
             //save the access token to database
-            $student->verf_code = $this->generateAccessToken();
+            $temp_token  = $this->generateAccessToken(); //store in temporary variable
+            //token encryption, reverse the token
+            $student->verf_code = $this->encryptToken($temp_token); //store in database
             $student->active = $this->active;               
             //hash the access token, for production
             //$student->verf_code = Yii::$app->security->generatePasswordHash($student->verf_code);
             if($student->save()){ //if the student is saved
-                //then send access token via WhatsApp
-                //$link ='http://172.22.42.182/student/token-student';
-                //$message = "Hallo *".$student->username."*, anda telah melakukan pendaftaran pada Website PMB IT Del.".
-                //" Masukan kode verifikasi berikut pada link yang diberikan agar akun anda dapat digunakan\n\nKode verifikasi : *".
-                //$student->verf_code."*\n\n".
-                //$link. "\n\nTerima kasih\n\nSalam,"."\n\n\nPanitia PMB IT Del"."\n\n\n".
-                //"*Pesan ini dikirim secara otomatis oleh sistem*";
-                //$send = new StudentResetForm();
-                //$send->sendWhatsApp($student->phone_number,$message);
-                //send email
-                //self::sendByTelegram("@Millerdebian", $student->verf_code);
-                $message = $this->registerMessage($student->username,$student->verf_code);
+                $message = $this->registerMessage($student->username,$temp_token);
                 $mail_send  = new StudentResetForm(); //create new object, for sending email
                 $mail_send->sendMail($student->email,$message); //send the token to the user
                 return true;
@@ -127,6 +118,18 @@ class StudentRegisterForm extends Model {
         </body>
         </html>";
         return $message;
+    }
+    //make sure token is secure, encrypt the token
+    public function encryptToken($token){
+        //using openssl_encrypt
+        $ciphering = "aes-128-cbc"; //ciphering method
+        $iv_length = openssl_cipher_iv_length($ciphering); //get the iv length
+        // Use a fixed IV instead of a random one
+        $iv = str_repeat('a', $iv_length); // Replace 'a' with your actual IV
+        $encrypted_code = openssl_encrypt($token, $ciphering, $token, 0, $iv); //encrypt the token
+        // The result is binary data, so it's encoded in Base64 to make it safe for storage as a string
+        $encrypted_code_base64 = base64_encode($encrypted_code);
+        return $encrypted_code_base64;
     }
 }
 ?>

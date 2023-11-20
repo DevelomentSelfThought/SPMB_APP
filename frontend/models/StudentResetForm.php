@@ -122,6 +122,9 @@ class StudentResetForm extends Model {
         if($this->validate()){ //if the given data is valid
             $student = Student::find()->where(['username'=>$this->username])->one();
             if ($student) {
+                if(!$this->isActiveUser($student->username)){ //the user is not active
+                    return false;
+                 }
                 $new_password = $this->generateRandomString(); //generate random string
                 $student->password = Yii::$app->security->generatePasswordHash($new_password); //hash the new password
                 if($student->save()){ //if the new password is saved
@@ -141,6 +144,17 @@ class StudentResetForm extends Model {
                 $this->addError('username','Username tersebut tidak terdaftar');
         } 
         return false;
+    }
+    //make sure that the current user is already active user
+    public function isActiveUser($username){
+        $sql = "SELECT active from t_user where username = '".$username."'";
+        $active = Yii::$app->db->createCommand($sql)->queryScalar();
+        if($active == 1)
+            return true;
+        else{
+            echo "<script type='text/javascript'>alert('Akun anda belum aktif! Periksa email anda untuk mengaktifkan akun anda.');</script>";
+            return false;
+        }
     }
 }
 ?>
