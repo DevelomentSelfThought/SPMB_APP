@@ -24,16 +24,12 @@
 </style>
 <body>
 <?php
-
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-
-/** @var app\models\LoginForm $model */
-
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
-
+use yii\bootstrap5\Modal;
 $this->title = 'Reset';
+$this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show");});');
+
 //$this->params['breadcrumbs'][] = $this->title;
 ?>    
 <div class="text-center mb-2">
@@ -67,8 +63,8 @@ $this->title = 'Reset';
                     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-lock" viewBox="0 0 16 16">
                     <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5v-1a1.9 1.9 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/>
-                    </svg></span>{input}<span id="password-eye" class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span></div>',
-                ])->passwordInput(['id' => 'password-input', 'placeholder'=>'Masukan No. Whatsapp anda'])->label("No. Whatsapp") ?>
+                    </svg></span>{input}</div>',
+                ])->textInput(['id' => 'password-input', 'placeholder'=>'Masukan No. Whatsapp anda'])->label("No. Whatsapp") ?>
 
                     <?=  Html::submitButton('Reset Password', ['class' => 'btn btn-primary btn-block form-control']) ?>
                     <div class="text-center mt-3">
@@ -83,24 +79,33 @@ $this->title = 'Reset';
         </div>
     </div>
 </div>
+<?php 
+Modal::begin([
+    'title' => '<h2 style="color: #0093ad;" class="text-center">Instruksi Reset Password</h2>',
+    'id' => 'welcomeModal',
+    'options' => ['class' => 'fade modal-dialog-centered'],
+]); ?>
+<div class="modal-body">
+    <p class="text-center"><i class="fas fa-info-circle"></i> Harap memperhatikan instruksi berikut :</p>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Username:</strong> 
+        Masukan username anda pada kolom yang disediakan. 
+        Harap memasukan username yang telah terdaftar pada aplikasi SPMB IT Del. 
+        </li>
+        <li class="list-group-item"><strong>No. Whatsapp:</strong>
+        Masukan nomor whatsapp anda pada kolom yang disediakan. 
+        Harap memasukan nomor whatsapp yang telah terdaftar pada aplikasi SPMB IT Del.
+    </li>
+    </ul>
+    <p class="mt-3">
+    Jika anda lupa username, 
+    anda dapat menemukan username tersebut 
+    pada email yang anda gunakan ketika mendaftar akun.</li>
+    </p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Saya Memahami</button>
+</div>
+<?php Modal::end(); ?>
 </body>
 </html>
-<?php
-$script = <<< JS
-$('#password-eye').click(function() {
-    var input = $('#password-input');
-    var icon = $('#password-eye i');
-
-    if (input.attr('type') === 'password') {
-        input.attr('type', 'text');
-        icon.removeClass('fa-eye-slash');
-        icon.addClass('fa-eye');
-    } else {
-        input.attr('type', 'password');
-        icon.removeClass('fa-eye');
-        icon.addClass('fa-eye-slash');
-    }
-});
-JS;
-$this->registerJs($script);
-?>

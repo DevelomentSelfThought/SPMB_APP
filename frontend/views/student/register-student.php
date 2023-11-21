@@ -116,7 +116,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
 
 <?php 
 Modal::begin([
-    'title' => '<h2 class="text-center">Instruksi Pendaftaran</h2>',
+    'title' => '<h2 style="color: #0093ad;" class="text-center">Instruksi Pendaftaran</h2>',
     'id' => 'welcomeModal',
     'options' => ['class' => 'fade modal-dialog-centered'],
 ]); ?>
