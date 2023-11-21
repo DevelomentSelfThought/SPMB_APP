@@ -47,6 +47,7 @@
 
 use app\models\StudentDataDiri;
 use app\models\StudentDataDiriForm;
+use app\models\StudentMajorForm;
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap5\ActiveForm;
@@ -301,44 +302,43 @@ Modal::begin([
     <h2 style="color: #0093ad;" class="text-start">Pilih Program Studi</h2>
 </div>
 
+<?php $form = ActiveForm::begin(); ?>
+
 <div class="modal-body">
     <div class="mb-3">
         <label for="waveSelect" class="form-label">
             <i class="bi bi-calendar-event-fill me-2"></i>Silahkan Pilih Gelombang Pendaftaran
         </label>
-        <select class="form-select" id="waveSelect">
-            <option selected>Pilih Gelombang</option>
-            <option value="1">Current Program 1</option>
-            <option value="2">Current Program 2</option>
-        </select>
+        <?= $form->field($model_student_major, 'gelombang')
+            ->dropDownList(StudentMajorForm::getBatchList(),
+            ['prompt' => 'Pilih Gelombang Pendaftaran']
+        )->label(false) ?>
     </div>
     <hr> <!-- Horizontal rule -->
     <div class="mb-3">
         <label for="majorSelect" class="form-label">
             <i class="bi bi-person-lines-fill me-2"></i>Silahkan Pilih Jurusan yang Anda Inginkan
         </label>
-        <select class="form-select" id="majorSelect">
-            <option selected>Pilih Jurusan Utama</option>
-            <option value="1">Current Program 1</option>
-            <option value="2">Current Program 2</option>
-        </select>
+        <?= $form->field($model_student_major, 'jurusan_main')
+            ->dropDownList(StudentMajorForm::getMajorList(),
+            ['prompt' => 'Pilih Jurusan Utama']
+        )->label(false) ?>
     </div>
     <div class="mb-3">
         <label for="optionalMajorSelect" class="form-label">
             <i class="bi bi-book-half me-2"></i>Pilih Jurusan Opsional
         </label>
-        <select class="form-select" id="optionalMajorSelect">
-            <option selected>Pilih Jurusan Opsional</option>
-            <option value="1">Current Program 1</option>
-            <option value="2">Current Program 2</option>
-        </select>
+        <?= $form->field($model_student_major, 'jurusan_opsional')
+            ->dropDownList(StudentMajorForm::getMajorList(),
+            ['prompt' => 'Pilih Jurusan Opsional']
+        )->label(false) ?>
     </div>
 </div>
 <div class="modal-footer">
-<button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">
-    <i class="bi bi-check-circle" style="font-size: 1.2rem;"></i> Simpan
-</button>
+    <?= Html::submitButton('<i class="bi bi-check-circle" style="font-size: 1.2rem;"></i> Simpan', ['class' => 'btn btn-primary w-100']) ?>
 </div>
+
+<?php ActiveForm::end(); ?>
 <?php Modal::end(); ?>
 
 </body>

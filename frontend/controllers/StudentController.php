@@ -19,6 +19,8 @@ use app\models\StudentAkademikForm;
 use app\models\StudentTokenActivate;
 use app\models\StudentBahasaForm;
 use app\models\StudentPrestasiForm;
+use app\models\StudentInformasiForm;
+use app\models\StudentMajorForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -140,6 +142,8 @@ class StudentController extends Controller // StudentController extends the Cont
         return $this->render('student-data-diri',
             ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)
         */
+        //major choose, to do: clean up this action
+        $model_student_major = new StudentMajorForm(); //create an instance of the StudentMajorForm class
         $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
         if($model_student_data_diri === null){
             $model_student_data_diri = new StudentDataDiriForm();
@@ -149,7 +153,9 @@ class StudentController extends Controller // StudentController extends the Cont
             return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
         }
         return $this->render('student-data-diri',
-            ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)
+            ['model_student_data_diri'=>$model_student_data_diri,
+            'model_student_major'=>$model_student_major    
+        ]); //render the personal information page(data diri)
     }
     //action for insert data orang tua
     public function actionStudentDataOTua() {

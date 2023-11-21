@@ -100,6 +100,7 @@ if(Yii::$app->user->isGuest){
     $menuItems = [
         ['label' => '<i class="bi bi-person-plus-fill"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
         ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
+        ['label' => '<i class="bi bi-person-check-fill"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
     ];
 }
 if (Yii::$app->user->isGuest) {
