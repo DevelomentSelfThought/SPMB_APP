@@ -34,5 +34,18 @@ class StudentMajorForm extends Model
         $list = \yii\helpers\ArrayHelper::map($result, 'gelombang_pendaftaran_id', 'desc');
         return $list;
     }
+    //insert the data to database, todo: need to be improved to handle error
+    public function insertMajor(){
+        if($this->validate())
+        {
+            return true;
+        }
+        return false;
+    }
+    //check if the major is filled or not, make sure the modal dialog
+    //only appear if the major is not filled yet
+    public static function isFilledMajor(){
+        return false;
+    }
 }
 ?>

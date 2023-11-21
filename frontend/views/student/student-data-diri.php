@@ -54,15 +54,13 @@ use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper; //for using array helper
 use yii\bootstrap5\Modal;
 $title  = 'Data Diri Mahasiswa';
-$this->registerJs('$(document).ready(function(){$("#programModal").modal("show");});');
-
 ?>
 <?php
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
-<?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
+<?php $form = ActiveForm::begin(['id' => 'myForm','layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<span>Form Data Pribadi</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model_student_data_diri,'nama',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -291,13 +289,29 @@ $this->registerJs('$(document).ready(function(){$("#programModal").modal("show")
 <?php ActiveForm::end(); ?>
 </div>
 <!-- modal for choosing major and current available .... -->
-<?php 
-Modal::begin([
-    'id' => 'programModal',
-    'options' => ['class' => 'fade modal-dialog-centered', 'data-bs-backdrop' => 'static', 'data-bs-keyboard' => 'false'],
-    'closeButton' => false,
-]); ?>
 
+<?php
+if(!StudentMajorForm::isFilledMajor()) {
+    $this->registerJs(
+        '
+        $("#programModal").modal("show");
+        $("#closeModalAndFocusForm").on("click", function() {
+            $("#programModal").modal("hide");
+            $(".my-form").focus();
+        });
+        ',
+        $this::POS_READY
+    );
+
+    Modal::begin([
+        'id' => 'programModal',
+        'options' => [
+            'class' => 'fade modal-dialog-centered',
+            'data-bs-backdrop' => 'static',
+            'data-bs-keyboard' => 'false',
+        ],        'closeButton' => false,
+    ]);
+?>
 <div class="modal-header" style="background-color: #f8f9fa;">
     <h2 style="color: #0093ad;" class="text-start">Pilih Program Studi</h2>
 </div>
@@ -339,7 +353,10 @@ Modal::begin([
 </div>
 
 <?php ActiveForm::end(); ?>
-<?php Modal::end(); ?>
+<?php Modal::end(); 
+}
+?>
+
 
 </body>
 </html>
@@ -360,4 +377,3 @@ $('.my-form').on('beforeSubmit', function(event) {
 JS;
 $this->registerJs($script);
 ?>
-

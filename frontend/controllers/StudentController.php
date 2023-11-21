@@ -144,6 +144,12 @@ class StudentController extends Controller // StudentController extends the Cont
         */
         //major choose, to do: clean up this action
         $model_student_major = new StudentMajorForm(); //create an instance of the StudentMajorForm class
+        if(!StudentMajorForm::isFilledMajor()) { //not yet filled
+            if($model_student_major->load(Yii::$app->request->post()) && 
+                $model_student_major->insertMajor()){
+                return $this->redirect(['student/student-data-diri']); //go to the next page, customize this to go to the home page
+            }
+        }
         $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
         if($model_student_data_diri === null){
             $model_student_data_diri = new StudentDataDiriForm();
