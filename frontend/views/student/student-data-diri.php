@@ -1,5 +1,7 @@
 <html lang="">
+<head>
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <!-- css for ruler -->
 <style>
     .ruler {
@@ -36,7 +38,8 @@
         border-radius: 5px;
     }
 </style>
-</html>
+</head>
+<body>
 <?php
 //this page is intended to be used as a view for student personal information (data diri)
 // Path: views/student/student-data-diri.php
@@ -47,9 +50,11 @@ use app\models\StudentDataDiriForm;
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use yii\bootstrap5\ActiveForm;
-
 use yii\helpers\ArrayHelper; //for using array helper
+use yii\bootstrap5\Modal;
 $title  = 'Data Diri Mahasiswa';
+$this->registerJs('$(document).ready(function(){$("#programModal").modal("show");});');
+
 ?>
 <?php
 //include task navigation component
@@ -283,8 +288,62 @@ $title  = 'Data Diri Mahasiswa';
     <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
-
 </div>
+<!-- modal for choosing major and current available .... -->
+<?php 
+Modal::begin([
+    'id' => 'programModal',
+    'options' => ['class' => 'fade modal-dialog-centered', 'data-bs-backdrop' => 'static', 'data-bs-keyboard' => 'false'],
+    'closeButton' => false,
+]); ?>
+
+<div class="modal-header" style="background-color: #f8f9fa;">
+    <h2 style="color: #0093ad;" class="text-start">Pilih Program Studi</h2>
+</div>
+
+<div class="modal-body">
+    <div class="mb-3">
+        <label for="waveSelect" class="form-label">
+            <i class="bi bi-calendar-event-fill me-2"></i>Silahkan Pilih Gelombang Pendaftaran
+        </label>
+        <select class="form-select" id="waveSelect">
+            <option selected>Pilih Gelombang</option>
+            <option value="1">Current Program 1</option>
+            <option value="2">Current Program 2</option>
+        </select>
+    </div>
+    <hr> <!-- Horizontal rule -->
+    <div class="mb-3">
+        <label for="majorSelect" class="form-label">
+            <i class="bi bi-person-lines-fill me-2"></i>Silahkan Pilih Jurusan yang Anda Inginkan
+        </label>
+        <select class="form-select" id="majorSelect">
+            <option selected>Pilih Jurusan Utama</option>
+            <option value="1">Current Program 1</option>
+            <option value="2">Current Program 2</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="optionalMajorSelect" class="form-label">
+            <i class="bi bi-book-half me-2"></i>Pilih Jurusan Opsional
+        </label>
+        <select class="form-select" id="optionalMajorSelect">
+            <option selected>Pilih Jurusan Opsional</option>
+            <option value="1">Current Program 1</option>
+            <option value="2">Current Program 2</option>
+        </select>
+    </div>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">
+    <i class="bi bi-check-circle" style="font-size: 1.2rem;"></i> Simpan
+</button>
+</div>
+<?php Modal::end(); ?>
+
+</body>
+</html>
+
 <?php
 $script = <<< JS
 $('.my-form').on('beforeSubmit', function(event) {
