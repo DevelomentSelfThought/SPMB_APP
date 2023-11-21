@@ -26,7 +26,7 @@ class StudentRegisterForm extends Model {
             ['password_repeat','compare','compareAttribute'=>'password'],
             // ['nik','unique','targetClass'=>'\app\models\Student','message'=>'NIK anda sudah terdaftar'],
             ['username','unique','targetClass'=>'\app\models\Student','message'=>'Username sudah digunakan, harap gunakan username lain !'],
-            // ['email','unique','targetClass'=>'\app\models\Student','message'=>'Email anda sudah terdaftar !'],
+            ['email','unique','targetClass'=>'\app\models\Student','message'=>'Email anda sudah terdaftar !'],
             // ['no_HP','unique','targetClass'=>'\app\models\Student','message'=>'Nomor telepon anda sudah terdaftar !'],
             
             ['nik','string','min'=>16 , 'max'=>16,'message'=>'NIK harus 16 digit'],
@@ -56,15 +56,16 @@ class StudentRegisterForm extends Model {
     {
         if($this->validate()){ //if the given data is valid
             $student = new Student(); //create new student object
+            //encrypt the username
             //check username if it is already exist
-            if (Student::find()->where(['username'=>$this->username])->one()) {
+            if (Student::find()->where(['username'=>$this->encryptToken($this->username)])->one()) {
                 //set flash message
                 //echo "<script>alert('Username sudah digunakan, harap gunakan username lain !')</script>";
                 return false;
             }
             //fill the student object with the given data
             $student->nik = $this->nik;
-            $student->username = $this->username;
+            $student->username = $this->encryptToken($this->username);
             $student->email = $this->email;
             //an optional feature to guard the password from being stolen
             //$student->password = Yii::$app->security->generatePasswordHash($this->password); //hash the password
@@ -78,7 +79,7 @@ class StudentRegisterForm extends Model {
             //hash the access token, for production
             //$student->verf_code = Yii::$app->security->generatePasswordHash($student->verf_code);
             if($student->save()){ //if the student is saved
-                $message = $this->registerMessage($student->username,$temp_token);
+                $message = $this->registerMessage($this->username,$temp_token);
                 $mail_send  = new StudentResetForm(); //create new object, for sending email
                 $mail_send->sendMail($student->email,$message); //send the token to the user
                 return true;

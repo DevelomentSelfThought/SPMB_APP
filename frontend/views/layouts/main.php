@@ -135,7 +135,8 @@ if (Yii::$app->user->isGuest) {
     'encode' => false];
     // $menuItems[] = ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Ubah Password</span>', 'url' => ['/student/change-password'], 'encode'=>false];
 
-    $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right"></i> <span class="nav-label">Logout (' . Yii::$app->user->identity->username . ')</span>', 
+    $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right"></i> 
+                    <span class="nav-label">Logout (' . Yii::$app->user->identity->email . ')</span>', 
                     'url' => ['/site/logout'], 
                     'linkOptions' => ['data-method' => 'post'], 
                     'encode' => false];

@@ -120,17 +120,19 @@ class StudentResetForm extends Model {
     public function resetPassword(): bool
     {
         if($this->validate()){ //if the given data is valid
-            $student = Student::find()->where(['username'=>$this->username])->one();
+            $temp_encrypt_user = new StudentRegisterForm();
+            $student = Student::find()->where(['username'=>$temp_encrypt_user->encryptToken($this->username)])->one();
             if ($student) {
-                if(!$this->isActiveUser($student->username)){ //the user is not active
+                if(!$this->isActiveUser($temp_encrypt_user->encryptToken($this->username))){ //the user is not active
                     return false;
                  }
                 $new_password = $this->generateRandomString(); //generate random string
                 $student->password = Yii::$app->security->generatePasswordHash($new_password); //hash the new password
                 if($student->save()){ //if the new password is saved
-                    $message = $this->resetMessage($student->username,$new_password);
+                    $message = $this->resetMessage($this->username,$new_password);
                     //find mail address given the username in table t_user using create command
-                    $mail_destination = "Select email from t_user where username = '".$student->username."'";
+                    $mail_destination = "Select email from t_user where username = '".
+                        $temp_encrypt_user->encryptToken($this->username)."'";
                     $mail_destination = Yii::$app->db->createCommand($mail_destination)->queryScalar();
                     //after fetch the address, send the new password to the user
                     $this->sendMail($mail_destination,$message); //send the new password to the user

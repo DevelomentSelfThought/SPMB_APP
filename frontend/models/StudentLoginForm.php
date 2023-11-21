@@ -17,6 +17,7 @@ class StudentLoginForm extends Model {
     {
         return [
             [['username','password'],'required'],
+            [['username','password'],'string','min'=>4,'max'=>20],
             //['rememberMe','boolean'],
            ['password','validatePassword'],
         ];
@@ -47,8 +48,9 @@ class StudentLoginForm extends Model {
     //function to get the user object
     public function getStudent()
     {
+        $temp_encrypt_user  = new StudentRegisterForm();
         if($this->_student === false){ //if the user is not yet found
-            $this->_student = Student::findByUsername($this->username); //find the user
+            $this->_student = Student::findByUsername($temp_encrypt_user->encryptToken($this->username)); //find the user
         }
         return $this->_student; //return the user
     }

@@ -85,7 +85,7 @@ class StudentDataDiriForm extends Model {
             ['no_telepon_mobile','match','pattern'=>'/^[0-9]*$/','message'=>'No Telepon tidak boleh mengandung huruf'],
             ['no_telepon_mobile','string','min'=>11,'max'=>13,'message'=>'No Telepon harus 11-13 digit'],
             //rule for valid email address yahoo, gmail, and hotmail
-            ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail)+\.(com|co.id)$/','message'=>'Email tidak valid'],
+            ['email','match','pattern'=>'/^[a-zA-Z0-9_.+-]+@(yahoo|gmail|hotmail|del)+\.(com|co.id|ac.id)$/','message'=>'Email tidak valid'],
             //rule for tanggal_lahir must be date format and valid date format is yyyy-mm-dd
             ['tanggal_lahir','date','format'=>'yyyy-mm-dd','message'=>'Format tanggal lahir salah'],
             ['no_telepon_rumah','match','pattern'=>'/^[0-9]*$/','message'=>'No Telepon tidak boleh mengandung huruf'],

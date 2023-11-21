@@ -3,3 +3,11 @@ sudo chcon -t httpd_sys_rw_content_t /var/www/html/myproject/upload -R
 
 public access for http
 firewall-cmd --zone=public --add-service=http
+
+allowing http make connection (SELinux)
+#check first
+getenforce
+#check next 
+getsebool httpd_can_network_connect
+#not ready, turn on
+sudo setsebool -P httpd_can_network_connect on
