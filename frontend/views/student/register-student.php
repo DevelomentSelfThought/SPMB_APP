@@ -119,6 +119,8 @@ Modal::begin([
     'title' => '<h2 style="color: #0093ad;" class="text-center">Instruksi Pendaftaran</h2>',
     'id' => 'welcomeModal',
     'options' => ['class' => 'fade modal-dialog-centered'],
+    'headerOptions' => ['style' => 'background-color: #f5f5f5;'], // Add this line
+
 ]); ?>
 <div class="modal-body">
     <p class="text-center"><i class="fas fa-info-circle"></i> Harap memperhatikan instruksi berikut :</p>
@@ -130,11 +132,11 @@ Modal::begin([
         <li class="list-group-item"><strong>Konfirmasi Password:</strong> Password dan Konfirmasi Password tidak boleh berbeda.</li>
         <li class="list-group-item"><strong>No. Whatsapp:</strong> Gunakan nomor whatsApp anda saat ini.</li>
     </ul>
-    <p class="mt-3"> Sistem akan mendeteksi jika terdapat ketidaksesuaian data yang diberikan. 
+    <p style="font-size: 14px; color: #666; line-height: 1.6;" class="mt-3"> Sistem akan mendeteksi jika terdapat ketidaksesuaian data yang diberikan. 
         Jika terdapat ketidaksesuaian data, maka sistem akan menolak pendaftaran akun calon mahasiswa.</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Saya Memahami</button>
+    <button type="button" class="btn btn-primary" style="width: 100%;" data-bs-dismiss="modal">Saya Memahami</button>
 </div>
 <?php Modal::end(); ?>
 

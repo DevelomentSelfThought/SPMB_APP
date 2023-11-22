@@ -84,6 +84,8 @@ Modal::begin([
     'title' => '<h2 style="color: #0093ad;" class="text-center">Instruksi Reset Password</h2>',
     'id' => 'welcomeModal',
     'options' => ['class' => 'fade modal-dialog-centered'],
+    'headerOptions' => ['style' => 'background-color: #f5f5f5;'], // Add this line
+
 ]); ?>
 <div class="modal-body">
     <p class="text-center"><i class="fas fa-info-circle"></i> Harap memperhatikan instruksi berikut :</p>
@@ -97,14 +99,15 @@ Modal::begin([
         Harap memasukan nomor whatsapp yang telah terdaftar pada aplikasi SPMB IT Del.
     </li>
     </ul>
-    <p class="mt-3">
+    <p style="font-size: 14px; color: #666; line-height: 1.6;" class="mt-3">
     Jika anda lupa username, 
     anda dapat menemukan username tersebut 
-    pada email yang anda gunakan ketika mendaftar akun.</li>
+    pada email yang anda gunakan ketika mendaftar akun. 
+    Password baru anda akan dikirimkan melalui email, silahkan periksa email anda.</li>
     </p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Saya Memahami</button>
+    <button type="button" class="btn btn-primary" style="width: 100%;" data-bs-dismiss="modal">Saya Memahami</button>
 </div>
 <?php Modal::end(); ?>
 </body>

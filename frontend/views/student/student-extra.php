@@ -1,5 +1,6 @@
 <!--include boostrap icon css here-->
 <html lang="">
+<title> Update Data Extrakurikuler </title>
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>

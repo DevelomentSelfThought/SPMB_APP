@@ -2,7 +2,7 @@
 namespace app\models;
 use Yii;
 use yii\base\Model;
-
+use Exception;
 class StudentMajorForm extends Model
 {
     public $gelombang;
@@ -38,14 +38,52 @@ class StudentMajorForm extends Model
     public function insertMajor(){
         if($this->validate())
         {
-            return true;
+            try{
+                $this->updateGelombang(); //update the gelombang
+                $this->updateIndicator(); //update the indicator that the major is filled
+                self::insertMajorList(); //insert the major list
+                return true;
+            }catch(Exception $e){ //for debugging purpose, todo: need to be improved to handle error
+                echo $e->getMessage();
+            }
         }
         return false;
     }
     //check if the major is filled or not, make sure the modal dialog
-    //only appear if the major is not filled yet
+    //only appear if the major is not filled yet, more clean database design!!!!
     public static function isFilledMajor(){
-        return false;
+        $sql = "SELECT created_by from t_pendaftar WHERE pendaftar_id = :pendaftar_id";
+        $params = [':pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId()];
+        $result = Yii::$app->db->createCommand($sql, $params)->queryOne();        
+        if($result['created_by'] == null)
+            return false;
+        return true;
+    }
+    //function to update gelombang, the behavior is different from major
+    private function updateGelombang(){
+        $sql = "UPDATE t_pendaftar SET gelombang_pendaftaran_id = :gelombang WHERE pendaftar_id = :pendaftar_id";
+        $params = [':gelombang'=>$this->gelombang,':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()];
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+    }
+    //update the indicator that the major is filled or batch is filled
+    private function updateIndicator(){
+        $sql = "UPDATE t_pendaftar SET created_by = :created_by WHERE pendaftar_id = :pendaftar_id";
+        $params = [':created_by'=>Yii::$app->user->identity->username,':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()];
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+    }
+    //insert all major list to database, todo: need to be improved to handle error
+    private function insertMajorList() {
+        $sql = "INSERT INTO t_pilihan_jurusan (pendaftar_id,jurusan_id,prioritas) 
+            VALUES (:pendaftar_id,:jurusan_id,:prioritas)";
+        $params = [':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+            ':jurusan_id'=>$this->jurusan_main,':prioritas'=>1];
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        //since the jurusan_opsional is optional, we need to check if it is filled or not
+        if($this->jurusan_opsional != null){
+            $params = [':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                ':jurusan_id'=>$this->jurusan_opsional,':prioritas'=>2];
+            Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        }
     }
 }
 ?>

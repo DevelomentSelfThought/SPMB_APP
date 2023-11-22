@@ -28,28 +28,30 @@ class StudentDataDiriForm extends Model {
     //function to tell the current user_id from the current logged to system
     public static function getCurrentUserId(){
         //sql command to get the current user id from the current logged in user
-        $sql = "SELECT user_id FROM t_user WHERE username = '".Yii::$app->user->identity->username."'";
+        $sql = "SELECT user_id FROM t_user WHERE username = :username";
+        $params = [':username' => Yii::$app->user->identity->username];
         //execute the sql command
-        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        $result = Yii::$app->db->createCommand($sql, $params)->queryOne();
         //return the user_id
         return $result['user_id'];
-        //return Yii::$app->user->identity->id;
     }
     //get current pendaftar_id from the current logged in user
     public static function getCurrentPendaftarId(){
         //sql command to get the current pendaftar_id from the current logged in user
-        $sql = "SELECT pendaftar_id FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        $sql = "SELECT pendaftar_id FROM t_pendaftar WHERE user_id = :user_id";
+        $params = [':user_id' => self::getCurrentUserId()];
         //execute the sql command
-        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        $result = Yii::$app->db->createCommand($sql, $params)->queryOne();
         //return the pendaftar_id
         return $result['pendaftar_id'];
     }
     //validate if the user_id from the current logged in user is already exist in the table t_pendaftar
     public static function userIdExists(){
         //sql command to check whether the user_id is already exist in the table t_pendaftar
-        $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
+        $sql = "SELECT * FROM t_pendaftar WHERE user_id = :user_id";
+        $params = [':user_id' => self::getCurrentUserId()];
         //execute the sql command
-        $result = Yii::$app->db->createCommand($sql)->queryOne();
+        $result = Yii::$app->db->createCommand($sql, $params)->queryOne();
         //if the user_id is already exist, return true
         if($result != null){
             return true;
@@ -104,7 +106,6 @@ class StudentDataDiriForm extends Model {
                 }
                 //prefer update schema for all data member
                 Yii::$app->db->createCommand()->update('t_pendaftar',[
-
                     'nik'=>$this->nik,
                     'nisn'=>$this->nisn,
                     'no_kps'=>$this->no_kps,
@@ -112,19 +113,18 @@ class StudentDataDiriForm extends Model {
                     'jenis_kelamin_id'=>$this->jenis_kelamin,
                     'tanggal_lahir'=>$this->tanggal_lahir,
                     'tempat_lahir'=>$this->tempat_lahir,
-
                     'agama_id'=>$this->agama_id,
                     'alamat'=>$this->alamat,
                     'kelurahan'=>$this->kelurahan,
                     'alamat_prov'=>$this->provinsi,
                     'alamat_kab'=>$this->kabupaten,
                     'alamat_kec'=>$this->alamat_kecamatan,
-
                     'kode_pos'=>$this->kode_pos,
                     'no_telepon_rumah'=>$this->no_telepon_rumah,
                     'no_telepon_mobile'=>$this->no_telepon_mobile,
                     'email'=>$this->email,
-                ],'user_id = '.self::getCurrentUserId())->execute();
+                ],'user_id = :user_id', [':user_id' => self::getCurrentUserId()])->execute();
+                
                 //Yii::$app->session->setFlash('success', 'Data pribadi berhasil disimpan');
                 return true;
             }catch (Exception $e){ //for debugging purpose
