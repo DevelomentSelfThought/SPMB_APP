@@ -1,0 +1,2 @@
+send data as a form data
+curl -X PUT -d "username=newUsername" http://localhost:8080/rest-api/update?user_id=4
