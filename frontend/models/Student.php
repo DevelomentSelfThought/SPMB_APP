@@ -28,6 +28,8 @@ class Student extends ActiveRecord implements IdentityInterface
             [['password'], 'string', 'min' => 6],
             //safe for username and password
             [['username', 'password'], 'safe'],
+            //experimental api development
+            [['nik', 'email', 'no_HP','verf_code','active'], 'safe'],
         ];
     }
 

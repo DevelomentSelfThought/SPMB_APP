@@ -1,2 +1,7 @@
 send data as a form data
 curl -X PUT -d "username=newUsername" http://localhost:8080/rest-api/update?user_id=4
+
+curl -X PUT -u jacks_1:890706 -H "Content-Type: application/json" -d '{"username":"jacks_12","nik":"122203150598004"}' http://localhost:8080/rest-api/update
+
+url -X POST -u jacks_12:890706 -H "Content-Type: application/json" -d '{"username":"jane_123","password":"123","verf_code":"1234","email":"jack@mail","active":0}' http://localhost:8080/rest-api/create
+
