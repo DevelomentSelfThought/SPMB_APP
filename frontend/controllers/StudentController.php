@@ -197,111 +197,111 @@ class StudentController extends Controller // StudentController extends the Cont
         ]); //render the extra activity page
     }
     //action for insert data akademik
-public function actionStudentAkademik(){
-    $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
-    if($model_student_akademik->load(Yii::$app->request->post())){
-        $model_student_akademik->file = UploadedFile::getInstance($model_student_akademik, 'file');
-        if($model_student_akademik->file){
-            // Validate the uploaded file before moving it
-            if($model_student_akademik->validate()){
-                $uploadFolder ='uploads/';
-                if(!file_exists($uploadFolder)){ //not exist, make a new directory
-                    mkdir($uploadFolder, 0777, true);
-                }
-                $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
-                $model_student_akademik->file->saveAs($filePath);
-                $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
+    public function actionStudentAkademik(){
+        $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
+        if($model_student_akademik->load(Yii::$app->request->post())){
+            $model_student_akademik->file = UploadedFile::getInstance($model_student_akademik, 'file');
+            if($model_student_akademik->file){
+                // Validate the uploaded file before moving it
+                if($model_student_akademik->validate()){
+                    $uploadFolder ='uploads/';
+                    if(!file_exists($uploadFolder)){ //not exist, make a new directory
+                        mkdir($uploadFolder, 0777, true);
+                    }
+                    $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
+                    $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
+                    $model_student_akademik->file->saveAs($filePath);
+                    $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
 
-                //trying to insert data akademik to database
-                if($model_student_akademik->insertStudentAkademik()){
-                    return $this->redirect(['student/student-bahasa']);    
-                }
-                else{ //error message
-                    Yii::$app->session->setFlash('error', "Data Akademik gagal disimpan");
+                    //trying to insert data akademik to database
+                    if($model_student_akademik->insertStudentAkademik()){
+                        return $this->redirect(['student/student-bahasa']);    
+                    }
+                    else{ //error message
+                        Yii::$app->session->setFlash('error', "Data Akademik gagal disimpan");
+                    }
                 }
             }
         }
+        return $this->render('student-akademik',
+            ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
     }
-    return $this->render('student-akademik',
-        ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
-}
-//action for autocomplete for school name
-public static function actionAutocomplete($term) {
-    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-    $results = (new \yii\db\Query())
-        ->select('sekolah')
-        ->from('t_r_sekolah_dapodik')
-        ->where(['like', 'sekolah', $term])
-        ->all();
-    return array_column($results, 'sekolah');
-}
-//action for token activate, this is already cleaned up
-public function actionStudentTokenActivate(){
-    $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
-    if($model->load(Yii::$app->request->post()) && $model->activate()){
-        return $this->redirect(['student/login']); //go to the login page
+    //action for autocomplete for school name
+    public static function actionAutocomplete($term) {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $results = (new \yii\db\Query())
+            ->select('sekolah')
+            ->from('t_r_sekolah_dapodik')
+            ->where(['like', 'sekolah', $term])
+            ->all();
+        return array_column($results, 'sekolah');
     }
-    return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
-}
-//action for data bahasa, this is already cleaned up
-public function actionStudentBahasa(){
-    $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
-    if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
-        return $this->redirect(['student/student-extra']);
-    }
-    return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
-}
-//action for data prestasi, to do more clean up on this action
-public function actionStudentPrestasi(){
-    $populate_pres  = StudentPrestasiForm::fetchDataPrestasi(); //fetch prestasi data
-    $populate_pres_non  = StudentPrestasiForm::fetchDataPrestasiNon(); //fetch prestasi non akademik data
-    $model  = new StudentPrestasiForm();
-    if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
-        return $this->redirect(['student/student-informasi']);
-    }
-    return $this->render('student-prestasi',[
-        'model'=>$model, 'populate_pres'=>$populate_pres,'populate_pres_non'=>$populate_pres_non
-    ]);
-}
-//action for store information, to do more clean up on this action
-public function actionStudentInformasi(){
-    $model = new \app\models\StudentInformasiForm();
-    //set flash message if the data is successfully inserted to database
-    if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
-        return $this->redirect(['student/student-biaya']);
-    }
-    return $this->render('student-informasi',['model'=>$model]);
-}
-//action for store biaya, to do more clean up on this action
-public function actionStudentBiaya(){
-    $model = new \app\models\StudentBiayaForm();
-    //set flash message if the data is successfully inserted to database
-    if($model->load(Yii::$app->request->post())){
-        //set flash message ok if the voucher is valid
-        if($model->validateVoucher()){
-            Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
+    //action for token activate, this is already cleaned up
+    public function actionStudentTokenActivate(){
+        $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
+        if($model->load(Yii::$app->request->post()) && $model->activate()){
+            return $this->redirect(['student/login']); //go to the login page
         }
+        return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
     }
-    return $this->render('student-biaya',['model'=>$model]);
-}
-//action for pengunguman, to do more clean up on this action
-public function actionStudentPengumuman(){
-    $model = new \app\models\StudentPengumumanForm();
-    //set flash message if the data is successfully inserted to database
-    if($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()){
-        return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
+    //action for data bahasa, this is already cleaned up
+    public function actionStudentBahasa(){
+        $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
+        if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
+            return $this->redirect(['student/student-extra']);
+        }
+        return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
     }
-    return $this->render('student-pengumuman',['model'=>$model]);
-}
-//action for announcement, to do more clean up on this action
-public function actionStudentAnnouncement(){
-    $model = new StudentAnnouncement();
-    //set flash message if the data is successfully inserted to database
-    /*if($model->load(Yii::$app->request->post()) && $model->insertAnnouncementData()){
-        return $this->redirect(['student/student-biaya']); //to do: change this to announcement page
-    }*/
-    return $this->render('student-announcement',['model'=>$model]);
-}
+    //action for data prestasi, to do more clean up on this action
+    public function actionStudentPrestasi(){
+        $populate_pres  = StudentPrestasiForm::fetchDataPrestasi(); //fetch prestasi data
+        $populate_pres_non  = StudentPrestasiForm::fetchDataPrestasiNon(); //fetch prestasi non akademik data
+        $model  = new StudentPrestasiForm();
+        if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
+            return $this->redirect(['student/student-informasi']);
+        }
+        return $this->render('student-prestasi',[
+            'model'=>$model, 'populate_pres'=>$populate_pres,'populate_pres_non'=>$populate_pres_non
+        ]);
+    }
+    //action for store information, to do more clean up on this action
+    public function actionStudentInformasi(){
+        $model = new \app\models\StudentInformasiForm();
+        //set flash message if the data is successfully inserted to database
+        if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
+            return $this->redirect(['student/student-biaya']);
+        }
+        return $this->render('student-informasi',['model'=>$model]);
+    }
+    //action for store biaya, to do more clean up on this action
+    public function actionStudentBiaya(){
+        $model = new \app\models\StudentBiayaForm();
+        //set flash message if the data is successfully inserted to database
+        if($model->load(Yii::$app->request->post())){
+            //set flash message ok if the voucher is valid
+            if($model->validateVoucher()){
+                Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
+            }
+        }
+        return $this->render('student-biaya',['model'=>$model]);
+    }
+    //action for pengunguman, to do more clean up on this action
+    public function actionStudentPengumuman(){
+        $model = new \app\models\StudentPengumumanForm();
+        //set flash message if the data is successfully inserted to database
+        if($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()){
+            return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
+        }
+        return $this->render('student-pengumuman',['model'=>$model]);
+    }
+    //action for announcement, to do more clean up on this action
+    public function actionStudentAnnouncement(){
+        $model = new StudentAnnouncement();
+        //set flash message if the data is successfully inserted to database
+        /*if($model->load(Yii::$app->request->post()) && $model->insertAnnouncementData()){
+            return $this->redirect(['student/student-biaya']); //to do: change this to announcement page
+        }*/
+        return $this->render('student-announcement',['model'=>$model]);
+    }
 }
 ?>
