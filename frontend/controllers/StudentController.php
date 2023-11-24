@@ -303,5 +303,33 @@ class StudentController extends Controller // StudentController extends the Cont
         }*/
         return $this->render('student-announcement',['model'=>$model]);
     }
+    //experimental test fetch data from my own api, case my public api
+    public function actionShowDataApi()
+    {
+        $client = new \yii\httpclient\Client();
+    
+        try {
+            $response = $client->createRequest()
+                ->setMethod('GET')
+                ->setUrl('http://172.27.80.52/rest-api') // Use the JSONPlaceholder API
+                ->addHeaders(['Authorization' => 'Basic ' . base64_encode('M1lUcFlPeE01SC9JYXg3WlhDNTlVQT09:645842')]) // Replace 'username:password' with your actual username and password
+                ->setOptions([
+                    'timeout' => 30, // Set a timeout of 30 seconds
+                ])
+                ->send();
+    
+            if ($response->isOk) {
+                $data = $response->data;
+            } else {
+                Yii::error("Error fetching data: " . $response->statusCode . ' ' . $response->content);
+                throw new \yii\web\HttpException($response->statusCode, 'Error fetching data from API: ' . $response->content);
+            }
+        } catch (\Exception $e) {
+            Yii::error("Error fetching data: " . $e->getMessage());
+            throw new \yii\web\HttpException(500, 'Error fetching data from API: ' . $e->getMessage());
+        }
+    
+        return $this->render('show-data-api', ['data' => $data]); //render the data
+    }
 }
 ?>
