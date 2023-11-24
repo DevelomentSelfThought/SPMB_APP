@@ -41,3 +41,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<script>
+document.getElementById('saveButton').addEventListener('click', function() {
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+  // Send an AJAX request to actionShowApi
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/student/show-data-api?username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // The request has been processed successfully
+      // You can now update your page with the response data
+      console.log(xhr.responseText);
+    }
+  };
+  xhr.send();
+});
+
+</script>
