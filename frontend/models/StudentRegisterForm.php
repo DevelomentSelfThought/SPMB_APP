@@ -42,7 +42,7 @@ class StudentRegisterForm extends Model {
     //student copy the access token and send it through given url
     public function generateAccessToken($length = 6): string
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789'; //ensure the token only contains number
         $charactersLength = strlen($characters); //get the length of the characters
         $randomString = '';
         for ($i = 0; $i < $length; $i++) { //looping to generate random string

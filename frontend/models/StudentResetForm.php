@@ -18,8 +18,11 @@ class StudentResetForm extends Model {
     //mail api for sending message, need to be improved to handle error
     //while sending message to the user (e.g. no internet connection)
     //experimental version using mailgun api (free version)
-    public function sendMail($email, $message){
+    public function 
+    sendMail($email, $message){
         $apiKey = getenv('SENDINBLUE_API_KEY');
+        //for debugging purpose
+        //Yii::info('sendMail function called : '.$apiKey);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",
@@ -30,7 +33,8 @@ class StudentResetForm extends Model {
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode(array(
-                'sender' => array('name' => 'Panitia PMB IT Del', 'email' => 'michaelsipayung123@gmail.com'),
+                'sender' => array('name' => 'Panitia PMB IT Del', 
+                'email' => 'michaelsipayung123@gmail.com'),
                 'to' => array(array('email' => $email)),
                 'subject' => 'Your activation code',
                 'textContent' => $message
@@ -49,7 +53,7 @@ class StudentResetForm extends Model {
     
         if ($err) {
             //flash message 
-            Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
+            //Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
             echo "cURL Error #:" . $err;
         } else {
             echo $response;
@@ -105,9 +109,9 @@ class StudentResetForm extends Model {
     //method for generate random string, used for generating new password automatically
     //the current implementation is not safe, because it is possible to have duplicate
     //need to be improved, but password reset is not the main focus of this project
-    public function generateRandomString($length = 6): string
+    public function generateRandomString($length = 6): string //ensure the api is simple
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789';
         $charactersLength = strlen($characters); //get the length of the characters
         $randomString = '';
         for ($i = 0; $i < $length; $i++) { //looping to generate random string
