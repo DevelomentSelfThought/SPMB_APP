@@ -38,19 +38,24 @@ class StudentRegisterForm extends Model {
             ['no_HP','string','min'=>11,'max'=>13,'message'=>'No Telepon harus 11-13 digit'],
         ];
     }   
-    //generate unique access token: 9 random string, (possible to have duplicate!!!!)
-    //student copy the access token and send it through given url
-    public function generateAccessToken($length = 6): string
+    //generate unique access token: 6 random string, (possible to have duplicate!!!!)
+    //student copy the access token and send it through given url : todo
+    public static function generateAccessToken($length = 6): string
     {
         $characters = '0123456789'; //ensure the token only contains number
         $charactersLength = strlen($characters); //get the length of the characters
         $randomString = '';
         for ($i = 0; $i < $length; $i++) { //looping to generate random string
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
+            if ($charactersLength > 0) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
         }
-        //get 4 characters from username and combine to random string variable
+        // If $randomString is shorter than $length, pad it with zeros
+        while (strlen($randomString) < $length) {
+            $randomString .= '0';
+        }
         return $randomString;
-    }
+    }    
     //method for registering new user
     public function registerStudent(): bool
     {
@@ -72,7 +77,7 @@ class StudentRegisterForm extends Model {
             $student->password = Yii::$app->security->generatePasswordHash($this->password);; //hash the password
             $student->no_HP = $this->no_HP; //hash the phone number
             //save the access token to database
-            $temp_token  = $this->generateAccessToken(); //store in temporary variable
+            $temp_token  = self::generateAccessToken(); //store in temporary variable
             //token encryption, reverse the token
             $student->verf_code = $this->encryptToken($temp_token); //store in database
             $student->active = $this->active;               
@@ -80,8 +85,7 @@ class StudentRegisterForm extends Model {
             //$student->verf_code = Yii::$app->security->generatePasswordHash($student->verf_code);
             if($student->save()){ //if the student is saved
                 $message = $this->registerMessage($this->username,$temp_token);
-                $mail_send  = new StudentResetForm(); //create new object, for sending email
-                $mail_send->sendMail($student->email,$message); //send the token to the user
+                self::sendMail($this->email,$message); //send the token to the user
                 return true;
             }
             else { //if the student is not saved
@@ -131,6 +135,50 @@ class StudentRegisterForm extends Model {
         // The result is binary data, so it's encoded in Base64 to make it safe for storage as a string
         $encrypted_code_base64 = base64_encode($encrypted_code);
         return $encrypted_code_base64;
+    }
+    //mail api for sending message, need to be improved to handle error
+    //while sending message to the user (e.g. no internet connection)
+    //for debugging purpose, use echo instead of flash message
+    public function 
+    sendMail($email, $message){
+        $api_key_res = $_ENV['SENDINBLUE_API_KEY_RES'];
+        //for debugging purpose
+        Yii::info('sendMail function called : '.$api_key_res);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode(array(
+                'sender' => array('name' => 'Panitia PMB IT Del', 
+                'email' => 'berliansimanjuntak@hotmail.com'),
+                'to' => array(array('email' => $email)),
+                'subject' => 'Your activation code',
+                'textContent' => $message
+            )),
+            CURLOPT_HTTPHEADER => array(
+                "accept: application/json",
+                "api-key: ". $api_key_res,
+                "content-type: application/json"
+            ),
+        ));
+    
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+    
+        curl_close($curl);
+    
+        if ($err) {
+            //flash message 
+            //Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
     }
 }
 ?>

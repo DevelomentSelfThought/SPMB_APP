@@ -17,12 +17,11 @@ class StudentResetForm extends Model {
     }
     //mail api for sending message, need to be improved to handle error
     //while sending message to the user (e.g. no internet connection)
-    //experimental version using mailgun api (free version)
     public function 
     sendMail($email, $message){
-        $apiKey = getenv('SENDINBLUE_API_KEY');
+        $apiKey = $_ENV['SENDINBLUE_API_KEY'];
         //for debugging purpose
-        //Yii::info('sendMail function called : '.$apiKey);
+        Yii::info('sendMail function called : '.$apiKey);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",
@@ -106,19 +105,6 @@ class StudentResetForm extends Model {
         </html>";
         return $message;
     }
-    //method for generate random string, used for generating new password automatically
-    //the current implementation is not safe, because it is possible to have duplicate
-    //need to be improved, but password reset is not the main focus of this project
-    public function generateRandomString($length = 6): string //ensure the api is simple
-    {
-        $characters = '0123456789';
-        $charactersLength = strlen($characters); //get the length of the characters
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) { //looping to generate random string
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
     //reset password using  whatsApp api and send the new password to the user
     //need more error handling to quarantine the user receive the new password
     public function resetPassword(): bool
@@ -130,7 +116,7 @@ class StudentResetForm extends Model {
                 if(!$this->isActiveUser($temp_encrypt_user->encryptToken($this->username))){ //the user is not active
                     return false;
                  }
-                $new_password = $this->generateRandomString(); //generate random string
+                $new_password = StudentRegisterForm::generateAccessToken() ; //generate random string
                 $student->password = Yii::$app->security->generatePasswordHash($new_password); //hash the new password
                 if($student->save()){ //if the new password is saved
                     $message = $this->resetMessage($this->username,$new_password);
