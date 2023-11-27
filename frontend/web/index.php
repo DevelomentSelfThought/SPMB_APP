@@ -3,8 +3,8 @@ defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require __DIR__ . '/../../vendor/autoload.php';
-//load environment variable
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../..');
+//load environment variable, for production
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 //load the environment variable before loading the Yii class
 $api_key = $_ENV['SENDINBLUE_API_KEY'];
