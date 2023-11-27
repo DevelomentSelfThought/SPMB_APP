@@ -52,6 +52,10 @@ class StudentAkademikForm extends Model {
     public $fisika_3;
     public $fisika_4;
     public $fisika_5;
+    public $sertifikat_pmdk;
+    public $rapor_pmdk;
+    public $rekomendasi_pmdk;
+
     //public data member for usm
     public function rules()
     {
@@ -90,11 +94,21 @@ class StudentAkademikForm extends Model {
                 [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
                     'integer', 'min' => 2, 'max' => 100],
                 [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 100],
+                
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 2, 'max' => 100],
-
-                [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
-                [['file'],'required'], //possible to be refactored, join with the common rules
+                    
+                [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'required'],
+                [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'number', 'min' => 2, 'max' => 100],
+                    
+                [['kimia_1', 'kimia_2', 'kimia_3', 'kimia_4', 'kimia_5'], 'required'],
+                [['kimia_1', 'kimia_2', 'kimia_3', 'kimia_4', 'kimia_5'], 'number', 'min' => 2, 'max' => 100],
+                    
+                [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'required'],
+                [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'number', 'min' => 2, 'max' => 100],
+                    
+                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+                [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
        
             ]);
         }

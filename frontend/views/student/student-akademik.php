@@ -30,6 +30,7 @@
         border-radius: 10px;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
         color: #000000;
+        
     }
     .my-form .form-control {
         border-radius: 5px;
@@ -57,9 +58,22 @@ use yii\web\JsExpression;
 //include task navigation component
 // include 'TaskNavigation.php';
 ?>
+<?php 
+    function toRoman($num) {
+        $lookup = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+        $roman = '';
+        foreach ($lookup as $romanNumeral => $value) {
+            $matches = intval($num / $value);
+            $roman .= str_repeat($romanNumeral, $matches);
+            $num = $num % $value;
+        }
+        return $roman;
+    }
+?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => 
     ['class' => 'my-form', 'enctype' => 'multipart/form-data']]); ?>
+<?= Html::tag('div', '<span class="text-primary fw-bold">Form Data Informasi Sekolah Asal</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <div class="row">
     <div class="col">
         <?= $form->field($model_student_akademik, 'sekolah', [
@@ -103,8 +117,7 @@ use yii\web\JsExpression;
     </div>
 </div>
     <!-- define it for batch utbk -->
-    <?= Html::tag('div', '<span>Form Data Nilai Rapor</span>', ['class' => 'ruler']) ?>
-    <?php 
+    <?= Html::tag('div', '<span class="text-primary fw-bold">Form Data Nilai Rapor Semester '. toRoman(1).'-'.toRoman(5) .'</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    <?php 
         if(StudentAkademikForm::getCurrentBatch() == 'utbk'){ 
     ?>
     <?php echo $form->field($model_student_akademik,'no_utbk',
@@ -212,18 +225,6 @@ use yii\web\JsExpression;
     ?>
 <div class="row">
     <div class="col">
-    <?php 
-    function toRoman($num) {
-        $lookup = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
-        $roman = '';
-        foreach ($lookup as $romanNumeral => $value) {
-            $matches = intval($num / $value);
-            $roman .= str_repeat($romanNumeral, $matches);
-            $num = $num % $value;
-        }
-        return $roman;
-    }
-    ?>
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -522,6 +523,25 @@ use yii\web\JsExpression;
     ->label('Fisika Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
+    </div>
+</div>
+<?= Html::tag('div', '<span class="text-primary fw-bold">Form Upload File Nilai Rapor, 
+Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
+<div class="row">
+    <div class="col">
+        <?php echo $form->field($model_student_akademik, 'rapor_pmdk', [
+            'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
+        ])->fileInput(['class' => 'form-control rounded'])->label("File Nilai Rapor Semester ".toRoman(1)."-".toRoman(5)) ?>
+    </div>
+    <div class="col">
+        <?php echo $form->field($model_student_akademik, 'sertifikat_pmdk', [
+            'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
+        ])->fileInput(['class' => 'form-control rounded'])->label("File Sertifikat") ?>
+    </div>
+    <div class="col">
+        <?php echo $form->field($model_student_akademik, 'rekomendasi_pmdk', [
+            'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
+        ])->fileInput(['class' => 'form-control rounded'])->label("File Surat Rekomendasi") ?>
     </div>
 </div>
 <!-- the end of conditional statement -->

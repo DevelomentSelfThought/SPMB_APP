@@ -204,15 +204,40 @@ class StudentController extends Controller // StudentController extends the Cont
             if($model_student_akademik->file){
                 // Validate the uploaded file before moving it
                 if($model_student_akademik->validate()){
-                    $uploadFolder ='uploads/';
-                    if(!file_exists($uploadFolder)){ //not exist, make a new directory
-                        mkdir($uploadFolder, 0777, true);
-                    }
-                    $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                    $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
-                    $model_student_akademik->file->saveAs($filePath);
-                    $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
+                    //insert it batch by bach, case 1: utbk
+                    if($model_student_akademik::getCurrentBatch()=='utbk')
+                    {
+                        $uploadFolder ='uploads/';
+                        if(!file_exists($uploadFolder)){ //not exist, make a new directory
+                            mkdir($uploadFolder, 0777, true);
+                        }
+                        $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
+                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
+                        $model_student_akademik->file->saveAs($filePath);
+                        $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
 
+                    }
+                    //next case, batch pmdk
+                    else if($model_student_akademik::getCurrentBatch()=='pmdk')
+                    {
+                        $uploadFolder ='uploads_pmdk/';
+                        if(!file_exists($uploadFolder)){ //not exist, make a new directory
+                            mkdir($uploadFolder, 0777, true);
+                        }
+                        $fileBaseName = $model_student_akademik->sertifikat_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
+                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->sertifikat_pmdk->extension;
+                        $model_student_akademik->sertifikat_pmdk->saveAs($filePath);
+                        //$model_student_akademik->file_sertifikat = $filePath; //save the path to the database
+                        //next for rapor
+                        $fileBaseName = $model_student_akademik->rapor_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
+                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->rapor_pmdk->extension;
+                        $model_student_akademik->rapor_pmdk->saveAs($filePath);
+                        //next for surat rekomendasi
+                        $fileBaseName = $model_student_akademik->rekomendasi_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
+                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->rekomendasi_pmdk->extension;
+                        $model_student_akademik->rekomendasi_pmdk->saveAs($filePath);
+                    }
+                    //otherwise,batch ........
                     //trying to insert data akademik to database
                     if($model_student_akademik->insertStudentAkademik()){
                         return $this->redirect(['student/student-bahasa']);    
