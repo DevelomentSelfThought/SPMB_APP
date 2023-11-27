@@ -21,7 +21,7 @@ class StudentResetForm extends Model {
     sendMail($email, $message){
         $apiKey = $_ENV['SENDINBLUE_API_KEY'];
         //for debugging purpose
-        Yii::info('sendMail function called : '.$apiKey);
+        // Yii::info('sendMail function called : '.$apiKey);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",

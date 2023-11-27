@@ -8,6 +8,10 @@ class StudentAkademikForm extends Model {
     public $sekolah;
     public $jurusan_sekolah;
     public $akreditasi_sekolah;
+    public $jumlah_pelajaran_un;
+    public $nilai_un;
+    public $file;
+    //public data member for utbk
     public $no_utbk;
     public $tanggal_ujian_utbk;
     public $nilai_kemampuan_umum;
@@ -16,35 +20,71 @@ class StudentAkademikForm extends Model {
     public $nilai_kemampuan_bacaan;
     public $jumlah_pelajaran;
     public $nilai_semester;
-    public $jumlah_pelajaran_un;
-    public $nilai_un;
-    public $file;
     public $file_sertifikat;
+    //public data member for pmdk
+    public $jumlah_pelajaran_1; //_1 mean :  total pelajaran semester 1
+    public $jumlah_pelajaran_2; //_2 mean :  total pelajaran semester 2
+    public $jumlah_pelajaran_3; //_3 mean :  total pelajaran semester 3
+    public $jumlah_pelajaran_4; //_4 mean :  total pelajaran semester 4
+    public $jumlah_pelajaran_5; //_5 mean :  total pelajaran semester 5
+    public $nilai_pelajaran_1; //_1 mean :  nilai pelajaran semester 1
+    public $nilai_pelajaran_2; //_2 mean :  nilai pelajaran semester 2
+    public $nilai_pelajaran_3; //_3 mean :  nilai pelajaran semester 3
+    public $nilai_pelajaran_4; //_4 mean :  nilai pelajaran semester 4
+    public $nilai_pelajaran_5; //_5 mean :  nilai pelajaran semester 5
+    public $matematika_1; //_1 mean : semester _1
+    public $matematika_2;
+    public $matematika_3;
+    public $matematika_4;
+    public $matematika_5;
+    //public data member for usm
     public function rules()
     {
-        return [
-            [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah', 'no_utbk', 'tanggal_ujian_utbk', 
-            'nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
-            'nilai_kemampuan_bacaan', 'jumlah_pelajaran', 'nilai_semester'], 'required'],
-            [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah', 'no_utbk', 'tanggal_ujian_utbk', 
-            'nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
-            'nilai_kemampuan_bacaan', 'jumlah_pelajaran', 'nilai_semester', 'jumlah_pelajaran_un', 'nilai_un'], 'safe'],
-            [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
-            [['file'],'required'],
-            [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
-            //nilai un and nilai utbk can be integer and float
-            [['nilai_un', 'nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
-            'nilai_kemampuan_bacaan'], 'number'],
-            [['no_utbk'], 'string', 'min'=>6,'max' => 20],
+        //refactor the rules, corresponding to the current batch
+        $rules = [
+            //the common rules
+            [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah',], 'required'],
+            [['sekolah', 'jurusan_sekolah', 'akreditasi_sekolah',], 'safe'],
             [['sekolah'], 'string', 'min'=>5,'max' => 100],
             [['jurusan_sekolah'], 'string', 'max' => 50],
-            //limit tanggal ujian utbk
-            [['tanggal_ujian_utbk'], 'date', 'format' => 'php:Y-m-d', 'min' => '2021-12-01'],
-            //[['tanggal_ujian_utbk'], 'date', 'format' => 'php:Y-m-d'],
-            [['nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan','nilai_semester'], 
-            'number', 'min' => 10, 'max' => 1000],
-            [['jumlah_pelajaran'], 'integer', 'min' => 2, 'max' => 100],
+            [['akreditasi_sekolah'], 'string', 'max' => 2],
+            [['akreditasi_sekolah'], 'in', 'range' => self::$acreditation],
         ];
+        //if the current batch is utbk, add the following rules
+        if($this->getCurrentBatch() == 'utbk'){
+            $rules = array_merge($rules, [
+                [['no_utbk', 'tanggal_ujian_utbk', 'nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 
+                'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan', 'jumlah_pelajaran','nilai_semester'], 
+                'required'],
+                [['no_utbk'], 'string', 'min'=>6,'max' => 20],
+                [['tanggal_ujian_utbk'], 'date', 'format' => 'php:Y-m-d', 'min' => '2021-12-01'],
+                [['nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan'], 
+                'number', 'min' => 10, 'max' => 1000],
+                [['nilai_un', 'nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
+                'nilai_kemampuan_bacaan'], 'number'],
+                [['jumlah_pelajaran'], 'integer', 'min' => 2, 'max' => 100],
+                [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
+                [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+                [['file'],'required'], //possible to be refactored, join with the common rules
+            ]);
+        }
+        else if($this->getCurrentBatch() == 'pmdk'){
+            $rules = array_merge($rules, [
+                [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5',
+                'nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4','nilai_pelajaran_5'],'required'],
+                [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
+                    'integer', 'min' => 2, 'max' => 100],
+                [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 100],
+                [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
+                [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 2, 'max' => 100],
+
+                [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
+                [['file'],'required'], //possible to be refactored, join with the common rules
+       
+            ]);
+        }
+        //add other rules for other batch: todo
+        return $rules;
     }
     //list of availabe program study, generate it without database
     //possible value for program study, may be added later
@@ -333,6 +373,21 @@ class StudentAkademikForm extends Model {
         $sql = "SELECT utbk_id FROM t_utbk WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
         $data = Yii::$app->db->createCommand($sql)->queryScalar();
         return $data;
+    }
+    //private member to tell the current batch
+    public static function getCurrentBatch(){
+        $sql = "SELECT gelombang_pendaftaran_id FROM t_pendaftar WHERE user_id = ".StudentDataDiriForm::getCurrentUserId();
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        //fetch description from t_r_gelombang_pendaftaran where gelombang_pendaftaran_id = $data
+        //make sure the $data is not null: todo
+        $sql = "SELECT `desc` FROM t_r_gelombang_pendaftaran WHERE gelombang_pendaftaran_id = $data";
+        $data = Yii::$app->db->createCommand($sql)->queryScalar();
+        if(stripos($data,'usm') !== false)
+            return 'usm';
+        else if(stripos($data,'pmdk')!==false)
+            return 'pmdk';
+        else
+            return 'utbk';
     }
 }
 ?>
