@@ -37,6 +37,21 @@ class StudentAkademikForm extends Model {
     public $matematika_3;
     public $matematika_4;
     public $matematika_5;
+    public $inggris_1;
+    public $inggris_2;
+    public $inggris_3;
+    public $inggris_4;
+    public $inggris_5;
+    public $kimia_1;
+    public $kimia_2;
+    public $kimia_3;
+    public $kimia_4;
+    public $kimia_5;
+    public $fisika_1;
+    public $fisika_2;
+    public $fisika_3;
+    public $fisika_4;
+    public $fisika_5;
     //public data member for usm
     public function rules()
     {

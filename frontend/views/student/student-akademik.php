@@ -34,6 +34,9 @@
     .my-form .form-control {
         border-radius: 5px;
     }
+    .text-brown {
+        color: #4b0082;
+    }
 </style>
 </html>
 <?php
@@ -57,38 +60,48 @@ use yii\web\JsExpression;
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => 
     ['class' => 'my-form', 'enctype' => 'multipart/form-data']]); ?>
-<?= Html::tag('div', '<span>Form Data Sekolah</span>', ['class' => 'ruler']) ?>
-    <?= $form->field($model_student_akademik, 'sekolah', [
-        'template' => '<div class="input-group">{label}<span class="input-group-text rounded-start">
-        <i class="bi bi-pin-map-fill" style="font-size: 1rem;"></i></span>{input}{error}</div>',])
-        ->widget(AutoComplete::classname(), [
-        'clientOptions' => [
-            'source' => new JsExpression("function(request, response) {
-                $.getJSON('" . Url::to(['student/autocomplete']) . "', {
-                    term: request.term
-                }, response);
-            }"),
-            'minLength' => '3',
-        ],
-        'options' => [
-            'class' => 'form-control rounded-end',
-            'placeholder' => 'Cari Sekolah (SMA/ SMK) ...', 'value' => StudentAkademikForm::fetchAsalSekolah(),
-        ],])->label('Asal Sekolah') 
-    ?>
-    <?php 
-        echo $form->field($model_student_akademik, 'jurusan_sekolah',
-        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-bookmark-plus-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAkademikForm::getProgram(), ['prompt' => 'Pilih Jurusan'])
-        ->label('Jurusan'); 
-    ?>
-    <?php
-        echo $form->field($model_student_akademik, 'akreditasi_sekolah',
-        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <i class="bi bi-percent" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->dropDownList(\app\models\StudentAkademikForm::$acreditation, ['prompt' => 'Pilih Akreditasi Sekolah'])
-        ->label('Akreditas');       
-    ?>
+<div class="row">
+    <div class="col">
+        <?= $form->field($model_student_akademik, 'sekolah', [
+            'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text rounded-start">
+            <i class="bi bi-geo-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>',])
+            ->widget(AutoComplete::classname(), [
+            'clientOptions' => [
+                'source' => new JsExpression("function(request, response) {
+                    $.getJSON('" . Url::to(['student/autocomplete']) . "', {
+                        term: request.term
+                    }, response);
+                }"),
+                'minLength' => '3',
+            ],
+            'options' => [
+                'class' => 'form-control rounded-end',
+                'placeholder' => 'Cari Sekolah (SMA/ SMK) ...', 'value' => StudentAkademikForm::fetchAsalSekolah(),
+            ],])->label('Asal Sekolah') 
+        ?>
+    </div>
+    <div class="col">
+        <?php 
+            echo $form->field($model_student_akademik, 'jurusan_sekolah',
+            ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-git text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->dropDownList(\app\models\StudentAkademikForm::getProgram(), ['prompt' => 'Pilih Jurusan'])
+            ->label('Jurusan'); 
+        ?>
+    </div>
+    <div class="col">
+        <?php
+            echo $form->field($model_student_akademik, 'akreditasi_sekolah',
+            ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-pie-chart-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->dropDownList(\app\models\StudentAkademikForm::$acreditation, ['prompt' => 'Pilih Akreditasi Sekolah'])
+            ->label('Akreditas');       
+        ?>
+    </div>
+</div>
     <!-- define it for batch utbk -->
     <?= Html::tag('div', '<span>Form Data Nilai Rapor</span>', ['class' => 'ruler']) ?>
     <?php 
@@ -215,7 +228,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(1))
+    <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(1))
     ->textInput(['placeholder'=>'Total Pelajaran', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
     ?>
     </div>
@@ -224,7 +237,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(2))
+    <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(2))
     ->textInput(['placeholder'=>'Total Pelajaran', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
     ?>
     </div>
@@ -233,7 +246,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(3))
+    <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(3))
     ->textInput(['placeholder'=>'Total Pelajaran', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
     ?>
     </div>
@@ -242,7 +255,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(4))
+    <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(4))
     ->textInput(['placeholder'=>'Total Pelajaran', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
@@ -251,7 +264,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(5))
+    <i class="bi bi-image-alt" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Pelajaran Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Total Pelajaran', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
@@ -263,7 +276,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(1))
+    <i class="bi bi-hdd-rack-fill text-brown" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(1))
     ->textInput(['placeholder'=>'Total Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
     ?>
     </div>
@@ -272,7 +285,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(2))
+    <i class="bi bi-hdd-rack-fill text-brown" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(2))
     ->textInput(['placeholder'=>'Total Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
     ?>
     </div>
@@ -281,7 +294,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(3))
+    <i class="bi bi-hdd-rack-fill text-brown" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(3))
     ->textInput(['placeholder'=>'Total Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
     ?>
     </div>
@@ -290,7 +303,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(4))
+    <i class="bi bi-hdd-rack-fill text-brown" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(4))
     ->textInput(['placeholder'=>'Total Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
@@ -299,7 +312,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(5))
+    <i class="bi bi-hdd-rack-fill text-brown" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nilai Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Total Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
@@ -311,7 +324,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(1))    
+    <i class="bi bi-credit-card-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(1))    
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
     ?>
     </div>
@@ -320,7 +333,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(2))    
+    <i class="bi bi-credit-card-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(2))    
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
     ?>
     </div>
@@ -329,7 +342,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(3))
+    <i class="bi bi-credit-card-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(3))
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
     ?>
     </div>
@@ -338,7 +351,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(4))
+    <i class="bi bi-credit-card-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(4))
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
@@ -347,11 +360,171 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-arrow-up-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(5))
+    <i class="bi bi-credit-card-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Matematika Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
     ?>
     </div>
 </div>
+<!-- field english for each semester -->
+<div class="row">
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'inggris_1',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Bahasa Inggris Semester '.toRoman(1))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'inggris_2',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Bahasa Inggris Semester '.toRoman(2))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'inggris_3',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Bahasa Inggris Semester '.toRoman(3))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'inggris_4',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Bahasa Inggris Semester '.toRoman(4))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'inggris_5',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Bahasa Inggris Semester '.toRoman(5))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+</div>
+<!-- field chemistry for each semester -->
+<div class="row">
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'kimia_1',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Kimia Semester '.toRoman(1))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'kimia_2',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Kimia Semester '.toRoman(2))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'kimia_3',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Kimia Semester '.toRoman(3))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'kimia_4',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Kimia Semester '.toRoman(4))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'kimia_5',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Kimia Semester '.toRoman(5))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+</div>
+<!-- field physic for each semester -->
+<div class="row">
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'fisika_1',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-bar-chart-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Fisika Semester '.toRoman(1))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'fisika_2',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-bar-chart-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Fisika Semester '.toRoman(2))    
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranKuantitatif()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'fisika_3',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-bar-chart-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Fisika Semester '.toRoman(3))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranPengetahuanUmum()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'fisika_4',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-bar-chart-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Fisika Semester '.toRoman(4))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+    <div class="col">
+    <?php echo $form->field($model_student_akademik,'fisika_5',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-bar-chart-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->label('Fisika Semester '.toRoman(5))
+    ->textInput(['placeholder'=>'Input Nilai', 'value' => StudentAkademikForm::fetchNilaiPenalaranBacaan()]); 
+    ?>
+    </div>
+</div>
+<!-- the end of conditional statement -->
     <?php } ?>
     <div class="form-group" style="display: flex; justify-content: flex-end;">
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-primary', 'style' => 'margin-right: 10px;']) ?>
