@@ -298,26 +298,24 @@ class StudentAkademikForm extends Model {
                 //conditionally update data to database, depends on the current batch
                 if($this->getCurrentBatch() == 'utbk'){
                     self::updateDataUtbk(); //update data utbk to table t_utbk
-                    return true;
                 }
                 else if($this->getCurrentBatch() == 'pmdk'){
                     self::updateDataPmdk(); //update data pmdk to table t_pendaftar
-                    if(self::pendaftarIdExists()){
+                    if(self::isInsertedPmdk()){
                         self::updateMathScore(); //update math score to table t_nilai_rapor
                         self::updateEnglishScore(); //update english score to table t_nilai_rapor
                         self::updateChemistryScore(); //update chemistry score to table t_nilai_rapor
                         self::updatePhysicsScore(); //update physics score to table t_nilai_rapor
-                        return true;
                     }
                     else{
                         self::insertMathScore(); //insert math score to table t_nilai_rapor
                         self::insertEnglishScore(); //insert english score to table t_nilai_rapor
                         self::insertChemistryScore(); //insert chemistry score to table t_nilai_rapor
                         self::insertPhysicsScore(); //insert physics score to table t_nilai_rapor   
-                        return true;                     
                     }
 
                 }
+                return true;
                 //otherwise, other batch, todo              
             } catch(Exception $e){
                 //flash error message
@@ -610,10 +608,13 @@ class StudentAkademikForm extends Model {
 
         }
     }
-    private function isPendaftarIdExists(){
+    private function isInsertedPmdk(){
+        $pendaftar_id = StudentDataDiriForm::getCurrentPendaftarId();
+        error_log("Pendaftar ID: $pendaftar_id");  // Debug statement
+    
         $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = :pendaftar_id";
         $params = [
-            ':pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
+            ':pendaftar_id' => $pendaftar_id,
         ];
         $data = Yii::$app->db->createCommand($sql, $params)->queryOne();
         return $data !== false;
