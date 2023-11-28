@@ -295,16 +295,30 @@ class StudentAkademikForm extends Model {
                 }
                 //ok, userIdExists, push pendaftar_id to t_utbk
                 self::tempDataSekolah(); //insert data sekolah to table t_pendaftar
-                Yii::info('Data sekolah inserted');
                 //conditionally update data to database, depends on the current batch
                 if($this->getCurrentBatch() == 'utbk'){
                     self::updateDataUtbk(); //update data utbk to table t_utbk
+                    return true;
                 }
                 else if($this->getCurrentBatch() == 'pmdk'){
                     self::updateDataPmdk(); //update data pmdk to table t_pendaftar
+                    if(self::pendaftarIdExists()){
+                        self::updateMathScore(); //update math score to table t_nilai_rapor
+                        self::updateEnglishScore(); //update english score to table t_nilai_rapor
+                        self::updateChemistryScore(); //update chemistry score to table t_nilai_rapor
+                        self::updatePhysicsScore(); //update physics score to table t_nilai_rapor
+                        return true;
+                    }
+                    else{
+                        self::insertMathScore(); //insert math score to table t_nilai_rapor
+                        self::insertEnglishScore(); //insert english score to table t_nilai_rapor
+                        self::insertChemistryScore(); //insert chemistry score to table t_nilai_rapor
+                        self::insertPhysicsScore(); //insert physics score to table t_nilai_rapor   
+                        return true;                     
+                    }
+
                 }
                 //otherwise, other batch, todo              
-                return true;
             } catch(Exception $e){
                 //flash error message
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
@@ -460,67 +474,69 @@ class StudentAkademikForm extends Model {
     private function insertMathScore(){
         $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
         $mata_pelajaran_id = 1; //hardcoded, since the mata_pelajaran_id is not clear
-        if(!self::pendaftarIdExists())
+        for($smt=1; $smt<=5;$smt++)
         {
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of matematika_1, matematika_2, matematika_3, matematika_4, matematika_5
-                $nilai  = $this->{"matematika_".$smt}; 
-                //insert the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->insert('t_nilai_rapor',
-                [
-                    'pendaftar_id'=>$pendaftar_id,
-                    'mata_pelajaran_id'=>$mata_pelajaran_id,
-                    'smt'=>$smt,
-                    'nilai'=>$nilai,
-                ])->execute();
-            }
+            //get the value of matematika_1, matematika_2, matematika_3, matematika_4, matematika_5
+            $nilai  = $this->{"matematika_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+            [
+                'pendaftar_id'=>$pendaftar_id,
+                'mata_pelajaran_id'=>$mata_pelajaran_id,
+                'smt'=>$smt,
+                'nilai'=>$nilai,
+            ])->execute();
+        
         }
-        else { //update it
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of matematika_1, matematika_2, matematika_3, matematika_4, matematika_5
-                $nilai  = $this->{"matematika_".$smt}; 
-                //update the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->update('t_nilai_rapor',
-                [
-                    'nilai'=>$nilai,
-                ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
-            }
+    }
+    //update math score to table t_nilai_rapor
+    private function updateMathScore(){
+        $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
+        $mata_pelajaran_id = 1; //hardcoded, since the mata_pelajaran_id is not clear
+        for($smt=1; $smt<=5;$smt++)
+        {
+            //get the value of matematika_1, matematika_2, matematika_3, matematika_4, matematika_5
+            $nilai  = $this->{"matematika_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->update('t_nilai_rapor',
+            [
+                'nilai'=>$nilai,
+            ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
+        
         }
-
     }
     //insert english score to table t_nilai_rapor
     private function insertEnglishScore(){
         $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
-        $mata_pelajaran_id = 2; //hardcoded, since the mata_pelajaran_id is not clear
-        if(!self::pendaftarIdExists())
+        $mata_pelajaran_id = 2; //hardcoded, since the mata_pelajaran_id is not clear   
+        for($smtr=1; $smtr<=5;$smtr++)
         {
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of inggris_1, inggris_2, inggris_3, inggris_4, inggris_5
-                $nilai  = $this->{"inggris_".$smt}; 
-                //insert the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->insert('t_nilai_rapor',
-                [
-                    'pendaftar_id'=>$pendaftar_id,
-                    'mata_pelajaran_id'=>$mata_pelajaran_id,
-                    'smt'=>$smt,
-                    'nilai'=>$nilai,
-                ])->execute();
-            }
+            //get the value of inggris_1, inggris_2, inggris_3, inggris_4, inggris_5
+            $nilai  = $this->{"inggris_".$smtr}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+            [
+                'pendaftar_id'=>$pendaftar_id,
+                'mata_pelajaran_id'=>$mata_pelajaran_id,
+                'smt'=>$smtr,
+                'nilai'=>$nilai,
+            ])->execute();
         }
-        else { //update it
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of inggris_1, inggris_2, inggris_3, inggris_4, inggris_5
-                $nilai  = $this->{"inggris_".$smt}; 
-                //update the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->update('t_nilai_rapor',
-                [
-                    'nilai'=>$nilai,
-                ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
-            }
+
+    }
+    //update english score to table t_nilai_rapor
+    private function updateEnglishScore(){
+        $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
+        $mata_pelajaran_id = 2; //hardcoded, since the mata_pelajaran_id is not clear   
+        for($smtr=1; $smtr<=5;$smtr++)
+        {
+            //get the value of inggris_1, inggris_2, inggris_3, inggris_4, inggris_5
+            $nilai  = $this->{"inggris_".$smtr}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->update('t_nilai_rapor',
+            [
+                'nilai'=>$nilai,
+            ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smtr])->execute();
         }
 
     }
@@ -528,33 +544,34 @@ class StudentAkademikForm extends Model {
     private function insertChemistryScore(){
         $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
         $mata_pelajaran_id = 3; //hardcoded, since the mata_pelajaran_id is not clear
-        if(!self::pendaftarIdExists())
+        for($smt=1; $smt<=5;$smt++)
         {
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of kimia_1, kimia_2, kimia_3, kimia_4, kimia_5
-                $nilai  = $this->{"kimia_".$smt}; 
-                //insert the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->insert('t_nilai_rapor',
-                [
-                    'pendaftar_id'=>$pendaftar_id,
-                    'mata_pelajaran_id'=>$mata_pelajaran_id,
-                    'smt'=>$smt,
-                    'nilai'=>$nilai,
-                ])->execute();
-            }
+            //get the value of kimia_1, kimia_2, kimia_3, kimia_4, kimia_5
+            $nilai  = $this->{"kimia_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+            [
+                'pendaftar_id'=>$pendaftar_id,
+                'mata_pelajaran_id'=>$mata_pelajaran_id,
+                'smt'=>$smt,
+                'nilai'=>$nilai,
+            ])->execute();
         }
-        else{ //update it
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of kimia_1, kimia_2, kimia_3, kimia_4, kimia_5
-                $nilai  = $this->{"kimia_".$smt}; 
-                //update the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->update('t_nilai_rapor',
-                [
-                    'nilai'=>$nilai,
-                ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
-            }
+
+    }
+    //update chemistry score to table t_nilai_rapor
+    private function updateChemistryScore(){
+        $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
+        $mata_pelajaran_id = 3; //hardcoded, since the mata_pelajaran_id is not clear
+        for($smt=1; $smt<=5;$smt++)
+        {
+            //get the value of kimia_1, kimia_2, kimia_3, kimia_4, kimia_5
+            $nilai  = $this->{"kimia_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->update('t_nilai_rapor',
+            [
+                'nilai'=>$nilai,
+            ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
         }
 
     }
@@ -562,44 +579,44 @@ class StudentAkademikForm extends Model {
     private function insertPhysicsScore(){
         $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
         $mata_pelajaran_id = 4; //hardcoded, since the mata_pelajaran_id is not clear
-        if(!self::isPendaftarIdExists()) //fresh data, insert it 
+        for($smt=1; $smt<=5;$smt++)
         {
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of fisika_1, fisika_2, fisika_3, fisika_4, fisika_5
-                $nilai  = $this->{"fisika_".$smt}; 
-                //insert the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->insert('t_nilai_rapor',
-                [
-                    'pendaftar_id'=>$pendaftar_id,
-                    'mata_pelajaran_id'=>$mata_pelajaran_id,
-                    'smt'=>$smt,
-                    'nilai'=>$nilai,
-                ])->execute();
-            }
-        }
-        else //update it
-        {
-            for($smt=1; $smt<=5;$smt++)
-            {
-                //get the value of fisika_1, fisika_2, fisika_3, fisika_4, fisika_5
-                $nilai  = $this->{"fisika_".$smt}; 
-                //update the value to table t_nilai_rapor
-                Yii::$app->db->createCommand()->update('t_nilai_rapor',
-                [
-                    'nilai'=>$nilai,
-                ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
-            }
+            //get the value of fisika_1, fisika_2, fisika_3, fisika_4, fisika_5
+            $nilai  = $this->{"fisika_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->insert('t_nilai_rapor',
+            [
+                'pendaftar_id'=>$pendaftar_id,
+                'mata_pelajaran_id'=>$mata_pelajaran_id,
+                'smt'=>$smt,
+                'nilai'=>$nilai,
+            ])->execute();
+
         }
     }
-    //check if the current pendafar_id exists on table t_nilai_rapor
-    private function isPendaftarIdExists(){
-        $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
-        $data = Yii::$app->db->createCommand($sql)->queryOne();
-        if($data){
-            return true;
+    //update physics score to table t_nilai_rapor
+    private function updatePhysicsScore(){
+        $pendaftar_id  = StudentDataDiriForm::getCurrentPendaftarId();
+        $mata_pelajaran_id = 4; //hardcoded, since the mata_pelajaran_id is not clear
+        for($smt=1; $smt<=5;$smt++)
+        {
+            //get the value of fisika_1, fisika_2, fisika_3, fisika_4, fisika_5
+            $nilai  = $this->{"fisika_".$smt}; 
+            //insert the value to table t_nilai_rapor
+            Yii::$app->db->createCommand()->update('t_nilai_rapor',
+            [
+                'nilai'=>$nilai,
+            ],['pendaftar_id'=>$pendaftar_id, 'mata_pelajaran_id'=>$mata_pelajaran_id, 'smt'=>$smt])->execute();
+
         }
-        return false;
+    }
+    private function isPendaftarIdExists(){
+        $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = :pendaftar_id";
+        $params = [
+            ':pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
+        ];
+        $data = Yii::$app->db->createCommand($sql, $params)->queryOne();
+        return $data !== false;
     }
 }
 ?>
