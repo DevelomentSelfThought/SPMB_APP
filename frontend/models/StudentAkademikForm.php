@@ -89,13 +89,14 @@ class StudentAkademikForm extends Model {
         }
         else if($this->getCurrentBatch() == 'pmdk'){
             $rules = array_merge($rules, [
-                [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5',
+              [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5',
                 'nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4','nilai_pelajaran_5'],'required'],
+                
                 [['jumlah_pelajaran_1', 'jumlah_pelajaran_2', 'jumlah_pelajaran_3', 'jumlah_pelajaran_4', 'jumlah_pelajaran_5'], 
                     'integer', 'min' => 2, 'max' => 100],
                 [['nilai_pelajaran_1', 'nilai_pelajaran_2', 'nilai_pelajaran_3', 'nilai_pelajaran_4', 'nilai_pelajaran_5'], 'number', 'min' => 2, 'max' => 100],
                 
-                [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
+                /*[['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'required'],
                 [['matematika_1', 'matematika_2', 'matematika_3', 'matematika_4', 'matematika_5'], 'number', 'min' => 2, 'max' => 100],
                     
                 [['inggris_1', 'inggris_2', 'inggris_3', 'inggris_4', 'inggris_5'], 'required'],
@@ -106,7 +107,7 @@ class StudentAkademikForm extends Model {
                     
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'required'],
                 [['fisika_1', 'fisika_2', 'fisika_3', 'fisika_4', 'fisika_5'], 'number', 'min' => 2, 'max' => 100],
-                    
+                */
                 [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
                 [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
        
@@ -285,6 +286,7 @@ class StudentAkademikForm extends Model {
     }
     //insert data akademik to some table! bad practice, make sure your db is clean!!!!!
     public function insertStudentAkademik(){
+        if($this->validate()){
             try{
                 if(!StudentDataDiriForm::userIdExists()){
                     //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
@@ -293,34 +295,22 @@ class StudentAkademikForm extends Model {
                 }
                 //ok, userIdExists, push pendaftar_id to t_utbk
                 self::tempDataSekolah(); //insert data sekolah to table t_pendaftar
-                if(!self::pendaftarIdExists()) //not exists, insert pendaftar_id to t_utbk
-                    self::tempPendaftarSekolahUtbk(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
-                self::tempUpdateDataUtbk(); //update data utbk 
-                //update data to table t_pendaftar, sekolah_dapodik_id, jurusan_sekolah_id, akreditasi_sekolah
-                //set flash message 
-                //find pendaftar_id from table t_nila_rapor, if not exists, insert pendaftar_id to t_nilai_rapor
-                //using sql query, since we don't have a function 
-                //handling for t_nilai_rapor
-                $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
-                $data = Yii::$app->db->createCommand($sql)->queryOne();
-                if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
-                    self::tempPendaftarIdNilaiAkademik(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
-                else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
-                    self::tempDataNilaiAkademik(); //update data nilai akademik 
-                //worst case test for t_nilai_utbk
-                $sql = "SELECT utbk_id FROM t_nilai_utbk WHERE utbk_id = ".self::tempGetUtbkId();
-                $data = Yii::$app->db->createCommand($sql)->queryOne();
-                if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
-                    self::tempPendaftarNilaiUtbk(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
-                else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
-                    self::tempUpdatePendaftarNilaiUtbk(); //update data nilai akademik                
-                //Yii::$app->session->setFlash('success', "Data Akademik berhasil disimpan");
+                Yii::info('Data sekolah inserted');
+                //conditionally update data to database, depends on the current batch
+                if($this->getCurrentBatch() == 'utbk'){
+                    self::updateDataUtbk(); //update data utbk to table t_utbk
+                }
+                else if($this->getCurrentBatch() == 'pmdk'){
+                    self::updateDataPmdk(); //update data pmdk to table t_pendaftar
+                }
+                //otherwise, other batch, todo              
                 return true;
             } catch(Exception $e){
                 //flash error message
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
-                echo $e->getMessage();
+                Yii::error('Error occurred: ' . $e->getMessage());
             }
+        } 
         return false;
     }
     //remove non integer in a variable no_peserta, making a flexible approach for user to input no_peserta
@@ -417,6 +407,54 @@ class StudentAkademikForm extends Model {
             return 'pmdk';
         else
             return 'utbk';
+    }
+    //update data pmdk to table t_pendaftar
+    private function updateDataPmdk(){ 
+        try{
+        Yii::$app->db->createCommand()->update('t_pendaftar',[
+            'jumlah_pelajaran_sem_1'=>$this->jumlah_pelajaran_1,
+            'jumlah_pelajaran_sem_2'=>$this->jumlah_pelajaran_2,
+            'jumlah_pelajaran_sem_3'=>$this->jumlah_pelajaran_3,
+            'jumlah_pelajaran_sem_4'=>$this->jumlah_pelajaran_4,
+            'jumlah_pelajaran_sem_5'=>$this->jumlah_pelajaran_5,
+
+            'jumlah_nilai_sem_1'=>$this->nilai_pelajaran_1,
+            'jumlah_nilai_sem_2'=>$this->nilai_pelajaran_2,
+            'jumlah_nilai_sem_3'=>$this->nilai_pelajaran_3,
+            'jumlah_nilai_sem_4'=>$this->nilai_pelajaran_4,
+            'jumlah_nilai_sem_5'=>$this->nilai_pelajaran_5,
+        ] ,['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+            Yii::info($e->getMessage());
+            //flash error message
+            Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
+        }
+    }
+    //update data utbk to table t_pendaftar and related table
+    private function updateDataUtbk(){
+        if(!self::pendaftarIdExists()) //not exists, insert pendaftar_id to t_utbk
+            self::tempPendaftarSekolahUtbk(); //insert pendaftar_id to t_utbk, worst case, user interact to data akademik first
+        self::tempUpdateDataUtbk(); //update data utbk 
+        //update data to table t_pendaftar, sekolah_dapodik_id, jurusan_sekolah_id, akreditasi_sekolah
+        //set flash message 
+        //find pendaftar_id from table t_nila_rapor, if not exists, insert pendaftar_id to t_nilai_rapor
+        //using sql query, since we don't have a function 
+        //handling for t_nilai_rapor
+        $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = ".StudentDataDiriForm::getCurrentPendaftarId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
+            self::tempPendaftarIdNilaiAkademik(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
+        else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
+            self::tempDataNilaiAkademik(); //update data nilai akademik 
+        //worst case test for t_nilai_utbk
+        $sql = "SELECT utbk_id FROM t_nilai_utbk WHERE utbk_id = ".self::tempGetUtbkId();
+        $data = Yii::$app->db->createCommand($sql)->queryOne();
+        if(!$data) //not exists, insert pendaftar_id to t_nilai_rapor
+            self::tempPendaftarNilaiUtbk(); //insert pendaftar_id to t_nilai_rapor, worst case, user interact to data akademik first
+        else //ok current pendaftar_id exists on t_nilai_rapor, update data nilai akademik
+            self::tempUpdatePendaftarNilaiUtbk(); //update data nilai akademik  
     }
 }
 ?>

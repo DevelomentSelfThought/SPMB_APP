@@ -31,6 +31,11 @@ use yii\data\Pagination; // Pagination is a class that represents pagination
 
 class StudentController extends Controller // StudentController extends the Controller class
 {
+//constant for upload folder
+    const UPLOADS = 'uploads/';
+    const UPLOADS_PMDK = 'uploads_pmdk/';
+    const UTBK = 'utbk';
+    const PMDK_FILES = ['sertifikat_pmdk', 'rapor_pmdk', 'rekomendasi_pmdk'];
 
     public function behaviors() //behavior test for logout and profile update, add other behaviors here
     {
@@ -198,59 +203,47 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for insert data akademik
     public function actionStudentAkademik(){
-        $model_student_akademik = new StudentAkademikForm(); //create an instance of the StudentAkademikForm class
-        if($model_student_akademik->load(Yii::$app->request->post())){
-            $model_student_akademik->file = UploadedFile::getInstance($model_student_akademik, 'file');
-            if($model_student_akademik->file){
-                // Validate the uploaded file before moving it
-                if($model_student_akademik->validate()){
-                    //insert it batch by bach, case 1: utbk
-                    if($model_student_akademik::getCurrentBatch()=='utbk')
-                    {
-                        $uploadFolder ='uploads/';
-                        if(!file_exists($uploadFolder)){ //not exist, make a new directory
-                            mkdir($uploadFolder, 0777, true);
-                        }
-                        $fileBaseName = $model_student_akademik->file->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->file->extension;
-                        $model_student_akademik->file->saveAs($filePath);
-                        $model_student_akademik->file_sertifikat = $filePath; //save the path to the database
-
-                    }
-                    //next case, batch pmdk
-                    else if($model_student_akademik::getCurrentBatch()=='pmdk')
-                    {
-                        $uploadFolder ='uploads_pmdk/';
-                        if(!file_exists($uploadFolder)){ //not exist, make a new directory
-                            mkdir($uploadFolder, 0777, true);
-                        }
-                        $fileBaseName = $model_student_akademik->sertifikat_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->sertifikat_pmdk->extension;
-                        $model_student_akademik->sertifikat_pmdk->saveAs($filePath);
-                        //$model_student_akademik->file_sertifikat = $filePath; //save the path to the database
-                        //next for rapor
-                        $fileBaseName = $model_student_akademik->rapor_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->rapor_pmdk->extension;
-                        $model_student_akademik->rapor_pmdk->saveAs($filePath);
-                        //next for surat rekomendasi
-                        $fileBaseName = $model_student_akademik->rekomendasi_pmdk->baseName.'_'.Yii::$app->user->identity->username.'_'.date('Y-m-d');
-                        $filePath = $uploadFolder . $fileBaseName . '.' . $model_student_akademik->rekomendasi_pmdk->extension;
-                        $model_student_akademik->rekomendasi_pmdk->saveAs($filePath);
-                    }
-                    //otherwise,batch ........
-                    //trying to insert data akademik to database
-                    if($model_student_akademik->insertStudentAkademik()){
-                        return $this->redirect(['student/student-bahasa']);    
-                    }
-                    else{ //error message
-                        Yii::$app->session->setFlash('error', "Data Akademik gagal disimpan");
-                    }
+        $model_student_akademik = new StudentAkademikForm();
+        if($model_student_akademik->load(Yii::$app->request->post()))
+        {
+            $currentBatch  = $model_student_akademik::getCurrentBatch();
+            $filesToUpload = $currentBatch == self::UTBK ? ['file'] : self::PMDK_FILES;
+            $uploadFolderBase = $currentBatch == self::UTBK ? self::UPLOADS : self::UPLOADS_PMDK;
+            foreach($filesToUpload as $file){
+                try {
+                    $this->uploadFile($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
+                } catch (\Exception $e) {
+                    Yii::$app->session->setFlash('error', $e->getMessage());
+                    return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
                 }
             }
+            try {
+                if($model_student_akademik->insertStudentAkademik())
+                    return $this->redirect(['student/student-bahasa']);
+            } catch (\Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
-        return $this->render('student-akademik',
-            ['model_student_akademik'=>$model_student_akademik]); //render the akademik page
+        return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
     }
+    //private function for uploadFIle, needed for actionStudentAkademik
+    private function uploadFile($form, $file, $uploadFolderBase, $currentBatch){
+        $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
+        if($form->$file){ //check if there is a file uploaded
+            $uploadFolder = $uploadFolderBase . ($currentBatch == self::UTBK ? '' : $file . '/'); //set the upload folder
+            if(!file_exists($uploadFolder)){ //not exist, make a new directory
+                mkdir($uploadFolder, 0777, true); //make a new directory
+            }
+            $fileBaseName = Yii::$app->user->identity->username.'_'.date('Y'); //set the file base name
+            $filePath = $uploadFolder . $fileBaseName . '.' . $form->$file->extension; //set the file path
+            try{
+                $form->$file->saveAs($filePath); //save the file
+                $form->$file = $filePath; //save the path to the database
+            }catch(\Exception $e){ //catch the exception
+                Yii::$app->session->setFlash('error', $e->getMessage()); //may be change this to flash error
+            }
+        }
+    }    
     //action for autocomplete for school name
     public static function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
