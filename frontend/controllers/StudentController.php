@@ -203,7 +203,11 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for insert data akademik
     public function actionStudentAkademik(){
-        $model_student_akademik = new StudentAkademikForm();
+        $model_student_akademik  = StudentAkademikForm::findDataPmdk(); //fetch akademik data
+        if($model_student_akademik === null){
+            $model_student_akademik = new StudentAkademikForm();
+        }
+        //$model_student_akademik = new StudentAkademikForm();
         if($model_student_akademik->load(Yii::$app->request->post()))
         {
             $currentBatch  = $model_student_akademik::getCurrentBatch();
@@ -229,16 +233,23 @@ class StudentController extends Controller // StudentController extends the Cont
     //private function for uploadFIle, needed for actionStudentAkademik
     private function uploadFile($form, $file, $uploadFolderBase, $currentBatch){
         $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
+        //file attribute, since the file attribute is different for utbk and pmdk
+        $fileAttribute ='file_'.$file;
         if($form->$file){ //check if there is a file uploaded
             $uploadFolder = $uploadFolderBase . ($currentBatch == self::UTBK ? '' : $file . '/'); //set the upload folder
             if(!file_exists($uploadFolder)){ //not exist, make a new directory
                 mkdir($uploadFolder, 0777, true); //make a new directory
             }
-            $fileBaseName = Yii::$app->user->identity->username.'_'.date('Y'); //set the file base name
+            $fileBaseName = Yii::$app->user->identity->username; //set the file base name
             $filePath = $uploadFolder . $fileBaseName . '.' . $form->$file->extension; //set the file path
             try{
                 $form->$file->saveAs($filePath); //save the file
                 $form->$file = $filePath; //save the path to the database
+                if($currentBatch==self::UTBK)
+                    $form->file_sertifikat  = $filePath; //save the path to the database
+                else{
+                    $form->$fileAttribute = $filePath; //save the path to the database
+                }
             }catch(\Exception $e){ //catch the exception
                 Yii::$app->session->setFlash('error', $e->getMessage()); //may be change this to flash error
             }

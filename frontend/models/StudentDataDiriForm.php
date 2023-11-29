@@ -199,7 +199,7 @@ class StudentDataDiriForm extends Model {
         $result  = Yii::$app->db->createCommand($sql)->queryOne();
         return $result['no_HP'];
     }
-    //repopulated the data to the form
+    //populated the data to the form
     public static function findDataDiri(){
         $sql = "SELECT * FROM t_pendaftar WHERE user_id = ".self::getCurrentUserId();
         $data = Yii::$app->db->createCommand($sql)->queryOne();

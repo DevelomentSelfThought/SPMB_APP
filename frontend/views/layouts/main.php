@@ -40,6 +40,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php $this->head() ?>
     <?php
     $this->registerCss("
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
         .my-navbar {
             padding: 1.2rem 1.2rem !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -98,13 +101,13 @@ NavBar::begin([
 ]);
 if(Yii::$app->user->isGuest){
     $menuItems = [
-        ['label' => '<i class="bi bi-person-plus-fill"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
-        ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
-        ['label' => '<i class="bi bi-person-check-fill"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
+        ['label' => '<i class="bi bi-person-plus-fill text-success"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
+        ['label' => '<i class="bi bi-key-fill text-danger"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
+        ['label' => '<i class="bi bi-person-check-fill text-primary"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
     ];
 }
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => '<i class="bi bi-person-fill"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
+    $menuItems[] = ['label' => '<i class="bi bi-person-fill text-success"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
 } else {
     // $menuItems[] = ['label' => str_repeat('&nbsp;', 0), 'url' => '#', 'linkOptions' => ['style' => 'pointer-events: none;'], 'encode' => false];
     $icon = StudentDataDiriForm::isFillDataPribadi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
@@ -116,7 +119,7 @@ if (Yii::$app->user->isGuest) {
     $icon_informasi  = StudentInformasiForm::isFillDataInformasi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
     $icon_biaya = StudentBiayaForm::getStatusPembayaran() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';
     $menuItems[] = [
-        'label' => '<i class="bi bi-pencil-square"></i> <span class="nav-label">Update Data</span>', 
+        'label' => '<i class="bi bi-pencil-square text-danger"></i> <span class="nav-label">Update Data</span>', 
         'url' => ['/student/student-data-diri'], 
         'encode' => false,
         'items' => [
@@ -131,12 +134,12 @@ if (Yii::$app->user->isGuest) {
 
         ]
     ];
-    $menuItems[] = ['label' => '<i class="bi bi-megaphone"></i> <span class="nav-label">Pengumuman</span>', 
+    $menuItems[] = ['label' => '<i class="bi bi-megaphone text-primary"></i> <span class="nav-label">Pengumuman</span>', 
     'url' => ['/student/student-announcement'], 
     'encode' => false];
     // $menuItems[] = ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Ubah Password</span>', 'url' => ['/student/change-password'], 'encode'=>false];
 
-    $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right"></i> 
+    $menuItems[] = ['label' => '<i class="bi bi-box-arrow-right text-success"></i> 
                     <span class="nav-label">Logout (' . Yii::$app->user->identity->email . ')</span>', 
                     'url' => ['/site/logout'], 
                     'linkOptions' => ['data-method' => 'post'], 

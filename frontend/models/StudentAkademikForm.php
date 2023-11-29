@@ -53,8 +53,11 @@ class StudentAkademikForm extends Model {
     public $fisika_4;
     public $fisika_5;
     public $sertifikat_pmdk;
+    public $file_sertifikat_pmdk;
     public $rapor_pmdk;
+    public $file_rapor_pmdk;
     public $rekomendasi_pmdk;
+    public $file_rekomendasi_pmdk;
 
     //public data member for usm
     public function rules()
@@ -85,6 +88,8 @@ class StudentAkademikForm extends Model {
                 [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
                 [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
                 [['file'],'required'], //possible to be refactored, join with the common rules
+                //attribute for all file is safe
+                [['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
             ]);
         }
         else if($this->getCurrentBatch() == 'pmdk'){
@@ -110,7 +115,8 @@ class StudentAkademikForm extends Model {
                 
                 [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
                 [['sertifikat_pmdk','rapor_pmdk','rekomendasi_pmdk'],'required', 'message'=>"File tidak boleh kosong"], //possible to be refactored, join with the common rules
-       
+                [['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
+                
             ]);
         }
         //add other rules for other batch: todo
@@ -435,6 +441,10 @@ class StudentAkademikForm extends Model {
             'jumlah_nilai_sem_3'=>$this->nilai_pelajaran_3,
             'jumlah_nilai_sem_4'=>$this->nilai_pelajaran_4,
             'jumlah_nilai_sem_5'=>$this->nilai_pelajaran_5,
+            //save the file path to table t_pendaftar
+            'file_nilai_rapor'=>$this->file_rapor_pmdk,
+            'file_sertifikat'=>$this->file_sertifikat_pmdk,
+            'file_rekomendasi'=>$this->file_rekomendasi_pmdk,
         ] ,['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
         }
         catch(Exception $e){
@@ -608,10 +618,9 @@ class StudentAkademikForm extends Model {
 
         }
     }
+    //check whether the data pmdk is already inserted to table t_nilai_rapor
     private function isInsertedPmdk(){
-        $pendaftar_id = StudentDataDiriForm::getCurrentPendaftarId();
-        error_log("Pendaftar ID: $pendaftar_id");  // Debug statement
-    
+        $pendaftar_id = StudentDataDiriForm::getCurrentPendaftarId();    
         $sql = "SELECT pendaftar_id FROM t_nilai_rapor WHERE pendaftar_id = :pendaftar_id";
         $params = [
             ':pendaftar_id' => $pendaftar_id,
@@ -619,5 +628,69 @@ class StudentAkademikForm extends Model {
         $data = Yii::$app->db->createCommand($sql, $params)->queryOne();
         return $data !== false;
     }
+    //populate data from table t_pendaftar to form
+    public static function findDataPmdk(){
+        $pendaftarId = StudentDataDiriForm::getCurrentPendaftarId();
+    
+        // Fetch data from t_nilai_rapor
+        $sql = "SELECT * FROM t_nilai_rapor WHERE pendaftar_id = ".$pendaftarId;
+        $dataRapor = Yii::$app->db->createCommand($sql)->queryAll();
+    
+        // Fetch data from t_pendaftar
+        $sql = "SELECT * FROM t_pendaftar WHERE pendaftar_id = ".$pendaftarId;
+        $dataPendaftar = Yii::$app->db->createCommand($sql)->queryOne();
+    
+        if($dataRapor !== false || $dataPendaftar !== false){
+            $model  = new self();
+            $attributeNames = $model->attributes();
+    
+            // Load data from t_nilai_rapor
+            foreach ($dataRapor as $row) {
+                $subject = self::$subjectMap[$row['mata_pelajaran_id']];
+                $attribute = $subject . '_' . $row['smt'];
+                if (in_array($attribute, $attributeNames)) {
+                    $model->$attribute = $row['nilai'];
+                }
+            }
+    
+            // Load data from t_pendaftar
+            foreach ($dataPendaftar as $column => $value) {
+                $attribute = self::$pendaftarMap[$column] ?? null;
+                if( $attribute && in_array($attribute, $attributeNames)) {
+                    $model->$attribute = $value;
+                }
+            }
+    
+            return $model;
+        }
+        return null;
+    }
+    //experimental version: function to set attribute name of each field, t_nilai_rapor
+    private static $subjectMap = [
+        1 => 'matematika',
+        2 => 'inggris',
+        3 => 'kimia',
+        4 => 'fisika',
+        // Add more if needed
+    ];
+    //experimental version: function to set attribute name of each field, case t_pendaftar
+    private static $pendaftarMap = [
+        'jumlah_pelajaran_sem_1' => 'jumlah_pelajaran_1',
+        'jumlah_pelajaran_sem_2' => 'jumlah_pelajaran_2',
+        'jumlah_pelajaran_sem_3' => 'jumlah_pelajaran_3',
+        'jumlah_pelajaran_sem_4' => 'jumlah_pelajaran_4',
+        'jumlah_pelajaran_sem_5' => 'jumlah_pelajaran_5',
+        'jumlah_nilai_sem_1' => 'nilai_pelajaran_1',
+        'jumlah_nilai_sem_2' => 'nilai_pelajaran_2',
+        'jumlah_nilai_sem_3' => 'nilai_pelajaran_3',
+        'jumlah_nilai_sem_4' => 'nilai_pelajaran_4',
+        'jumlah_nilai_sem_5' => 'nilai_pelajaran_5',
+        //experimental version
+        'file_nilai_rapor' => 'file_rapor_pmdk',
+        'file_sertifikat' => 'file_sertifikat_pmdk',
+        'file_rekomendasi' => 'file_rekomendasi_pmdk',
+        // Add more if needed
+    ];
+
 }
 ?>

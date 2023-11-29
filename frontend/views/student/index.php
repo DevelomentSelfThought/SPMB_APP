@@ -178,6 +178,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 
 ?>
 <div class="site-index">
+<div class="regpro">    
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-6 order-lg-2">
@@ -192,7 +193,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
         </div>
     </div>
 </div>
-
+</div>
+<br>
 <div class="regpro">    
 <div class="container my-5">
     <div class="row">
@@ -208,7 +210,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     </div>
 </div>
 </div>
-<br><br>
+<br>
 <div class="regpro">  
 <h2>Menjadi Mahasiswa dengan Karakter 3M</h2>  <br>  <br>
 <div class="container">    
