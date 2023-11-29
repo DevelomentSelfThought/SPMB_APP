@@ -47,36 +47,12 @@ $title  = 'Data Informasi Mahasiswa Baru';
 ?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
-<?= Html::tag('div', '<span>Form Informasi Penerimaan Mahasiswa Baru</span>', ['class' => 'ruler']) ?>
-    <?php
-        echo $form->field($model, 'sumber_informasi',
-        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
-        <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2Zm1 2a1 1 0 0 0-2 0h2Zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11H5Z"/>
-        <path d="M14 7.599A2.986 2.986 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A2.986 2.986 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.599ZM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-3Z"/>
-        </svg></span>{input}</div>'])->dropDownList(\app\models\StudentInformasiForm::getSumberInformasi(), 
-        ['prompt' => 'Pilih Sumber Informasi SPMB'])
-        ->label("Sumber Informasi SPMB");
-    ?>
-    <?php
-        echo $form->field($model, 'motivasi',
-        ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
-        <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
-        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-        </svg></span>{input}</div>'])->dropDownList(\app\models\StudentInformasiForm::$get_motivasi, 
-        ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
-        ->label("Motivasi Kuliah di IT Del");
-    ?>
-    <br>
-    <?= Html::tag('div', '<span>Form Informasi Perkiraan Biaya Daftar Ulang</span>', ['class' => 'ruler']) ?>
-    <?php
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Informasi Perkiraan Biaya Daftar Ulang</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
+<?php 
     echo $form->field($model, 'jumlah_n',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backpack4-fill" viewBox="0 0 16 16">
-    <path d="M8 0a2 2 0 0 0-2 2H3.5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h4v.5a.5.5 0 0 0 1 0V7h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H10a2 2 0 0 0-2-2Zm1 2a1 1 0 0 0-2 0h2Zm-4 9v2h6v-2h-1v.5a.5.5 0 0 1-1 0V11H5Z"/>
-    <path d="M14 7.599A2.986 2.986 0 0 1 12.5 8H9.415a1.5 1.5 0 0 1-2.83 0H3.5A2.986 2.986 0 0 1 2 7.599V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.599ZM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-3Z"/>
-    </svg></span>{input}</div>'])->dropDownList(\app\models\StudentInformasiForm::$get_jumlah_n, 
+    <i class="bi bi-bag-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->dropDownList(\app\models\StudentInformasiForm::$get_jumlah_n, 
     ['prompt' => 'Pilih Jumlah N', 'onchange' => 'this.form.submit();', 'options' => [0 => ['Selected'=>'selected']]])
     ->label("Jumlah N");
 ?>
@@ -105,11 +81,11 @@ $data  =  [
 ?>    
 <div class="table-responsive">
     <table class="table table-hover table-striped">
-        <thead class="thead-dark">
+        <thead style="background-color: #007bff !important; color: white !important;">
             <?php for($i = 0; $i < 1; $i++): ?>
                 <tr>
                     <?php for($j = 0; $j < 7; $j++): ?>
-                        <th><?= $data[$i][$j] ?></th>
+                        <th style="background-color: #007bff !important; color: white !important;"><?= $data[$i][$j] ?></th>
                     <?php endfor; ?>
                 </tr>
             <?php endfor; ?>
@@ -118,7 +94,7 @@ $data  =  [
             <?php for($i = 1; $i < 4; $i++): ?>
                 <tr>
                     <?php for($j = 0; $j < 7; $j++): ?>
-                        <td>
+                        <td class="text-dark">
                             <?php 
                             // Check if the data is numeric
                             if(is_numeric($data[$i][$j])) {
@@ -135,13 +111,28 @@ $data  =  [
         </tbody>
     </table>
 </div>
-<br>
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Sumber Informasi Penerimaan Mahasiswa Baru</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
+<?php
+    echo $form->field($model, 'sumber_informasi',
+    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-info-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->dropDownList(\app\models\StudentInformasiForm::getSumberInformasi(), ['prompt' => 'Pilih Sumber Informasi SPMB'])
+    ->label("Sumber Informasi SPMB");
+?>
+<?php
+    echo $form->field($model, 'motivasi',
+    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-lightbulb-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->dropDownList(\app\models\StudentInformasiForm::$get_motivasi, ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
+    ->label("Motivasi Kuliah di IT Del");
+?>
 
-<?= $form->field($model, 'agree')->checkbox(['label' => 'Saya menyatakan bahwa saya telah memberikan data yang valid.']) ?>
-<br>
+<?php
+//*$form->field($model, 'agree')->checkbox(['label' => 'Saya menyatakan bahwa saya telah memberikan data yang valid.']) 
+?>
 <div class="form-group" style="display: flex; justify-content: flex-end;">
-    <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
-    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
+    <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-primary', 'style' => 'margin-right: 10px;']) ?>
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 </div>

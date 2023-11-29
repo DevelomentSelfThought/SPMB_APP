@@ -14,7 +14,7 @@ class StudentInformasiForm extends Model{
     public function rules(){
         return [
             [['sumber_informasi','motivasi','jumlah_n'], 'required'],
-            [['agree'], 'required', 'requiredValue' => 1, 'message' => 'Anda harus menyetujui pernyataan ini'],
+            //[['agree'], 'required', 'requiredValue' => 1, 'message' => 'Anda harus menyetujui pernyataan ini'],
             [['sumber_informasi','motivasi','jumlah_n'], 'string', 'max' => 255],
         ];
     }

@@ -73,7 +73,7 @@ use yii\web\JsExpression;
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => 
     ['class' => 'my-form', 'enctype' => 'multipart/form-data']]); ?>
-<?= Html::tag('div', '<span class="text-primary fw-bold">Form Data Informasi Sekolah Asal</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Informasi Sekolah Asal</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <div class="row">
     <div class="col">
         <?= $form->field($model_student_akademik, 'sekolah', [
@@ -117,7 +117,7 @@ use yii\web\JsExpression;
     </div>
 </div>
     <!-- define it for batch utbk -->
-    <?= Html::tag('div', '<span class="text-primary fw-bold">Form Data Nilai Rapor Semester '. toRoman(1).'-'.toRoman(5) .'</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    <?php 
+    <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Nilai Rapor Semester '. toRoman(1).'-'.toRoman(5) .'</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    <?php 
         if(StudentAkademikForm::getCurrentBatch() == 'utbk'){ 
     ?>
     <?php echo $form->field($model_student_akademik,'no_utbk',
@@ -426,7 +426,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Kimia Semester '.toRoman(1))    
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -436,7 +436,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Kimia Semester '.toRoman(2))    
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -446,7 +446,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Kimia Semester '.toRoman(3))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -456,7 +456,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Kimia Semester '.toRoman(4))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -466,7 +466,7 @@ use yii\web\JsExpression;
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Kimia Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -525,7 +525,7 @@ use yii\web\JsExpression;
     ?>
     </div>
 </div>
-<?= Html::tag('div', '<span class="text-primary fw-bold">Form Upload File Nilai Rapor, 
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Upload File Nilai Rapor, 
 Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <div class="row">
     <div class="col">
