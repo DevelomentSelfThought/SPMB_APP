@@ -62,7 +62,7 @@ $title = 'Pengalaman Organisasi';
 <?php
 $title_extra  = "Data Pendidikan Ekstrakurikuler";
 ?>
-<?= Html::tag('div', '<span>Form Data Pendidikan Ekstrakurikuler</span>', ['class' => 'ruler']) ?> 
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Kegiatan Ekstrakurikuler</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
     <div class="row">
     <div class="col-md-3">
         <?php echo \yii\bootstrap5\Html::label("<b>Nama Kegiatan</b><br><br>"); ?>
@@ -79,57 +79,54 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_kegiatan_1',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002H7.971L6.072 5.385v1.271l1.834-1.318h.065V12h1.312V4.002Z"/>
-                </svg></span>{input}</div>'])->textInput(['maxlength' => true, 
-            'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[0][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_kegiatan_1',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true, 
+        'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[0][0]]) 
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_1',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_1',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][1]])
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_1_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][2]])?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_1_end',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][2]])
+    ?>
     </div>
     <div class="col-md-3">
-        <?php
+    <?php
         echo $form->field($model_student_extra, 'predikat_kegiatan_1',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
-  <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0zM2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1z"/>
-</svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+        ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
         ?>
     </div>
 </div>
@@ -137,171 +134,160 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
 
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_kegiatan_2',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24c0-.691.493-1.306 1.336-1.306.756 0 1.313.492 1.313 1.236 0 .697-.469 1.23-.902 1.705l-2.971 3.293V12h5.344v-1.107H7.268v-.077l1.974-2.22.096-.107c.688-.763 1.287-1.428 1.287-2.43 0-1.266-1.031-2.215-2.613-2.215-1.758 0-2.637 1.19-2.637 2.402v.065h1.271v-.07Z"/>
-</svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan','value'=>$populate_data[1][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_kegiatan_2',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan','value'=>$populate_data[1][0]]) 
+    ?>    
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_2',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_2',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][1]]) 
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_2_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][2]])?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_2_end',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][2]]) 
+    ?>
     </div>
     <div class="col-md-3">
-        <?php
-        echo $form->field($model_student_extra, 'predikat_kegiatan_2',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
-  <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0zM2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1z"/>
-</svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
-        ?>
+    <?php
+    echo $form->field($model_student_extra, 'predikat_kegiatan_2',
+        ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+?>
     </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_kegiatan_3',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z"/>
-</svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[2][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_kegiatan_3',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan','value'=>$populate_data[2][0]]) 
+    ?>   
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_3',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_3',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][1]]) 
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_3_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][2]])?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_3_end',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][2]]) 
+    ?>
     </div>
     <div class="col-md-3">
-        <?php
+    <?php
         echo $form->field($model_student_extra, 'predikat_kegiatan_3',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
-  <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0zM2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1z"/>
-</svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
-        ?>
+        ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+    ?>
     </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_kegiatan_4',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-4-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.519 5.057c-.886 1.418-1.772 2.838-2.542 4.265v1.12H8.85V12h1.26v-1.559h1.007V9.334H10.11V4.002H8.176c-.218.352-.438.703-.657 1.055ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218Z"/>
-</svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[3][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_kegiatan_4',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[3][0]]) 
+    ?>    </div>
+    <div class="col-md-3">
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_4',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][1]])
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_4',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_kegiatan_4_end',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->textInput(['maxlength' => true])
+        ->widget(\yii\jui\DatePicker::class, [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+            'clientOptions' => [
+                'changeYear' => true,
+                'changeMonth' => true,
+                'yearRange' => '-100:+0',
+            ],
+        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][2]])
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_kegiatan_4_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][2]])?>
-    </div>
-    <div class="col-md-3">
-        <?php
+    <?php
         echo $form->field($model_student_extra, 'predikat_kegiatan_4',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
-  <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0zM2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5v-1zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1z"/>
-</svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
-        ?>
+        ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$predikat, ['prompt' => 'Predikat']);
+    ?>
     </div>
 </div>
-<br>
-<?= Html::tag('div', '<span>Form Data Pengalaman Organisasi</span>', ['class' => 'ruler']) ?> 
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Pengalaman Organisasi</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
     <div class="row">
         <div class="col-md-3">
             <?php echo \yii\bootstrap5\Html::label("<b>Nama Organisasi</b><br><br>"); ?>
@@ -318,56 +304,54 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
     </div>
     <div class="row">
         <div class="col-md-3">
-            <?= $form->field($model_student_extra, 'nama_organisasi_1',
-                ['labelOptions' => ['class' => 'visually-hidden'],
+        <?= $form->field($model_student_extra, 'nama_organisasi_1',
+            ['labelOptions' => ['class' => 'visually-hidden'],
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-chat-square-dots-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->textInput(['maxlength' => true, 
+            'placeholder'=>'Nama Organisasi', 'value'=>$populate_data_org[0][0]]) 
+        ?>
+        </div>
+        <div class="col-md-3">
+        <?= $form->field($model_student_extra, 'tanggal_organisasi_1',
+            ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-1-circle-fill" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002H7.971L6.072 5.385v1.271l1.834-1.318h.065V12h1.312V4.002Z"/>
-                </svg></span>{input}</div>'])->textInput(['maxlength' => true, 
-                'placeholder'=>'Nama Organisasi', 'value'=>$populate_data_org[0][0]]) ?>
+            <i class="bi bi-chat-square-dots-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->textInput(['maxlength' => true])
+            ->widget(\yii\jui\DatePicker::class, [
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['class' => 'form-control'],
+                'clientOptions' => [
+                    'changeYear' => true,
+                    'changeMonth' => true,
+                    'yearRange' => '-100:+0',
+                ],
+            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][1]])
+        ?>
         </div>
         <div class="col-md-3">
-            <?= $form->field($model_student_extra, 'tanggal_organisasi_1',
-                ['labelOptions' => ['class' => 'visually-hidden'],
-                    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-                ->textInput(['maxlength' => true])
-                ->widget(\yii\jui\DatePicker::class, [
-                    'dateFormat' => 'yyyy-MM-dd',
-                    'options' => ['class' => 'form-control'],
-                    'clientOptions' => [
-                        'changeYear' => true,
-                        'changeMonth' => true,
-                        'yearRange' => '-100:+0',
-                    ],
-                ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][1]])
-            ?>
-        </div>
-        <div class="col-md-3">
-            <?= $form->field($model_student_extra, 'tanggal_organisasi_1_end',
-                ['labelOptions' => ['class' => 'visually-hidden'],
-                    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-                ->textInput(['maxlength' => true])
-                ->widget(\yii\jui\DatePicker::class, [
-                    'dateFormat' => 'yyyy-MM-dd',
-                    'options' => ['class' => 'form-control'],
-                    'clientOptions' => [
-                        'changeYear' => true,
-                        'changeMonth' => true,
-                        'yearRange' => '-100:+0',
-                    ],
-                ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][2]])?>
+        <?= $form->field($model_student_extra, 'tanggal_organisasi_1_end',
+            ['labelOptions' => ['class' => 'visually-hidden'],
+                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-chat-square-dots-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+            ->textInput(['maxlength' => true])
+            ->widget(\yii\jui\DatePicker::class, [
+                'dateFormat' => 'yyyy-MM-dd',
+                'options' => ['class' => 'form-control'],
+                'clientOptions' => [
+                    'changeYear' => true,
+                    'changeMonth' => true,
+                    'yearRange' => '-100:+0',
+                ],
+            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][2]])
+        ?>
         </div>
         <div class="col-md-3">
         <?php
-        echo $form->field($model_student_extra, 'jabatan_organisasi_1',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                </svg></span>{input}</div>'])
+            echo $form->field($model_student_extra, 'jabatan_organisasi_1',
+            ['labelOptions' => ['class' => 'visually-hidden'], 
+            'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+            <i class="bi bi-chat-square-dots-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
             ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
         ?>
         </div>
@@ -376,176 +360,157 @@ viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v
 
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_organisasi_2',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24c0-.691.493-1.306 1.336-1.306.756 0 1.313.492 1.313 1.236 0 .697-.469 1.23-.902 1.705l-2.971 3.293V12h5.344v-1.107H7.268v-.077l1.974-2.22.096-.107c.688-.763 1.287-1.428 1.287-2.43 0-1.266-1.031-2.215-2.613-2.215-1.758 0-2.637 1.19-2.637 2.402v.065h1.271v-.07Z"/>
-            </svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
-            'value'=>$populate_data_org[1][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_organisasi_2',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-camera-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
+        'value'=>$populate_data_org[1][0]]) ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_2',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[1][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_2',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-camera-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[1][1]])?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_2_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[1][2]])?>
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_2_end',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-camera-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[1][2]])?>
     </div>
     <div class="col-md-3">
-        <?php
-        echo $form->field($model_student_extra, 'jabatan_organisasi_2',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                </svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
-        ?>
+    <?php echo $form->field($model_student_extra, 'jabatan_organisasi_2',
+        ['labelOptions' => ['class' => 'visually-hidden'], 
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-camera-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
+    ?>
     </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_organisasi_3',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-3-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Zm-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z"/>
-            </svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
-            'value'=>$populate_data_org[2][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_organisasi_3',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-apple text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
+        'value'=>$populate_data_org[2][0]]) ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_3',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_3',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-apple text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][1]])
+?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_3_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][2]])?>
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_3_end',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-apple text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][2]])?>
     </div>
     <div class="col-md-3">
-        <?php
-        echo $form->field($model_student_extra, 'jabatan_organisasi_3',
-            ['labelOptions' => ['class' => 'visually-hidden'], 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                </svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
-        ?>
+    <?php echo $form->field($model_student_extra, 'jabatan_organisasi_3',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-apple text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
+?>
     </div>
 </div>
 <div class="row">
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'nama_organisasi_4',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-4-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.519 5.057c-.886 1.418-1.772 2.838-2.542 4.265v1.12H8.85V12h1.26v-1.559h1.007V9.334H10.11V4.002H8.176c-.218.352-.438.703-.657 1.055ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218Z"/>
-</svg></span>{input}</div>'])->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi','value'=>$populate_data_org[3][0]]) ?>
+    <?= $form->field($model_student_extra, 'nama_organisasi_4',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-archive-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi','value'=>$populate_data_org[3][0]]) ?>    </div>
+    <div class="col-md-3">
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_4',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-archive-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[3][1]])
+    ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_4',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-        viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[3][1]])
-        ?>
+    <?= $form->field($model_student_extra, 'tanggal_organisasi_4_end',
+    ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-archive-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+    ->textInput(['maxlength' => true])
+    ->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'changeYear' => true,
+            'changeMonth' => true,
+            'yearRange' => '-100:+0',
+        ],
+    ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[3][2]])?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model_student_extra, 'tanggal_organisasi_4_end',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" 
-viewBox="0 0 16 16"><path d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></span>{input}</div>'])
-            ->textInput(['maxlength' => true])
-            ->widget(\yii\jui\DatePicker::class, [
-                'dateFormat' => 'yyyy-MM-dd',
-                'options' => ['class' => 'form-control'],
-                'clientOptions' => [
-                    'changeYear' => true,
-                    'changeMonth' => true,
-                    'yearRange' => '-100:+0',
-                ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[3][2]])?>
-    </div>
-    <div class="col-md-3">
-        <?php
-        echo $form->field($model_student_extra, 'jabatan_organisasi_4',
-            ['labelOptions' => ['class' => 'visually-hidden'],
-                'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                </svg></span>{input}</div>'])
-            ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
-        ?>
+    <?php echo $form->field($model_student_extra, 'jabatan_organisasi_4',
+        ['labelOptions' => ['class' => 'visually-hidden'],
+        'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+        <i class="bi bi-archive-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
+        ->dropDownList(\app\models\StudentExtraForm::$jabatan, ['prompt' => 'Jabatan']);
+    ?>
     </div>
 </div>
-<br>
 <div class="form-group" style="display: flex; justify-content: flex-end;">
-    <?=  Html::resetButton('Reset', ['class' => 'btn btn-primary','style' => 'background-color: #fff; color: #333; margin-right: 10px; width: 100px;']) ?>
-    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'style' => 'background-color: #fff; color: #333; width: 100px;', 'id' => 'my-button']) ?>
+    <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-primary', 'style' => 'margin-right: 10px;']) ?>
+    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary', 'id' => 'my-button']) ?>
 </div>
 <?php ActiveForm::end(); ?>
 </div>

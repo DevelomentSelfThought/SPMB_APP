@@ -51,7 +51,7 @@ $title  = 'Data Informasi Mahasiswa Baru';
 <?php 
     echo $form->field($model, 'jumlah_n',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-bag-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-bag-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->dropDownList(\app\models\StudentInformasiForm::$get_jumlah_n, 
     ['prompt' => 'Pilih Jumlah N', 'onchange' => 'this.form.submit();', 'options' => [0 => ['Selected'=>'selected']]])
     ->label("Jumlah N");
@@ -115,14 +115,14 @@ $data  =  [
 <?php
     echo $form->field($model, 'sumber_informasi',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-info-circle-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-info-circle-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->dropDownList(\app\models\StudentInformasiForm::getSumberInformasi(), ['prompt' => 'Pilih Sumber Informasi SPMB'])
     ->label("Sumber Informasi SPMB");
 ?>
 <?php
     echo $form->field($model, 'motivasi',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-lightbulb-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-lightbulb-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->dropDownList(\app\models\StudentInformasiForm::$get_motivasi, ['prompt' => 'Pilih Motivasi Kuliah di IT Del'])
     ->label("Motivasi Kuliah di IT Del");
 ?>

@@ -56,21 +56,21 @@ $title  = 'Data Diri Mahasiswa';
 ?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
-<?= Html::tag('div', '<span>Biaya Pendaftaran UTBK  '.date('Y'). '</span>', ['class' => 'ruler']) ?>
+<?= Html::tag('div', '<span>Biaya Pendaftaran Peserta PMB  '.date('Y'). '</span>', ['class' => 'ruler']) ?>
 <?php echo $form->field($model,'biaya_awal',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-wallet2 text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Biaya Pendaftaran')
+    <i class="bi bi-cash-coin text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Biaya Pendaftaran')
   ->textInput(['value' => 'Rp. '.number_format($model->getBiayaAwal(), 0, ',', '.'), 'disabled' => true])
 ?>
 <?php echo $form->field($model,'virtual_account',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-credit-card" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Virtual Account')->textInput(['placeholder' => '9089 7687 8909 8978', 'disabled' => true])
+    <i class="bi bi-credit-card-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Virtual Account')->textInput(['placeholder' => '9089 7687 8909 8978', 'disabled' => true])
 ?>
 <?php echo $form->field($model,'voucher', [
     'inputTemplate' => '
         <div class="input-group">
             <span class="input-group-text">
-                <i class="bi bi-gift text-danger" style="font-size: 1rem;"></i>
+                <i class="bi bi-gift-fill text-danger" style="font-size: 1rem;"></i>
             </span>
             {input}
             <span class="input-group-btn" style="margin-left: 10px;">
@@ -81,7 +81,7 @@ $title  = 'Data Diri Mahasiswa';
 ?>   
 <?php echo $form->field($model,'total_bayar',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-cash-stack" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Total Bayar')
+    <i class="bi bi-credit-card-2-front-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Total Bayar')
     ->textInput(['value' => 'Rp. '.number_format($model->getTotalBayar(), 0, ',', '.'), 'disabled' => true])
 ?>
 <?php echo $form->field($model,'status_pembayaran',

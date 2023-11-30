@@ -101,13 +101,13 @@ NavBar::begin([
 ]);
 if(Yii::$app->user->isGuest){
     $menuItems = [
-        ['label' => '<i class="bi bi-person-plus-fill text-success"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
-        ['label' => '<i class="bi bi-key-fill text-danger"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
-        ['label' => '<i class="bi bi-person-check-fill text-primary"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
+        ['label' => '<i class="bi bi-patch-plus-fill text-primary"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
+        ['label' => '<i class="bi bi-patch-question-fill text-danger"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
+        ['label' => '<i class="bi bi-patch-check-fill text-primary"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
     ];
 }
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => '<i class="bi bi-person-fill text-success"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
+    $menuItems[] = ['label' => '<i class="bi bi-server text-success"></i> <span class="nav-label">Masuk ke Akun</span>', 'url' => ['/student/login'], 'encode'=>false];
 } else {
     // $menuItems[] = ['label' => str_repeat('&nbsp;', 0), 'url' => '#', 'linkOptions' => ['style' => 'pointer-events: none;'], 'encode' => false];
     $icon = StudentDataDiriForm::isFillDataPribadi() ? '<i class="bi bi-check-circle-fill text-success menu-icon position-absolute" style="right: 10px;"></i>' : '<i class="bi bi-exclamation-triangle-fill text-danger menu-icon position-absolute" style="right: 10px;"></i>';

@@ -44,6 +44,7 @@
 .timeline-item:last-child::before {
     display: none;
 } */
+
 .timeline {
     position: relative;
     max-width: 1200px;
@@ -107,9 +108,9 @@
     }
 }
 .regpro{
-    background-color: #f8f9fa;
+    background-color: white;
     padding: 30px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 h2{
     text-align: center;
@@ -518,9 +519,8 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 </div>
 <!-- Feedback/Testimonials Section -->
 <section id="testimonials" class="my-5">
-    <h2 class="h4 mb-3">Testimonial atau ulasan para mahasiswa</h2>
-    <br>
-    <div class="row">
+<h2 style="text-align: center; color: white;">Testimonial atau ulasan para mahasiswa</h2> <br>    
+<div class="row">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
