@@ -2,92 +2,94 @@
 <html>
 <head>
     <title>Student Token Activation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .otp-input {
+            text-align: center;
+            font-size: 20px;
+            border: none;
+            border-radius: 50%; /* makes the input field completely round */
+            background-color: #0d6efd; /* sets the background color to Eclipse */
+            color: white; /* sets the text color to white */
+            margin-right: 5px;
+            margin-left: 5px;
+            width: 40px;
+            height: 40px; /* sets the height to be the same as the width */
+            padding: 10px; /* adds some padding */
+        }
+        .otp-input:focus {
+            border-color: #6610f2;
+            outline: none;
+            box-shadow: none;
+        }
+        .rounded-lg {
+            border-radius: 1rem; /* 1rem = 16px */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25); /* adds a 3D shadow effect */
+        }
+        .otp-input::placeholder {
+            color: white;
+        }
+        .custom-heading {
+            font-size: 2.5rem;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+</style>
 </head>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f6f8fa;
-}
-
-.site-device-activation {
-    text-align: center;
-}
-.activation-form {
-    background-color: #fff;
-    padding: 40px 20px; /* Increased vertical padding */
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 40%;
-    margin: 0 auto;
-}
-
-.code-inputs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Allow the input boxes to wrap onto the next line */
-}
-
-.code-inputs input {
-    text-align: center;
-    padding: 5px; /* Increased padding */
-    font-size: 16px; /* Increased font size */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 60px; /* Increased width */
-    height: 40px; /* Increased height */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    margin: 5px;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .code-inputs input {
-        width: 50px; /* Increased width for smaller screens */
-        height: 35px; /* Increased height for smaller screens */
-        font-size: 14px; /* Increased font size for smaller screens */
-    }
-}
-</style> 
 <body> 
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap5\Modal;
-
 $this->title = 'Verifikasi Akun';
 $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show");});');
-
 ?>
-<div class="site-device-activation">
+<div class="text-center mb-2">
+    <img src="/bground/itdel.jpg" alt="Logo" class="mb-1" width="120">
+</div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow rounded-lg"> <!-- updated the class here -->
+                <div class="card-body"><br>
+                <h1 class="text-center custom-heading"> 
+                     <?= Html::encode($this->title) ?>
+                </h1>
+                <br>
+                    <p class="text-center"> Masukan kode verifikasi yang telah dikirimkan melalui email</p>
+                    <br>
+                    <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+                    
+                    <div class="form-group d-flex justify-content-center">
+                        <?= $form->field($model, 'code1', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '8'])->label(false) ?>
+                        <?= $form->field($model, 'code2', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '5'])->label(false) ?>
+                        <?= $form->field($model, 'code3', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '2'])->label(false) ?>
+                        <?= $form->field($model, 'code4', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '9'])->label(false) ?>
+                        <?= $form->field($model, 'code5', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '3'])->label(false) ?>
+                        <?= $form->field($model, 'code6', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '6'])->label(false) ?>
+                    </div>
+                    <br><br>
+                    <div class="form-group text-center">
+                        <?= Html::submitButton('Verifikasi Akun Saya', ['class' => 'btn btn-primary', 'name' => 'login-button', 
+                        'style' => 'background-color: #333333; width: 400px;']) ?>
+                    </div>
+                    <br>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6;" class="text-center">
+                        Box diatas berguna untuk menampung token  atau kode verifikasi yang dikirimkan melalui email. Sebagai contoh
+                        jika token atau kode verifikasi yang dikirimkan melalui email adalah  <b><i>852936</i></b> sebagai mana dapat dilihat pada contoh diatas.</p>
 
-<h1><img src="/bground/itdel.jpg" width=120 alt="IT Del Logo"></h1><br>
-
-    <?php $form = ActiveForm::begin(['options' => ['class' => 'activation-form']]); ?>
-    <h1><b><?= Html::encode($this->title) ?> </b></h1><br>
-    <p><b>Silahkan masukan kode verifikasi yang telah dikirimkan</b></p><br>
-    <div class="code-inputs">
-        <?= $form->field($model, 'code1')->textInput(['maxlength' => 1, 'placeholder' => 'K'])
-        ->label(false)->error(false) ?>
-        <?= $form->field($model, 'code2')->textInput(['maxlength' => 1, 'placeholder' => 'O'])
-        ->label(false)->error(false) ?>
-        <?= $form->field($model, 'code3')->textInput(['maxlength' => 1, 'placeholder' => 'D'])
-        ->label(false)->error(false) ?>
-        <?= $form->field($model, 'code4')->textInput(['maxlength' => 1, 'placeholder' => 'E'])
-        ->label(false)->error(false) ?>
-        <?= $form->field($model, 'code5')->textInput(['maxlength' => 1, 'placeholder' => 'A'])
-        ->label(false)->error(false) ?>
-        <?= $form->field($model, 'code6')->textInput(['maxlength' => 1, 'placeholder' => 'B'])
-        ->label(false)->error(false) ?>
+                    <?php ActiveForm::end(); ?>
+                </div>
+            </div>
+        </div>
     </div>
-    <br>
-    <div class="form-group">
-    <?= Html::submitButton('Verifikasi Akun', ['class' => 'btn btn-primary', 'style' => 'width:100%']) ?>
 </div>
-<br>
-<p style="font-size: 14px; color: #666; line-height: 1.6;">Box diatas berguna untuk menampung token yang dikirimkan melalui email.</p>
-    <?php ActiveForm::end(); ?>
-</div>
+</body>
+</html>
+
 <?php 
 Modal::begin([
     'title' => '<h2 style="color: #0093ad;" class="text-center">Instruksi Verifikasi Akun</h2>',
@@ -114,5 +116,3 @@ Modal::begin([
     <button type="button" class="btn btn-primary" style="width: 100%;" data-bs-dismiss="modal">Saya Memahami</button>
 </div>
 <?php Modal::end(); ?>
-</body>
-</html>

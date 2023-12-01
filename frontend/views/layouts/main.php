@@ -1,9 +1,5 @@
 
 <?php
-
-/** @var yii\web\View $this */
-/** @var string $content */
-
 use app\models\Student;
 use app\models\StudentAkademikForm;
 use app\models\StudentDataDiri;
@@ -20,9 +16,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
-
 AppAsset::register($this);
-
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
@@ -102,7 +96,7 @@ NavBar::begin([
 if(Yii::$app->user->isGuest){
     $menuItems = [
         ['label' => '<i class="bi bi-patch-plus-fill text-primary"></i> <span class="nav-label">Buat Akun</span>', 'url' => ['/student/register-student'], 'encode'=>false],
-        ['label' => '<i class="bi bi-patch-question-fill text-danger"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
+        ['label' => '<i class="bi bi-cpu-fill text-danger"></i> <span class="nav-label">Lupa Password</span>', 'url' => ['/student/reset-password'], 'encode'=>false],
         ['label' => '<i class="bi bi-patch-check-fill text-primary"></i> <span class="nav-label">Aktivasi Akun</span>', 'url' => ['/student/student-token-activate'], 'encode'=>false],
     ];
 }
