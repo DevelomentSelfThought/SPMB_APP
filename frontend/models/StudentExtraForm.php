@@ -106,45 +106,9 @@ class StudentExtraForm extends Model {
                 self::pushachievement_4();
                 //make the same thing for table t_organisasi as well as table t_extrakurikuler
                 self::pushOrganisasi_1();
-                if(strlen($this->nama_organisasi_2) > 2){
-                    if($this->tanggal_organisasi_2 && $this->tanggal_organisasi_2_end && $this->jabatan_organisasi_2){
-                        Yii::$app->db->createCommand()
-                            ->insert('t_organisasi', [
-                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
-                                'nama' => $this->nama_organisasi_2,
-                                'jabatan' => $this->jabatan_organisasi_2,
-                                'mulai' => $this->tanggal_organisasi_2,
-                                'berakhir' => $this->tanggal_organisasi_2_end,
-                            ])
-                            ->execute();
-                    }
-                }
-                if(strlen($this->nama_organisasi_3) > 2){
-                    if($this->tanggal_organisasi_3 && $this->tanggal_organisasi_3_end && $this->jabatan_organisasi_3){
-                        Yii::$app->db->createCommand()
-                            ->insert('t_organisasi', [
-                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
-                                'nama' => $this->nama_organisasi_3,
-                                'jabatan' => $this->jabatan_organisasi_3,
-                                'mulai' => $this->tanggal_organisasi_3,
-                                'berakhir' => $this->tanggal_organisasi_3_end,
-                            ])
-                            ->execute();
-                    }
-                }
-                if(strlen($this->nama_organisasi_4) > 2){
-                    if($this->tanggal_organisasi_4 && $this->tanggal_organisasi_4_end && $this->jabatan_organisasi_4){
-                        Yii::$app->db->createCommand()
-                            ->insert('t_organisasi', [
-                                'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
-                                'nama' => $this->nama_organisasi_4,
-                                'jabatan' => $this->jabatan_organisasi_4,
-                                'mulai' => $this->tanggal_organisasi_4,
-                                'berakhir' => $this->tanggal_organisasi_4_end,
-                            ])
-                            ->execute();
-                    }
-                }
+                self::pushOrganisasi_2();
+                self::pushOrganisasi_3();
+                self::pushOrganisasi_4();
                 //if the data successfully inserted, show bootstrap alert
                 //Yii::$app->session->setFlash('success', 'Data ekstrakurikuler dan organisasi berhasil disimpan');
                 return true;
@@ -387,6 +351,111 @@ class StudentExtraForm extends Model {
                             'mulai' => $this->tanggal_organisasi_1,
                             'berakhir' => $this->tanggal_organisasi_1_end,
                         ], 'keterangan = "organisasi 1" and pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())
+                        ->execute();
+                }
+            }
+        }
+    }
+    //push data to t_organisasi, organisasi 2
+    private function pushOrganisasi_2(){
+        if(strlen($this->nama_organisasi_2) > 2) {
+            if($this->tanggal_organisasi_2 && $this->tanggal_organisasi_2_end && $this->jabatan_organisasi_2) {
+                //find the identity 
+                $sql  = "Select keterangan from t_organisasi where keterangan = 'organisasi 2' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                //if the identity is not exist, insert the data
+                if(!$result){
+                    Yii::$app->db->createCommand()
+                        ->insert('t_organisasi', [
+                            'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
+                            'keterangan' => 'organisasi 2',
+                            'nama' => $this->nama_organisasi_2,
+                            'jabatan' => $this->jabatan_organisasi_2,
+                            'mulai' => $this->tanggal_organisasi_2,
+                            'berakhir' => $this->tanggal_organisasi_2_end,
+                        ])
+                        ->execute();
+                }
+                else{
+                    //if the identity is exist, update the data
+                    Yii::$app->db->createCommand()
+                        ->update('t_organisasi', [
+                            'nama' => $this->nama_organisasi_2,
+                            'jabatan' => $this->jabatan_organisasi_2,
+                            'mulai' => $this->tanggal_organisasi_2,
+                            'berakhir' => $this->tanggal_organisasi_2_end,
+                        ], 'keterangan = "organisasi 2" and pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())
+                        ->execute();
+                }
+            }
+        }
+    }
+    //push data to t_organisasi, organisasi 3
+    private function pushOrganisasi_3(){
+        if(strlen($this->nama_organisasi_3) > 2) {
+            if($this->tanggal_organisasi_3 && $this->tanggal_organisasi_3_end && $this->jabatan_organisasi_3) {
+                //find the identity 
+                $sql  = "Select keterangan from t_organisasi where keterangan = 'organisasi 3' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                //if the identity is not exist, insert the data
+                if(!$result){
+                    Yii::$app->db->createCommand()
+                        ->insert('t_organisasi', [
+                            'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
+                            'keterangan' => 'organisasi 3',
+                            'nama' => $this->nama_organisasi_3,
+                            'jabatan' => $this->jabatan_organisasi_3,
+                            'mulai' => $this->tanggal_organisasi_3,
+                            'berakhir' => $this->tanggal_organisasi_3_end,
+                        ])
+                        ->execute();
+                }
+                else{
+                    //if the identity is exist, update the data
+                    Yii::$app->db->createCommand()
+                        ->update('t_organisasi', [
+                            'nama' => $this->nama_organisasi_3,
+                            'jabatan' => $this->jabatan_organisasi_3,
+                            'mulai' => $this->tanggal_organisasi_3,
+                            'berakhir' => $this->tanggal_organisasi_3_end,
+                        ], 'keterangan = "organisasi 3" and pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())
+                        ->execute();
+                }
+            }
+        }
+    }
+    //push data to t_organisasi, organisasi 4
+    private function pushOrganisasi_4(){
+        if(strlen($this->nama_organisasi_4) > 2) {
+            if($this->tanggal_organisasi_4 && $this->tanggal_organisasi_4_end && $this->jabatan_organisasi_4) {
+                //find the identity 
+                $sql  = "Select keterangan from t_organisasi where keterangan = 'organisasi 4' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                //if the identity is not exist, insert the data
+                if(!$result){
+                    Yii::$app->db->createCommand()
+                        ->insert('t_organisasi', [
+                            'pendaftar_id' => StudentDataDiriForm::getCurrentPendaftarId(),
+                            'keterangan' => 'organisasi 4',
+                            'nama' => $this->nama_organisasi_4,
+                            'jabatan' => $this->jabatan_organisasi_4,
+                            'mulai' => $this->tanggal_organisasi_4,
+                            'berakhir' => $this->tanggal_organisasi_4_end,
+                        ])
+                        ->execute();
+                }
+                else{
+                    //if the identity is exist, update the data
+                    Yii::$app->db->createCommand()
+                        ->update('t_organisasi', [
+                            'nama' => $this->nama_organisasi_4,
+                            'jabatan' => $this->jabatan_organisasi_4,
+                            'mulai' => $this->tanggal_organisasi_4,
+                            'berakhir' => $this->tanggal_organisasi_4_end,
+                        ], 'keterangan = "organisasi 4" and pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())
                         ->execute();
                 }
             }
