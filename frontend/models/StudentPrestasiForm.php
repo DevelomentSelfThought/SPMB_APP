@@ -47,134 +47,252 @@ class StudentPrestasiForm extends Model{
             [['nama_prestasi_non_1','nama_prestasi_non_2','nama_prestasi_non_3','nama_prestasi_non_4'], 'string', 'min' => 4],
         ];
     }
-    //function to insert data prestasi akademik to table t_prestasi,
-    //field to fullfill pendafatar_id, tingkat_id, jenis_prestasi, nama, tahun
-    public function updatePrestasiAkademik(){
+    //push prestasi_1 to database
+    private function pushAcademic_1(){
         //get pendafatar_id from table t_pendaftar
-        $pendaftar_id = Yii::$app->db->createCommand('SELECT pendaftar_id FROM t_pendaftar WHERE user_id = 
-        '.StudentDataDiriForm::getCurrentUserId())->queryScalar();
-        //insert data to table t_prestasi
         if($this->nama_prestasi_1 != null && $this->tanggal_prestasi_1 != null && 
             $this->predikat_prestasi_1 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_1,
-                'jenis_prestasi'=>'Akademik',
-                'nama'=>$this->nama_prestasi_1,
-                'tahun'=>$this->tanggal_prestasi_1,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
-        }
-        //do the same for the rest of the data
-        if($this->nama_prestasi_2 != null && $this->tanggal_prestasi_2 != null && 
-            $this->predikat_prestasi_2 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_2,
-                'jenis_prestasi'=>'Akademik',
-                'nama'=>$this->nama_prestasi_2,
-                'tahun'=>$this->tanggal_prestasi_2,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-
-            ])->execute();    
-        }
-        if($this->nama_prestasi_3 != null && $this->tanggal_prestasi_3 != null && 
-            $this->predikat_prestasi_3 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_3,
-                'jenis_prestasi'=>'Akademik',
-                'nama'=>$this->nama_prestasi_3,
-                'tahun'=>$this->tanggal_prestasi_3,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
-        }
-        if($this->nama_prestasi_4 != null && $this->tanggal_prestasi_4 != null && 
-            $this->predikat_prestasi_4 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_4,
-                'jenis_prestasi'=>'Akademik',
-                'nama'=>$this->nama_prestasi_4,
-                'tahun'=>$this->tanggal_prestasi_4,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'akademik 1' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_1,
+                        'nama'=>$this->nama_prestasi_1,
+                        'tahun'=>$this->tanggal_prestasi_1,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "akademik 1" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_1,
+                        'jenis_prestasi'=>'akademik 1',
+                        'nama'=>$this->nama_prestasi_1,
+                        'tahun'=>$this->tanggal_prestasi_1,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
         }
     }
-    //function to update prestasi non akademik to table t_prestasi,, same as above but for non akademik
-    public function updatePrestasiNonAkademik(){
+    //same as above, but for prestasi_2
+    private function pushAcademic_2(){
         //get pendafatar_id from table t_pendaftar
-        $pendaftar_id = Yii::$app->db->createCommand('SELECT pendaftar_id FROM t_pendaftar WHERE user_id = 
-        '.StudentDataDiriForm::getCurrentUserId())->queryScalar();
-        //insert data to table t_prestasi
+        if($this->nama_prestasi_2 != null && $this->tanggal_prestasi_2 != null && 
+            $this->predikat_prestasi_2 != null){
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'akademik 2' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_2,
+                        'nama'=>$this->nama_prestasi_2,
+                        'tahun'=>$this->tanggal_prestasi_2,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "akademik 2" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_2,
+                        'jenis_prestasi'=>'akademik 2',
+                        'nama'=>$this->nama_prestasi_2,
+                        'tahun'=>$this->tanggal_prestasi_2,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
+        }
+    }
+    //same as above, but for prestasi_3
+    private function pushAcademic_3(){
+        //get pendafatar_id from table t_pendaftar
+        if($this->nama_prestasi_3 != null && $this->tanggal_prestasi_3 != null && 
+            $this->predikat_prestasi_3 != null){
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'akademik 3' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_3,
+                        'nama'=>$this->nama_prestasi_3,
+                        'tahun'=>$this->tanggal_prestasi_3,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "akademik 3" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_3,
+                        'jenis_prestasi'=>'akademik 3',
+                        'nama'=>$this->nama_prestasi_3,
+                        'tahun'=>$this->tanggal_prestasi_3,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
+        }
+    }
+    //same as above, but for prestasi_4
+    private function pushAcademic_4(){
+        //get pendafatar_id from table t_pendaftar
+        if($this->nama_prestasi_4 != null && $this->tanggal_prestasi_4 != null && 
+            $this->predikat_prestasi_4 != null){
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'akademik 4' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_4,
+                        'nama'=>$this->nama_prestasi_4,
+                        'tahun'=>$this->tanggal_prestasi_4,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "akademik 4" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_4,
+                        'jenis_prestasi'=>'akademik 4',
+                        'nama'=>$this->nama_prestasi_4,
+                        'tahun'=>$this->tanggal_prestasi_4,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
+        }
+    }
+    //same as above, but for non akademik prestasi 1
+    private function pushNonAcademic_1(){
+        //get pendafatar_id from table t_pendaftar
         if($this->nama_prestasi_non_1 != null && $this->tanggal_prestasi_non_1 != null && 
             $this->predikat_prestasi_non_1 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_non_1,
-                'jenis_prestasi'=>'Non Akademik',
-                'nama'=>$this->nama_prestasi_non_1,
-                'tahun'=>$this->tanggal_prestasi_non_1,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'non akademik 1' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_non_1,
+                        'nama'=>$this->nama_prestasi_non_1,
+                        'tahun'=>$this->tanggal_prestasi_non_1,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "non akademik 1" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_non_1,
+                        'jenis_prestasi'=>'non akademik 1',
+                        'nama'=>$this->nama_prestasi_non_1,
+                        'tahun'=>$this->tanggal_prestasi_non_1,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
         }
-        //do the same for the rest of the data
+    }
+    //same as above, but for non akademik prestasi 2
+    private function pushNonAcademic_2(){
+        //get pendafatar_id from table t_pendaftar
         if($this->nama_prestasi_non_2 != null && $this->tanggal_prestasi_non_2 != null && 
             $this->predikat_prestasi_non_2 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_non_2,
-                'jenis_prestasi'=>'Non Akademik',
-                'nama'=>$this->nama_prestasi_non_2,
-                'tahun'=>$this->tanggal_prestasi_non_2,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'non akademik 2' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_non_2,
+                        'nama'=>$this->nama_prestasi_non_2,
+                        'tahun'=>$this->tanggal_prestasi_non_2,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "non akademik 2" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_non_2,
+                        'jenis_prestasi'=>'non akademik 2',
+                        'nama'=>$this->nama_prestasi_non_2,
+                        'tahun'=>$this->tanggal_prestasi_non_2,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
         }
+    }
+    //same as above, but for non akademik prestasi 3
+    private function pushNonAcademic_3(){
+        //get pendafatar_id from table t_pendaftar
         if($this->nama_prestasi_non_3 != null && $this->tanggal_prestasi_non_3 != null && 
             $this->predikat_prestasi_non_3 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_non_3,
-                'jenis_prestasi'=>'Non Akademik',
-                'nama'=>$this->nama_prestasi_non_3,
-                'tahun'=>$this->tanggal_prestasi_non_3,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'non akademik 3' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_non_3,
+                        'nama'=>$this->nama_prestasi_non_3,
+                        'tahun'=>$this->tanggal_prestasi_non_3,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "non akademik 3" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_non_3,
+                        'jenis_prestasi'=>'non akademik 3',
+                        'nama'=>$this->nama_prestasi_non_3,
+                        'tahun'=>$this->tanggal_prestasi_non_3,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
         }
+    }
+    //same as above, but for non akademik prestasi 4
+    private function pushNonAcademic_4(){
+        //get pendafatar_id from table t_pendaftar
         if($this->nama_prestasi_non_4 != null && $this->tanggal_prestasi_non_4 != null && 
             $this->predikat_prestasi_non_4 != null){
-            Yii::$app->db->createCommand()->insert('t_prestasi', [
-                'pendaftar_id'=>$pendaftar_id,
-                'tingkat_id'=>$this->predikat_prestasi_non_4,
-                'jenis_prestasi'=>'Non Akademik',
-                'nama'=>$this->nama_prestasi_non_4,
-                'tahun'=>$this->tanggal_prestasi_non_4,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'created_by'=>Yii::$app->user->identity->username,
-                'updated_by'=>Yii::$app->user->identity->username,
-            ])->execute();    
+                $sql  = "Select jenis_prestasi from t_prestasi where jenis_prestasi = 'non akademik 4' and pendaftar_id = ".
+                    StudentDataDiriForm::getCurrentPendaftarId();
+                $result = Yii::$app->db->createCommand($sql)->queryScalar();
+                if($result){ //EXIST, just update the data
+                    Yii::$app->db->createCommand()->update('t_prestasi', [
+                        'tingkat_id'=>$this->predikat_prestasi_non_4,
+                        'nama'=>$this->nama_prestasi_non_4,
+                        'tahun'=>$this->tanggal_prestasi_non_4,
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ], 'jenis_prestasi = "non akademik 4" AND pendaftar_id = '.StudentDataDiriForm::getCurrentPendaftarId())->execute();
+                }else{ //otherwise, insert new data
+                    Yii::$app->db->createCommand()->insert('t_prestasi', [
+                        'pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                        'tingkat_id'=>$this->predikat_prestasi_non_4,
+                        'jenis_prestasi'=>'non akademik 4',
+                        'nama'=>$this->nama_prestasi_non_4,
+                        'tahun'=>$this->tanggal_prestasi_non_4,
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s'),
+                        'created_by'=>Yii::$app->user->identity->username,
+                        'updated_by'=>Yii::$app->user->identity->username,
+                    ])->execute();    
+                }
         }
     }
     //generate list of tingkat prestasi from table t_r_tingkat as key value pair
@@ -188,21 +306,17 @@ class StudentPrestasiForm extends Model{
         //validate the input data
         if($this->validate()){
             try{
-                if(!StudentDataDiriForm::userIdExists()){
-                    //insert user_id to table t_pendaftar, avoid duplicate since the user_id on t_pendaftar not primary key
-                    Yii::$app->db->createCommand()->insert('t_pendaftar', 
-                    ['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
-                }
-                //update prestasi to t_pendaftar, non akademik and akademik
-                self::updatePrestasiAkademik();
-                self::updatePrestasiNonAkademik();
-                //flash message if the data is successfully inserted to database
+                self::pushAcademic_1(); //push data prestasi akademik to database
+                self::pushAcademic_2();
+                self::pushAcademic_3();
+                self::pushAcademic_4();
+                self::pushNonAcademic_1(); //push data prestasi non akademik to database
+                self::pushNonAcademic_2();
+                self::pushNonAcademic_3();
+                self::pushNonAcademic_4();
                 return true;
             }catch(Exception $e) {
-                //flash message if the data is failed to inserted to database
-                //echo $e->getMessage();
                 Yii::$app->session->setFlash('error', "Data Prestasi Gagal Disimpan");
-                return false;
             }
         }
         return false;
@@ -257,5 +371,40 @@ class StudentPrestasiForm extends Model{
         }
         return $data;
     }
+    //fetch data prestasi akademik from database
+    public static function findDataPrestasi(){
+        $pendaftarId = StudentDataDiriForm::getCurrentPendaftarId();
+    
+        // Fetch data from t_nilai_rapor
+        $sql = "SELECT * FROM t_prestasi WHERE pendaftar_id = ".$pendaftarId;
+        $dataPrestasi = Yii::$app->db->createCommand($sql)->queryAll();
+        //load it to array and show it to view
+        if($dataPrestasi!==false) {
+            $model  = new self();
+            $attributNames = $model->attributes();
+            foreach ($dataPrestasi as $row)
+            {
+                $subject ;
+            }
+        }
+    }
+    //map prestasi data from database to form data
+    private static $prestasitMap = [
+        'nama' => 'nama_prestasi_1',
+        'tahun' => 'tanggal_prestasi_1',
+        'tingkat_id' => 'predikat_prestasi_1',
+        //same as above, but for prestasi_2
+        'nama' => 'nama_prestasi_2',
+        'tahun' => 'tanggal_prestasi_2',
+        'tingkat_id' => 'predikat_prestasi_2',
+        //same as above, but for prestasi_3
+        'nama' => 'nama_prestasi_3',
+        'tahun' => 'tanggal_prestasi_3',
+        'tingkat_id' => 'predikat_prestasi_3',
+        //same as above, but for prestasi_4
+        'nama' => 'nama_prestasi_4',
+        'tahun' => 'tanggal_prestasi_4',
+        'tingkat_id' => 'predikat_prestasi_4',
+    ];
 }
 ?>

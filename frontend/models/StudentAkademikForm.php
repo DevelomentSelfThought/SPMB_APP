@@ -326,7 +326,7 @@ class StudentAkademikForm extends Model {
             } catch(Exception $e){
                 //flash error message
                 Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
-                Yii::error('Error occurred: ' . $e->getMessage());
+                //Yii::error('Error occurred: ' . $e->getMessage());
             }
         } 
         return false;
@@ -448,8 +448,8 @@ class StudentAkademikForm extends Model {
         ] ,['pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()])->execute();
         }
         catch(Exception $e){
-            echo $e->getMessage();
-            Yii::info($e->getMessage());
+            //echo $e->getMessage();
+            //Yii::info($e->getMessage());
             //flash error message
             Yii::$app->session->setFlash('error', "Something went wrong, please contact the administrator or try again later");
         }
@@ -633,12 +633,11 @@ class StudentAkademikForm extends Model {
         $pendaftarId = StudentDataDiriForm::getCurrentPendaftarId();
     
         // Fetch data from t_nilai_rapor
-        $sql = "SELECT * FROM t_nilai_rapor WHERE pendaftar_id = ".$pendaftarId;
-        $dataRapor = Yii::$app->db->createCommand($sql)->queryAll();
-    
-        // Fetch data from t_pendaftar
-        $sql = "SELECT * FROM t_pendaftar WHERE pendaftar_id = ".$pendaftarId;
-        $dataPendaftar = Yii::$app->db->createCommand($sql)->queryOne();
+        $sql = "SELECT * FROM t_nilai_rapor WHERE pendaftar_id = :pendaftarId";
+        $dataRapor = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryAll();
+        
+        $sql = "SELECT * FROM t_pendaftar WHERE pendaftar_id = :pendaftarId";
+        $dataPendaftar = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryOne();
     
         if($dataRapor !== false || $dataPendaftar !== false){
             $model  = new self();
