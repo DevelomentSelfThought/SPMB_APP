@@ -60,7 +60,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                 </h1>
                 <br>
                     <p class="text-center"> Masukan kode verifikasi yang telah dikirimkan melalui email</p>
-                    <br>
+                    
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     
                     <div class="form-group d-flex justify-content-center">
@@ -73,14 +73,14 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                     </div>
                     <br><br>
                     <div class="form-group text-center">
-                        <?= Html::submitButton('Verifikasi Akun Saya', ['class' => 'btn btn-primary', 'name' => 'login-button', 
-                        'style' => 'background-color: #333333; width: 400px;']) ?>
+                        <?= Html::submitButton('Verifikasi Akun Saya', ['class' => 'btn btn-danger rounded-pill', 'name' => 'login-button', 
+                        'style' => 'width: 400px;']) ?>
                     </div>
                     <br>
+                    <hr>
                     <p style="font-size: 14px; color: #666; line-height: 1.6;" class="text-center">
-                        Box diatas berguna untuk menampung token  atau kode verifikasi yang dikirimkan melalui email. Sebagai contoh
-                        jika token atau kode verifikasi yang dikirimkan melalui email adalah  <b><i>852936</i></b> sebagai mana dapat dilihat pada contoh diatas.</p>
-
+                        Box diatas berguna untuk menampung kode yang dikirimkan melalui email. Sebagai contoh
+                        jika kode yang dikirimkan melalui email adalah  <b><i>852936</i></b>, maka masukan kode tersebut seperti contoh diatas.</p>
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
