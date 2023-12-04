@@ -84,7 +84,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-cpu-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
         ->textInput(['maxlength' => true, 
-        'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[0][0]]) 
+        'placeholder'=>'Nama Kegiatan']) 
     ?>
     </div>
     <div class="col-md-3">
@@ -101,7 +101,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][1]])
+        ])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-3">
@@ -118,7 +118,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data[0][2]])
+        ])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-3">
@@ -138,7 +138,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         ['labelOptions' => ['class' => 'visually-hidden'],
             'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-easel2-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan','value'=>$populate_data[1][0]]) 
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan']) 
     ?>    
     </div>
     <div class="col-md-3">
@@ -155,7 +155,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][1]]) 
+        ])->textInput(['placeholder'=>'yyyy-mm-dd']) 
     ?>
     </div>
     <div class="col-md-3">
@@ -172,7 +172,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[1][2]]) 
+        ])->textInput(['placeholder'=>'yyyy-mm-dd']) 
     ?>
     </div>
     <div class="col-md-3">
@@ -190,7 +190,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-megaphone-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan','value'=>$populate_data[2][0]]) 
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan']) 
     ?>   
     </div>
     <div class="col-md-3">
@@ -207,7 +207,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][1]]) 
+        ])->textInput(['placeholder'=>'yyyy-mm-dd']) 
     ?>
     </div>
     <div class="col-md-3">
@@ -224,7 +224,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[2][2]]) 
+        ])->textInput(['placeholder'=>'yyyy-mm-dd']) 
     ?>
     </div>
     <div class="col-md-3">
@@ -242,7 +242,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
         ['labelOptions' => ['class' => 'visually-hidden'],
             'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-mortarboard-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan', 'value'=>$populate_data[3][0]]) 
+        ->textInput(['maxlength' => true, 'placeholder'=>'Nama Kegiatan']) 
     ?>    </div>
     <div class="col-md-3">
     <?= $form->field($model_student_extra, 'tanggal_kegiatan_4',
@@ -258,7 +258,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][1]])
+        ])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-3">
@@ -275,7 +275,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                 'changeMonth' => true,
                 'yearRange' => '-100:+0',
             ],
-        ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data[3][2]])
+        ])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-3">
@@ -309,7 +309,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'inputTemplate' => '<div class="input-group"><span class="input-group-text">
             <i class="bi bi-chat-square-dots-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
             ->textInput(['maxlength' => true, 
-            'placeholder'=>'Nama Organisasi', 'value'=>$populate_data_org[0][0]]) 
+            'placeholder'=>'Nama Organisasi']) 
         ?>
         </div>
         <div class="col-md-3">
@@ -326,7 +326,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                     'changeMonth' => true,
                     'yearRange' => '-100:+0',
                 ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][1]])
+            ])->textInput(['placeholder'=>'yyyy-mm-dd'])
         ?>
         </div>
         <div class="col-md-3">
@@ -343,7 +343,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
                     'changeMonth' => true,
                     'yearRange' => '-100:+0',
                 ],
-            ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[0][2]])
+            ])->textInput(['placeholder'=>'yyyy-mm-dd'])
         ?>
         </div>
         <div class="col-md-3">
@@ -364,8 +364,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
     ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-camera-fill text-success" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
-        'value'=>$populate_data_org[1][0]]) ?>
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi']) ?>
     </div>
     <div class="col-md-3">
     <?= $form->field($model_student_extra, 'tanggal_organisasi_2',
@@ -381,7 +380,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[1][1]])?>
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])?>
     </div>
     <div class="col-md-3">
     <?= $form->field($model_student_extra, 'tanggal_organisasi_2_end',
@@ -397,7 +396,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[1][2]])?>
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])?>
     </div>
     <div class="col-md-3">
     <?php echo $form->field($model_student_extra, 'jabatan_organisasi_2',
@@ -414,8 +413,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
     ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-apple text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi',
-        'value'=>$populate_data_org[2][0]]) ?>
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi']) ?>
     </div>
     <div class="col-md-3">
     <?= $form->field($model_student_extra, 'tanggal_organisasi_3',
@@ -431,7 +429,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][1]])
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-3">
@@ -448,7 +446,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[2][2]])?>
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])?>
     </div>
     <div class="col-md-3">
     <?php echo $form->field($model_student_extra, 'jabatan_organisasi_3',
@@ -465,7 +463,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
     ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-archive-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])
-    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi','value'=>$populate_data_org[3][0]]) ?>    </div>
+    ->textInput(['maxlength' => true, 'placeholder'=>'Nama Organisasi']) ?>    </div>
     <div class="col-md-3">
     <?= $form->field($model_student_extra, 'tanggal_organisasi_4',
     ['labelOptions' => ['class' => 'visually-hidden'],
@@ -480,7 +478,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_data_org[3][1]])
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-3">
@@ -497,7 +495,7 @@ $title_extra  = "Data Pendidikan Ekstrakurikuler";
             'changeMonth' => true,
             'yearRange' => '-100:+0',
         ],
-    ])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_data_org[3][2]])?>
+    ])->textInput(['placeholder'=>'yyyy-mm-dd'])?>
     </div>
     <div class="col-md-3">
     <?php echo $form->field($model_student_extra, 'jabatan_organisasi_4',

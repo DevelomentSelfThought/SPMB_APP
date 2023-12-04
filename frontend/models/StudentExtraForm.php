@@ -461,6 +461,40 @@ class StudentExtraForm extends Model {
             }
         }
     }
+    //populate data from database to form
+    public static function findDataExtra(){
+        $pendaftarId = StudentDataDiriForm::getCurrentPendaftarId();
+        $model  = new self();
+        // Loop over the 4 extra activity types
+        for ($i = 1; $i <= 4; $i++) {
+            // Fetch data from t_ekstrakurikuler
+            $sql = "SELECT * FROM t_ekstrakurikuler WHERE pendaftar_id = :pendaftarId AND keterangan = 'kegiatan $i'";
+            $dataExtra = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryOne();
+    
+            // If data was fetched successfully, populate the model attributes
+            if ($dataExtra !== false) {
+                $model->{"nama_kegiatan_$i"} = $dataExtra['nama'];
+                $model->{"predikat_kegiatan_$i"} = $dataExtra['predikat_kelulusan_id'];
+                $model->{"tanggal_kegiatan_$i"} = $dataExtra['mulai'];
+                $model->{"tanggal_kegiatan_{$i}_end"} = $dataExtra['berakhir'];
+            }
+        }
+        // Loop over the 4 organization types
+        for ($i = 1; $i <= 4; $i++) {
+            // Fetch data from t_organisasi
+            $sql = "SELECT * FROM t_organisasi WHERE pendaftar_id = :pendaftarId AND keterangan = 'organisasi $i'";
+            $dataExtra = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryOne();
+    
+            // If data was fetched successfully, populate the model attributes
+            if ($dataExtra !== false) {
+                $model->{"nama_organisasi_$i"} = $dataExtra['nama'];
+                $model->{"jabatan_organisasi_$i"} = $dataExtra['jabatan'];
+                $model->{"tanggal_organisasi_$i"} = $dataExtra['mulai'];
+                $model->{"tanggal_organisasi_{$i}_end"} = $dataExtra['berakhir'];
+            }
+        }
+        return $model;
+    }
     
 }
 ?>

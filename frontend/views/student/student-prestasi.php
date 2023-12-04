@@ -81,8 +81,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
             ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-alarm-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-                'placeholder'=>'Nama Prestasi', 
-            'value' => $populate_pres[0][0]]) 
+                'placeholder'=>'Nama Prestasi']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -97,7 +96,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd','value' => $populate_pres[0][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-4">
@@ -114,7 +113,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-gift-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-        'placeholder'=>'Nama Prestasi','value' => $populate_pres[1][0]]) 
+        'placeholder'=>'Nama Prestasi']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -129,7 +128,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd','value' => $populate_pres[1][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-4">
@@ -146,7 +145,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
             ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-palette-fill text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-            'placeholder'=>'Nama Prestasi','value' => $populate_pres[2][0]]) 
+            'placeholder'=>'Nama Prestasi']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -161,7 +160,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd','value' => $populate_pres[2][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
  </div>
     <div class="col-md-4">
@@ -178,7 +177,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-patch-plus-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-        'placeholder'=>'Nama Prestasi', 'value' => $populate_pres[3][0]]) 
+        'placeholder'=>'Nama Prestasi']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -193,7 +192,7 @@ Form Data Prestasi Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) ?>
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd', 'value' => $populate_pres[3][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?> 
 </div>
     <div class="col-md-4">
@@ -225,7 +224,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
             ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-speedometer text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-            'placeholder'=>'Nama Prestasi Non-Akademik', 'value'=>$populate_pres_non[0][0]]) 
+            'placeholder'=>'Nama Prestasi Non-Akademik']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -240,7 +239,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd','value'=>$populate_pres_non[0][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
     ?>
     </div>
     <div class="col-md-4">
@@ -257,7 +256,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
             ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-trophy-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-                'placeholder'=>'Nama Prestasi NonAkademik', 'value'=>$populate_pres_non[1][0]]) 
+                'placeholder'=>'Nama Prestasi NonAkademik']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -272,7 +271,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_pres_non[1][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-4">
@@ -289,7 +288,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
             ['labelOptions' => ['class' => 'visually-hidden'],
                 'inputTemplate' => '<div class="input-group"><span class="input-group-text">
                 <i class="bi bi-windows text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-            'placeholder'=>'Nama Prestasi Non Akademik', 'value'=>$populate_pres_non[2][0]]) 
+            'placeholder'=>'Nama Prestasi Non Akademik']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -304,7 +303,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_pres_non[2][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-4">
@@ -320,7 +319,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
         ['labelOptions' => ['class' => 'visually-hidden'],
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-award-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['maxlength' => true, 
-        'placeholder'=>'Nama Prestasi Non Akademik', 'value'=>$populate_pres_non[3][0]]) 
+        'placeholder'=>'Nama Prestasi Non Akademik']) 
     ?>
     </div>
     <div class="col-md-4">
@@ -335,7 +334,7 @@ Form Data Prestasi Non-Akademik</span>', ['class' => 'my-3 p-2 border-bottom']) 
         'changeYear' => true,
         'changeMonth' => true,
         'yearRange' => '-100:+0',
-    ],])->textInput(['placeholder'=>'yyyy-mm-dd', 'value'=>$populate_pres_non[3][1]])
+    ],])->textInput(['placeholder'=>'yyyy-mm-dd'])
 ?>
     </div>
     <div class="col-md-4">

@@ -188,18 +188,17 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for insert extra activity
     public function actionStudentExtra(){
-        $populate_data  = StudentExtraForm::fetchEkstrakurikuler(); //fetch extrakurikurel data
-        $populate_data_org  = StudentExtraForm::fetchOrganisai(); //fetch organisasi data
-        $model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
+        $model_student_extra = StudentExtraForm::findDataExtra(); //create an instance of the StudentExtraForm class
+        if($model_student_extra === null){
+            $model_student_extra = new StudentExtraForm();
+        }
+        //$model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
         if($model_student_extra->load(Yii::$app->request->post())
             && $model_student_extra->insertStudentExtra()){
             return $this->redirect(['student/student-prestasi']);
         }
         return $this->render('student-extra',
-            ['model_student_extra'=>$model_student_extra, 
-            'populate_data'=>$populate_data,
-            'populate_data_org'=>$populate_data_org
-        ]); //render the extra activity page
+            ['model_student_extra'=>$model_student_extra]); //render the extra activity page
     }
     //action for insert data akademik
     public function actionStudentAkademik(){
@@ -283,15 +282,15 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for data prestasi, to do more clean up on this action
     public function actionStudentPrestasi(){
-        $populate_pres  = StudentPrestasiForm::fetchDataPrestasi(); //fetch prestasi data
-        $populate_pres_non  = StudentPrestasiForm::fetchDataPrestasiNon(); //fetch prestasi non akademik data
-        $model  = new StudentPrestasiForm();
+        $model = StudentPrestasiForm::findDataPrestasi();
+        if($model === null){
+            $model = new StudentPrestasiForm();
+        }
+        //$model  = new StudentPrestasiForm();
         if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
             return $this->redirect(['student/student-informasi']);
         }
-        return $this->render('student-prestasi',[
-            'model'=>$model, 'populate_pres'=>$populate_pres,'populate_pres_non'=>$populate_pres_non
-        ]);
+        return $this->render('student-prestasi',['model'=>$model]);
     }
     //action for store information, to do more clean up on this action
     public function actionStudentInformasi(){

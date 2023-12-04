@@ -333,78 +333,39 @@ class StudentPrestasiForm extends Model{
         //if the user_id is not yet exist, return false
         return false;
     }
-    //fetch data prestasi from database
-    public static function fetchDataPrestasi(){
-        //sql count total pendaftar_id from table t_organisasi
-        $sql = "SELECT COUNT(pendaftar_id) FROM t_prestasi WHERE jenis_prestasi='Akademik' AND pendaftar_id = ".
-            StudentDataDiriForm::getCurrentPendaftarId() ;
-        //execute the sql command
-        $count = Yii::$app->db->createCommand($sql)->queryScalar();
-        $maks = 4; //maximum number of prestasi, ensure while fetch the data index is not out of bound
-        $data = array_fill(0, $maks, array_fill(0, 2, null));
-        if($count) {
-            $sql_ekstra  = "SELECT nama, tahun from t_prestasi where jenis_prestasi='Akademik' AND pendaftar_id =".
-                StudentDataDiriForm::getCurrentPendaftarId();
-            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
-            foreach ($ekstraku_data as $index => $row){
-                $data[$index]  = [$row['nama'], $row['tahun']];
-            }
-        }
-        return $data;
-    }
-    //fetch data prestasi non-akademik from database
-    public static function fetchDataPrestasiNon(){
-        //sql count total pendaftar_id from table t_organisasi
-        $sql = "SELECT COUNT(pendaftar_id) FROM t_prestasi WHERE jenis_prestasi='Non Akademik' AND pendaftar_id = ".
-            StudentDataDiriForm::getCurrentPendaftarId() ;
-        //execute the sql command
-        $count = Yii::$app->db->createCommand($sql)->queryScalar();
-        $maks = 4; //maximum number of prestasi, ensure while fetch the data index is not out of bound
-        $data = array_fill(0, $maks, array_fill(0, 2, null));
-        if($count) {
-            $sql_ekstra  = "SELECT nama, tahun from t_prestasi where jenis_prestasi='Non Akademik' AND pendaftar_id =".
-                StudentDataDiriForm::getCurrentPendaftarId();
-            $ekstraku_data  = Yii::$app->db->createCommand($sql_ekstra)->queryAll();
-            foreach ($ekstraku_data as $index => $row){
-                $data[$index]  = [$row['nama'], $row['tahun']];
-            }
-        }
-        return $data;
-    }
     //fetch data prestasi akademik from database
     public static function findDataPrestasi(){
         $pendaftarId = StudentDataDiriForm::getCurrentPendaftarId();
     
-        // Fetch data from t_nilai_rapor
-        $sql = "SELECT * FROM t_prestasi WHERE pendaftar_id = ".$pendaftarId;
-        $dataPrestasi = Yii::$app->db->createCommand($sql)->queryAll();
-        //load it to array and show it to view
-        if($dataPrestasi!==false) {
-            $model  = new self();
-            $attributNames = $model->attributes();
-            foreach ($dataPrestasi as $row)
-            {
-                $subject ;
+        $model  = new self();
+    
+        // Loop over the 4 akademik types
+        for ($i = 1; $i <= 4; $i++) {
+            // Fetch data from t_prestasi
+            $sql = "SELECT * FROM t_prestasi WHERE pendaftar_id = :pendaftarId AND jenis_prestasi = 'akademik $i'";
+            $dataPrestasi = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryOne();
+    
+            // If data was fetched successfully, populate the model attributes
+            if ($dataPrestasi !== false) {
+                $model->{"nama_prestasi_$i"} = $dataPrestasi['nama'];
+                $model->{"tanggal_prestasi_$i"} = $dataPrestasi['tahun'];
+                $model->{"predikat_prestasi_$i"} = $dataPrestasi['tingkat_id'];
             }
         }
+        //fetch data prestasi non akademik from database
+        for ($i = 1; $i <= 4; $i++) {
+            // Fetch data from t_prestasi
+            $sql = "SELECT * FROM t_prestasi WHERE pendaftar_id = :pendaftarId AND jenis_prestasi = 'non akademik $i'";
+            $dataPrestasi = Yii::$app->db->createCommand($sql, [':pendaftarId' => $pendaftarId])->queryOne();
+    
+            // If data was fetched successfully, populate the model attributes
+            if ($dataPrestasi !== false) {
+                $model->{"nama_prestasi_non_$i"} = $dataPrestasi['nama'];
+                $model->{"tanggal_prestasi_non_$i"} = $dataPrestasi['tahun'];
+                $model->{"predikat_prestasi_non_$i"} = $dataPrestasi['tingkat_id'];
+            }
+        }
+        return $model;
     }
-    //map prestasi data from database to form data
-    private static $prestasitMap = [
-        'nama' => 'nama_prestasi_1',
-        'tahun' => 'tanggal_prestasi_1',
-        'tingkat_id' => 'predikat_prestasi_1',
-        //same as above, but for prestasi_2
-        'nama' => 'nama_prestasi_2',
-        'tahun' => 'tanggal_prestasi_2',
-        'tingkat_id' => 'predikat_prestasi_2',
-        //same as above, but for prestasi_3
-        'nama' => 'nama_prestasi_3',
-        'tahun' => 'tanggal_prestasi_3',
-        'tingkat_id' => 'predikat_prestasi_3',
-        //same as above, but for prestasi_4
-        'nama' => 'nama_prestasi_4',
-        'tahun' => 'tanggal_prestasi_4',
-        'tingkat_id' => 'predikat_prestasi_4',
-    ];
 }
 ?>

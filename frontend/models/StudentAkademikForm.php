@@ -659,7 +659,6 @@ class StudentAkademikForm extends Model {
                     $model->$attribute = $value;
                 }
             }
-    
             return $model;
         }
         return null;
