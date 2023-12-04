@@ -128,7 +128,7 @@ if (Yii::$app->user->isGuest) {
 
         ]
     ];
-    $menuItems[] = ['label' => '<i class="bi bi-megaphone text-primary"></i> <span class="nav-label">Pengumuman</span>', 
+    $menuItems[] = ['label' => '<i class="bi bi-megaphone-fill text-primary"></i> <span class="nav-label">Pengumuman</span>', 
     'url' => ['/student/student-announcement'], 
     'encode' => false];
     // $menuItems[] = ['label' => '<i class="bi bi-key-fill"></i> <span class="nav-label">Ubah Password</span>', 'url' => ['/student/change-password'], 'encode'=>false];
