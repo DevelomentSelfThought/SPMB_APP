@@ -20,6 +20,13 @@
             height: 40px; /* sets the height to be the same as the width */
             padding: 10px; /* adds some padding */
         }
+        /* media query for mobile */
+        @media (max-width: 576px) {
+            .otp-input {
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+        }
         .otp-input:focus {
             border-color: #6610f2;
             outline: none;
