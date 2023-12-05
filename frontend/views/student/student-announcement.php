@@ -10,8 +10,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper; //for using array helper
 $title  = 'Announcement Page';
 ?>
-<h1 style="text-align: center; color: white;" class="text-center my-5">Pengumuman SPMB IT Del</h1>    
-
+<h1 style="text-align: center; color: white;" class="text-center my-5">Pengumuman SPMB IT Del - Currently Under Construction</h1>
 <?php
 $cards = [
     'Identitas Peserta PMB' => [
