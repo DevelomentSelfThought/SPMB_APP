@@ -49,13 +49,13 @@ class StudentResetForm extends Model {
         $err = curl_error($curl);
     
         curl_close($curl);
-    
+        //need to be improved to handle error while sending message to the user
         if ($err) {
             //flash message 
             //Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
-            echo "cURL Error #:" . $err;
+            //echo "cURL Error #:" . $err;
         } else {
-            echo $response;
+            //echo $response;
         }
     }
     //whatsApp api for sending message, need to be improved to handle error

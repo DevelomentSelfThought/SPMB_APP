@@ -175,9 +175,9 @@ class StudentRegisterForm extends Model {
         if ($err) {
             //flash message 
             //Yii::$app->session->setFlash('error', 'Email gagal dikirim, silahkan coba lagi nanti');
-            echo "cURL Error #:" . $err;
+            //echo "cURL Error #:" . $err;
         } else {
-            echo $response;
+            //echo $response;
         }
     }
 }

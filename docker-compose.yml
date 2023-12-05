@@ -3,36 +3,33 @@ version: '3.2'
 services:
 
   frontend:
-    build: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: spmb-frontend:latest
     ports:
       - 20080:80
     volumes:
-      # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
       - ./:/app
 
   backend:
-    build: backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    image: spmb-backend:latest
     ports:
       - 21080:80
     volumes:
-      # Re-use local composer cache via host-volume
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      # Mount source-code for development
       - ./:/app
 
-  mysql:
-    image: mysql:5.7
+  mariadb:
+    image: mariadb:10.5
     environment:
       - MYSQL_ROOT_PASSWORD=verysecret
-      - MYSQL_DATABASE=yii2advanced
-      - MYSQL_USER=yii2advanced
-      - MYSQL_PASSWORD=secret
-
-  #pgsql:
-  #  image: postgres:9.5
-  #  environment:
-  #    - POSTGRES_DB=yii2advanced
-  #    - POSTGRES_USER=yii2advanced
-  #    - POSTGRES_PASSWORD=secret
+      - MYSQL_DATABASE=spmb
+      - MYSQL_USER=sdi
+      - MYSQL_PASSWORD=password
+    volumes:
+      - ./:/docker-entrypoint-initdb.d
