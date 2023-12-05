@@ -267,9 +267,14 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for token activate, this is already cleaned up
     public function actionStudentTokenActivate(){
         $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
-        if($model->load(Yii::$app->request->post()) && $model->activate()){
-            return $this->redirect(['student/login']); //go to the login page
+        if($model->load(Yii::$app->request->post()) ){
+            if($model->activate()){
+                return $this->redirect(['student/login']); //go to the next page, customize this to go to the home page
+            }
+            //otherwise, refresh the page
+            return $this->refresh();
         }
+    
         return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
     }
     //action for data bahasa, this is already cleaned up

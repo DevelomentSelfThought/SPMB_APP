@@ -35,8 +35,8 @@ class StudentTokenActivate extends Model
             $temp = Yii::$app->db->createCommand("SELECT * FROM t_user WHERE verf_code = '$code'")->queryOne();
             if($temp==null){
                 //set flash javascript message
-                echo "<script>alert('Kode verifikasi salah !!! M
-                ohon periksa kembali.')</script>";
+                /*echo "<script>alert('Kode verifikasi salah !!! M
+                ohon periksa kembali.')</script>";*/
                 return false;
             }
             else //set status to active

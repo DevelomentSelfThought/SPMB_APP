@@ -60,7 +60,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                 </h1>
                 <br>
                     <p class="text-center"> Masukan kode verifikasi yang telah dikirimkan melalui email</p>
-                    
+                    <br>
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     
                     <div class="form-group d-flex justify-content-center">
@@ -69,12 +69,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                         <?= $form->field($model, 'code3', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '2'])->label(false) ?>
                         <?= $form->field($model, 'code4', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '9'])->label(false) ?>
                         <?= $form->field($model, 'code5', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '3'])->label(false) ?>
-                        <?= $form->field($model, 'code6', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '6'])->label(false) ?>
-                    </div>
-                    <br><br>
-                    <div class="form-group text-center">
-                        <?= Html::submitButton('Verifikasi Akun Saya', ['class' => 'btn btn-danger rounded-pill', 'name' => 'login-button', 
-                        'style' => 'width: 400px;']) ?>
+                        <?= $form->field($model, 'code6', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '6', 'oninput' => 'if(this.value.length>=1) { this.form.submit(); }'])->label(false) ?>
                     </div>
                     <br>
                     <hr>
