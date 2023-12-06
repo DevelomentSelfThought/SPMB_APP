@@ -13,7 +13,7 @@
 
 <h3> Testing directly from web browser </h3>
 <br>
-<p> <b>type :</b> http://172.22.42.182/"  </p>
+<p> <b>type :</b> http://bit.ly/pmb-del  </p>
 <br> <i> if you encounter a problem : feel free to tell us SDI team </li>
 <br>
 
