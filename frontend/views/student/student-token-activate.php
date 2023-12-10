@@ -4,9 +4,9 @@
     <title>Student Token Activation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
         .otp-input {
             text-align: center;
             font-size: 20px;

@@ -80,7 +80,7 @@ class StudentResetForm extends Model {
     }
     //method for reset message, used for sending message to the user
     public function resetMessage($username, $password){
-        $link ='http://172.22.42.160/student/login';
+        $link = \Yii::$app->urlManager->createAbsoluteUrl(['student/login']);
         $logoUrl = 'https://i.imgur.com/RLYAEtG.jpg'; // replace with your logo URL
         $message = "
         <html>

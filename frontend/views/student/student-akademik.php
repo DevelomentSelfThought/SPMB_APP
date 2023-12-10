@@ -2,6 +2,9 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
     .ruler {
         position: relative;
         text-align: center;
@@ -38,6 +41,27 @@
     .text-brown {
         color: #4b0082;
     }
+    .nav-pills .nav-link {
+    border-radius: 20px; /* Increase border radius */
+    border: 1px solid var(--bs-primary); /* Change border color to primary */    
+    color: var(--bs-primary);    
+    background-color: #fff;
+    padding: 10px 15px; /* Increase padding */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add space between icon and text */
+    margin-right: 10px; /* Add space between buttons */
+}
+
+.nav-pills .nav-link i {
+    font-size: 1rem; /* Adjust icon size */
+}
+
+.nav-pills .nav-link.active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 </style>
 </html>
 <?php
@@ -75,7 +99,7 @@ use yii\web\JsExpression;
     ['class' => 'my-form', 'enctype' => 'multipart/form-data']]); ?>
 <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Informasi Sekolah Asal</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
         <?= $form->field($model_student_akademik, 'sekolah', [
             'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
             'inputTemplate' => '<div class="input-group"><span class="input-group-text rounded-start">
@@ -95,7 +119,7 @@ use yii\web\JsExpression;
             ],])->label('Asal Sekolah') 
         ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
         <?php 
             echo $form->field($model_student_akademik, 'jurusan_sekolah',
             ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
@@ -105,7 +129,7 @@ use yii\web\JsExpression;
             ->label('Jurusan'); 
         ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
         <?php
             echo $form->field($model_student_akademik, 'akreditasi_sekolah',
             ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}{error}</div>',
@@ -226,30 +250,40 @@ use yii\web\JsExpression;
 <!-- navigation for data nilai  -->
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Jumlah Pelajaran</button>
+    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+      <i class="bi bi-book-fill"></i> Jumlah Pelajaran
+    </button>
   </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Total Nilai</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-math-tab" data-bs-toggle="pill" data-bs-target="#pills-math" type="button" role="tab" aria-controls="pills-math" aria-selected="false">Nilai Matematika</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-english-tab" data-bs-toggle="pill" data-bs-target="#pills-english" type="button" role="tab" aria-controls="pills-english" aria-selected="false">Nilai Bahasa Inggris</button>
-    </li>
-    <!-- for chemistry -->
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-chemistry-tab" data-bs-toggle="pill" data-bs-target="#pills-chemistry" type="button" role="tab" aria-controls="pills-chemistry" aria-selected="false">Nilai Kimia</button>
-    </li>
-    <!-- for physics -->
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-physics-tab" data-bs-toggle="pill" data-bs-target="#pills-physics" type="button" role="tab" aria-controls="pills-physics" aria-selected="false">Nilai Fisika</button>
-    </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+      <i class="bi bi-calculator-fill"></i> Total Nilai
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-math-tab" data-bs-toggle="pill" data-bs-target="#pills-math" type="button" role="tab" aria-controls="pills-math" aria-selected="false">
+      <i class="bi bi-pen-fill"></i> Nilai Matematika
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-english-tab" data-bs-toggle="pill" data-bs-target="#pills-english" type="button" role="tab" aria-controls="pills-english" aria-selected="false">
+      <i class="bi bi-chat-dots-fill"></i> Nilai Bahasa Inggris
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-chemistry-tab" data-bs-toggle="pill" data-bs-target="#pills-chemistry" type="button" role="tab" aria-controls="pills-chemistry" aria-selected="false">
+      <i class="bi bi-droplet-fill"></i> Nilai Kimia
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-physics-tab" data-bs-toggle="pill" data-bs-target="#pills-physics" type="button" role="tab" aria-controls="pills-physics" aria-selected="false">
+      <i class="bi bi-lightning-fill"></i> Nilai Fisika
+    </button>
+  </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -258,7 +292,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Pelajaran']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -267,7 +301,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Pelajaran']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -276,7 +310,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Pelajaran']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -285,7 +319,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Pelajaran']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -299,7 +333,7 @@ use yii\web\JsExpression;
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 <!-- field score for each semester -->
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'nilai_pelajaran_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -308,7 +342,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'nilai_pelajaran_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -317,7 +351,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'nilai_pelajaran_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -326,7 +360,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'nilai_pelajaran_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -335,7 +369,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Total Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'nilai_pelajaran_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -349,7 +383,7 @@ use yii\web\JsExpression;
 <!-- field math for each semester -->
 <div class="tab-pane fade" id="pills-math" role="tabpanel" aria-labelledby="pills-math-tab">
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'matematika_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -358,7 +392,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'matematika_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -367,7 +401,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'matematika_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -376,7 +410,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'matematika_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -385,7 +419,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'matematika_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -399,7 +433,7 @@ use yii\web\JsExpression;
 <!-- field english for each semester -->
 <div class="tab-pane fade" id="pills-english" role="tabpanel" aria-labelledby="pills-english-tab">
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'inggris_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -409,7 +443,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'inggris_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -419,7 +453,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'inggris_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -429,7 +463,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'inggris_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -439,7 +473,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'inggris_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -454,52 +488,52 @@ use yii\web\JsExpression;
 <!-- field chemistry for each semester -->
 <div class="tab-pane fade" id="pills-chemistry" role="tabpanel" aria-labelledby="pills-chemistry-tab">
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'kimia_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Nilai Kimia Semester '.toRoman(1))    
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'kimia_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Nilai Kimia Semester '.toRoman(2))    
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'kimia_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Nilai Kimia Semester '.toRoman(3))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'kimia_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Nilai Kimia Semester '.toRoman(4))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'kimia_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
     'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-calendar2-event-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])
+    <i class="bi bi-calendar2-event-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
     ->label('Nilai Kimia Semester '.toRoman(5))
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
@@ -509,7 +543,7 @@ use yii\web\JsExpression;
 <!-- field physic for each semester -->
 <div class="tab-pane fade" id="pills-physics" role="tabpanel" aria-labelledby="pills-physics-tab">
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'fisika_1',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -519,7 +553,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'fisika_2',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -529,7 +563,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'fisika_3',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -539,7 +573,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'fisika_4',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -549,7 +583,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Input Nilai']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_akademik,'fisika_5',
     [
     'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -565,7 +599,7 @@ use yii\web\JsExpression;
 <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Upload File Nilai Rapor, 
 Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
         <?php echo $form->field($model_student_akademik, 'rapor_pmdk', [
             'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
         ])->fileInput(['class' => 'form-control rounded'])->label("File Nilai Rapor Semester ".toRoman(1)."-".toRoman(5)) ?>
@@ -575,7 +609,7 @@ Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 bo
             </a>
     <?php endif; ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
         <?php echo $form->field($model_student_akademik, 'sertifikat_pmdk', [
             'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
         ])->fileInput(['class' => 'form-control rounded'])->label("File Sertifikat") ?>
@@ -586,7 +620,7 @@ Sertifikat dan Surat Rekomendasi (format .pdf)</span>', ['class' => 'my-3 p-2 bo
             
             <?php endif; ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
         <?php echo $form->field($model_student_akademik, 'rekomendasi_pmdk', [
             'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group rounded">{input}{error}</div>',
         ])->fileInput(['class' => 'form-control rounded'])->label("File Surat Rekomendasi") ?>

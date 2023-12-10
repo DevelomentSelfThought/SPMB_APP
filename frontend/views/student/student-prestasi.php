@@ -2,6 +2,9 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
     .ruler {
         position: relative;
         text-align: center;

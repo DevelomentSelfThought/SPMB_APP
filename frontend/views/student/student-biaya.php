@@ -3,7 +3,9 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
-    
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
     .ruler {
         position: relative;
         text-align: center;
@@ -56,7 +58,9 @@ $title  = 'Data Diri Mahasiswa';
 ?>
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
-<?= Html::tag('div', '<span>Biaya Pendaftaran Peserta PMB  '.date('Y'). '</span>', ['class' => 'ruler']) ?>
+<?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> 
+Biaya Pendaftaran Peserta PMB  '.date('Y').'</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
+
 <?php echo $form->field($model,'biaya_awal',
     ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
     <i class="bi bi-cash-coin text-primary" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Biaya Pendaftaran')

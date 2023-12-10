@@ -34,9 +34,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php $this->head() ?>
     <?php
     $this->registerCss("
-    body {
-        background: linear-gradient(to right, #3494E6, #EC6EAD);
-    }
         .my-navbar {
             padding: 1.2rem 1.2rem !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);

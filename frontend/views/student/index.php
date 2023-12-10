@@ -10,41 +10,6 @@
         padding: 30px;
         border-radius: 10px;
 }
-/* .timeline {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    
-}
-
-.timeline-item {
-    position: relative;
-    padding: 10px;
-    background-color: #f0f0f0;
-    margin: 10px;
-    text-align: center;
-    background-color: #0093ad;
-    color: #fff;
-    font-weight: bold ;
-
-}
-
-
-.timeline-item::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    width: 50px;
-    height: 2px;
-    background-color: #0093ad;
-}
-
-.timeline-item:last-child::before {
-    display: none;
-} */
-
 .timeline {
     position: relative;
     max-width: 1200px;
@@ -105,6 +70,9 @@
     }
     .timeline-item:nth-child(even) {
         left: 0%;
+    }
+    .timeline::after {
+        content: none;
     }
 }
 .regpro{
@@ -421,7 +389,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 </section>
 </div>
 <br>
-<div class="custom-background">
+<div class="custom-background-remove">
         <h2 style="text-align: center;"> Pertanyaan yang Paling Sering Ditanyakan </h2> <br><br>
         <!-- Add your content here -->
     <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">  
@@ -519,7 +487,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
 </div>
 <!-- Feedback/Testimonials Section -->
 <section id="testimonials" class="my-5">
-<h2 style="text-align: center; color: white;">Testimonial atau ulasan para mahasiswa</h2> <br>    
+<h2 style="text-align: center;">Testimonial atau ulasan para mahasiswa</h2> <br>    
 <div class="row">
         <div class="col-md-4">
             <div class="card">

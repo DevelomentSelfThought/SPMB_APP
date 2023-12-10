@@ -150,18 +150,21 @@ class StudentController extends Controller // StudentController extends the Cont
         //major choose, to do: clean up this action
         $model_student_major = new StudentMajorForm(); //create an instance of the StudentMajorForm class
         if(!StudentMajorForm::isFilledMajor()) { //not yet filled
-            if($model_student_major->load(Yii::$app->request->post()) && 
-                $model_student_major->insertMajor()){
-                return $this->redirect(['student/student-data-diri']); //go to the next page, customize this to go to the home page
+            if($model_student_major->load(Yii::$app->request->post())) {
+                $this->uploadPasPhotoToAws($model_student_major, 'file_photo');
+                if($model_student_major->insertMajor()){
+                    return $this->redirect(['student/student-data-diri']); //go to the next page, customize this to go to the home page
+                }
             }
         }
         $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
         if($model_student_data_diri === null){
             $model_student_data_diri = new StudentDataDiriForm();
         }
-        if($model_student_data_diri->load(Yii::$app->request->post())
-            && $model_student_data_diri->insertDataDiri()){
-            return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
+        if($model_student_data_diri->load(Yii::$app->request->post())){
+            if($model_student_data_diri->insertDataDiri()){
+                return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
+            }
         }
         return $this->render('student-data-diri',
             ['model_student_data_diri'=>$model_student_data_diri,
@@ -214,7 +217,7 @@ class StudentController extends Controller // StudentController extends the Cont
             $uploadFolderBase = $currentBatch == self::UTBK ? self::UPLOADS : self::UPLOADS_PMDK;
             foreach($filesToUpload as $file){
                 try {
-                    $this->uploadFile($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
+                    $this->uploadToAws($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
                 } catch (\Exception $e) {
                     Yii::$app->session->setFlash('error', $e->getMessage());
                     return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
@@ -253,7 +256,63 @@ class StudentController extends Controller // StudentController extends the Cont
                 Yii::$app->session->setFlash('error', $e->getMessage()); //may be change this to flash error
             }
         }
-    }    
+    }
+    //auxillary function for upload file to aws s3, to do: clean up this action
+    private function s3Identity(){
+        // Get the AWS S3 client
+        $s3 = new \Aws\S3\S3Client([
+            'version' => 'latest',
+            'region'  => 'ap-southeast-2', // Replace with your AWS region
+            'credentials' => [
+                'key'    => $_ENV['AWS_ACCESS_KEY_ID'], // Replace with your AWS access key ID
+                'secret' => $_ENV['AWS_SECRET_ACCESS_KEY'], // Replace with your AWS secret access key
+            ],
+        ]);
+        return $s3;
+    }
+    //upload user data to aws, to do: clean up this action
+    private function uploadToAws($form, $file, $uploadFolderBase, $currentBatch){
+        $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
+        //file attribute, since the file attribute is different for utbk and pmdk
+        $fileAttribute ='file_'.$file;
+        $uploadFolder = ($currentBatch == self::UTBK ? 'sertifikat' : $file); //set the upload folder
+        if($form->$file){ //check if there is a file uploaded
+            $fileBaseName = Yii::$app->user->identity->username; //set the file base name
+            try{
+                $result = $this->s3Identity()->putObject([
+                    'Bucket' => 'pmbdel', // Replace with your bucket name
+                    'Key'    => md5($fileBaseName) . '/' . $uploadFolder.'.' . $form->$file->extension,
+                    'Body'   => fopen($form->$file->tempName, 'r'),
+                    //'ACL'    => 'public-read', // Set the file to be publicly readable
+                ]);
+                if($currentBatch==self::UTBK)
+                    $form->file_sertifikat  = $result['ObjectURL']; //save the path to the database
+                else{
+                    $form->$fileAttribute = $result['ObjectURL']; //save the path to the database
+                }
+            }catch(\Exception $e){ //catch the exception
+                Yii::$app->session->setFlash('error', "Something wrong while uploading file"); //may be change this to flash error
+            }
+        }
+    }
+    //upload pas photo to aws, needed for actionStudentDataDiri
+    private function uploadPasPhotoToAws($form, $file){
+        $form->$file = UploadedFile::getInstance($form, $file); //get the instance of the uploaded file
+        if($form->$file){ //check if there is a file uploaded
+            $fileBaseName = Yii::$app->user->identity->username; //set the file base name
+            try{
+                $result = $this->s3Identity()->putObject([
+                    'Bucket' => 'pmbdel', // Replace with your bucket name
+                    'Key'    => md5($fileBaseName) . 'pasPhoto'.'.' . $form->$file->extension,
+                    'Body'   => fopen($form->$file->tempName, 'r'),
+                    //'ACL'    => 'public-read', // Set the file to be publicly readable
+                ]);
+                $form->pas_foto  = $result['ObjectURL']; //save the path to the database
+            }catch(\Exception $e){ //catch the exception
+                Yii::$app->session->setFlash('error', $e->getMessage()); //may be change this to flash error
+            }
+        }
+    }
     //action for autocomplete for school name
     public static function actionAutocomplete($term) {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
