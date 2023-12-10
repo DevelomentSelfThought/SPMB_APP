@@ -3,7 +3,10 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- css for ruler -->
 <style>
-    .ruler {
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
+  .ruler {
         position: relative;
         text-align: center;
         margin: 20px 0;
@@ -59,7 +62,7 @@
     <i class="bi bi-tags-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nama Ibu Kandung')->textInput(['placeholder' => 'Contoh: Siti Nurjanah']); 
 ?>
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o,'nik_ayah',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -67,7 +70,7 @@
         ->textInput(['placeholder' => 'Contoh: 1222031606152635']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o,'nik_ibu',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -75,7 +78,7 @@
         ->textInput(['placeholder' => 'Contoh: 1222031606152638']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'tanggal_lahir_ayah',
         [ 'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -91,7 +94,7 @@
         ])->textInput(['placeholder'=>'Contoh: 2002-01-31'])->label('Tanggal Lahir Ayah');
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'tanggal_lahir_ibu',
     [ 'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -110,7 +113,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'pendidikan_ayah',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -118,7 +121,7 @@
         )->dropDownList(\app\models\StudentDataOForm::$education, ['prompt' => 'Pilih Pendidikan Ayah']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php
         echo $form->field($model_student_data_o, 'pendidikan_ibu',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
@@ -127,7 +130,7 @@
     )->dropDownList(\app\models\StudentDataOForm::$education, ['prompt' => 'Pilih Pendidikan Ibu']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o,'alamat_orang_tua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -135,7 +138,7 @@
         )->label('Alamat Orang Tua')->textInput(['placeholder' => 'Contoh: Jl. Raya Ciputat No. 1']); 
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php  echo $form->field($model_student_data_o,'kode_pos_orang_tua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -145,7 +148,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'provinsi',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -153,7 +156,7 @@
         ->dropDownList(\app\models\StudentAddress::getProvince(), ['prompt' => 'Pilih Provinsi','id' => 'province-dropdown', 'onchange' => 'this-form.submit();']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'kabupaten',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -161,7 +164,7 @@
         ->dropDownList(\app\models\StudentAddress::getKabupaten($model_student_data_o->provinsi), ['prompt' => 'Pilih Kabupaten/ Kota', 'onchange' => 'this-form.submit();']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'kecamatan',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -169,7 +172,7 @@
         ->dropDownList(\app\models\StudentAddress::getKecamatan($model_student_data_o->kabupaten), ['prompt' => 'Pilih Kecamatan']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o,'no_hp_orangtua',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -179,7 +182,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col">
+<div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'pekerjaan_ayah',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -187,7 +190,7 @@
         ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ayah']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'pekerjaan_ibu',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -195,7 +198,7 @@
         ->dropDownList(\app\models\StudentDataOForm::$job, ['prompt' => 'Pilih Pekerjaan Ibu']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'penghasilan_ayah',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -203,7 +206,7 @@
         ->dropDownList(\app\models\StudentDataOForm::$salary, ['prompt' => 'Pilih Penghasilan Ayah']);
     ?>
     </div>
-    <div class="col">
+    <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o, 'penghasilan_ibu',
         ['template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">

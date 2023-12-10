@@ -89,7 +89,7 @@ class StudentAkademikForm extends Model {
                 [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
                 [['file'],'required'], //possible to be refactored, join with the common rules
                 //attribute for all file is safe
-                [['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
+                //[['file_sertifikat_pmdk', 'file_rapor_pmdk', 'file_rekomendasi_pmdk'], 'safe'],
             ]);
         }
         else if($this->getCurrentBatch() == 'pmdk'){

@@ -6,6 +6,9 @@
 <link href="/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
     .card {
         border: none;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);

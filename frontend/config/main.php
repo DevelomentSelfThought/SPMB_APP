@@ -12,6 +12,16 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+            //aws configuration, need to install the aws sdk first
+            'awssdk' => [
+                'class' => 'fedemotta\awssdk\AwsSdk',
+                'credentials' => [ // Replace with your own credentials
+                    'key' => $_ENV['AWS_ACCESS_KEY_ID'],
+                    'secret' => $_ENV['AWS_SECRET_ACCESS_KEY'],
+                ],
+                'region' => 'us-west-2', // Replace with your AWS region
+                'version' => 'latest',
+            ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             //handling json input for REST API
@@ -63,4 +73,5 @@ return [
     'params' => $params,
     //setting the default route
     'defaultRoute' => 'student/index',
+
 ];

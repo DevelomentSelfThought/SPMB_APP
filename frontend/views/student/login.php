@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
     .card {
         border: none;
         box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);

@@ -7,15 +7,34 @@ class StudentMajorForm extends Model
 {
     public $gelombang;
     public $jurusan_main;
-    public $jurusan_opsional;
+    public $jurusan_opsional; //todo: add more optional major
+    public $jurusan_opsional2;
+    public $pas_foto; public $file_photo;
     
     public function rules()
     {
         return [
             [['gelombang', 'jurusan_main'], 'required'],
-            [['jurusan_opsional'], 'safe'],
-            ['jurusan_main','compare','compareAttribute'=>'jurusan_opsional',
-            'operator'=>'!=','message'=>'Jurusan utama dan jurusan opsional tidak boleh sama']
+            [['jurusan_opsional', 'jurusan_opsional2'], 'safe'],
+            ['jurusan_main', 'compare', 'compareAttribute' => 'jurusan_opsional', 'operator' => '!=', 
+                'message' => 'Jurusan utama dan jurusan opsional tidak boleh sama'],
+            ['jurusan_main', 'compare', 'compareAttribute' => 'jurusan_opsional2', 'operator' => '!=', 
+                'message' => 'Jurusan utama dan jurusan opsional2 tidak boleh sama'],
+            ['jurusan_opsional', 'compare', 'compareAttribute' => 'jurusan_opsional2', 'operator' => '!=', 
+                'message' => 'Jurusan opsional 1 dan jurusan opsional 2 tidak boleh sama'],
+        
+            //rule for photo, must be image file
+            [
+                'file_photo',
+                'file',
+                'skipOnEmpty' => false,
+                'extensions' => 'jpg,png,jpeg',
+                'maxSize' => 1024*1024*1,
+                'tooBig' => 'Ukuran file maksimal 1MB',
+                'message' => 'Foto tidak boleh kosong'
+            ],
+            //rule for file photo 
+            ['pas_foto','safe']
         ];
     }
     //fetch the major list from database, t_r_jurusan table
@@ -42,6 +61,7 @@ class StudentMajorForm extends Model
                 $this->updateGelombang(); //update the gelombang
                 $this->updateIndicator(); //update the indicator that the major is filled
                 self::insertMajorList(); //insert the major list
+                self::updatePasPhoto(); //update the pas photo
                 return true;
             }catch(Exception $e){ //for debugging purpose, todo: need to be improved to handle error
                 echo $e->getMessage();
@@ -84,6 +104,20 @@ class StudentMajorForm extends Model
                 ':jurusan_id'=>$this->jurusan_opsional,':prioritas'=>2];
             Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
         }
+        //since the jurusan_opsional2 is optional, we need to check if it is filled or not
+        if($this->jurusan_opsional2 != null){
+            $params = [':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId(),
+                ':jurusan_id'=>$this->jurusan_opsional2,':prioritas'=>3];
+            Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
+        }
+        //update pas_photo in t_pendaftar table
+        $this->updatePasPhoto();
+    }
+    //update pas_photo in t_pendaftar table
+    private function updatePasPhoto(){
+        $sql = "UPDATE t_pendaftar SET pas_foto = :pas_foto WHERE pendaftar_id = :pendaftar_id";
+        $params = [':pas_foto'=>$this->pas_foto,':pendaftar_id'=>StudentDataDiriForm::getCurrentPendaftarId()];
+        Yii::$app->db->createCommand($sql)->bindValues($params)->execute();
     }
 }
 ?>

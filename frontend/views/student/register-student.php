@@ -3,8 +3,12 @@
 <title>Student Login</title>    
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-<style>    
+<style>
+body {
+    background: linear-gradient(to right, #3494E6, #EC6EAD);
+}    
 :root {
     --primary-color: #007bff;
     --border-color: #ced4da;
@@ -16,17 +20,20 @@
     border: none;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease; /* Smooth transition */
+    border-radius: 10px; /* Add border radius */
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+    border-radius: 5px; /* Add border radius */
 }
 
-.form-control_ {
+.form-control {
     border: 1px solid var(--border-color);
     transition: border 0.3s ease; /* Smooth transition */
+    border-radius: 5px; /* Add border radius */
 }
 
 body {
@@ -44,11 +51,11 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
 ?>
 <div class="text-center mb-2">
     <img src="/bground/itdel.jpg" alt="Logo" class="mb-1" width="120">
-</div>
+</div> <br>
 <div class="site-login">
     <div class="row justify-content-center">
         <div class="col-lg-5">
-            <div class="card my-5">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="card-body p-4 p-sm-5">
                     <h1 class="mb-3 text-center" style="font-weight: 600;"><?= Html::encode($this->title) ?></h1>
                     <br>
@@ -64,12 +71,12 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
     <?= $form->field($model_student_register, 'nik', 
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-bell-slash-fill" style="font-size: 1rem;"></i></span>{input}</div>'])
-        ->textInput(['maxlength'=>true, 'placeholder'=>'NIK'])->label(false) 
-    ?>          
+        ->textInput(['maxlength'=>true, 'placeholder'=>'NIK', 'class' => 'form-control shadow-none'])->label(false) 
+    ?>  
     <?= $form->field($model_student_register, 'username', [
         'inputTemplate' => '<div class="input-group"><span class="input-group-text">
         <i class="bi bi-lightbulb-off-fill" style="font-size: 1rem;"></i></span>{input}</div>',
-        ])->textInput(['maxlength'=>true, 'placeholder'=>'Username'])->label(false) 
+        ])->textInput(['maxlength'=>true, 'placeholder'=>'Username', 'class' => 'form-control shadow-none'])->label(false) 
     ?>
     <?= $form->field($model_student_register, 'email',
         ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
@@ -131,7 +138,7 @@ Modal::begin([
 </body>
 </html>
 <script>
-$(document).ready(function() {
+$(dorootcument).ready(function() {
     $('#password-eye').on('click', function() {
         var passwordInput = $('#password-input');
         var passwordEyeIcon = $('#password-eye i');

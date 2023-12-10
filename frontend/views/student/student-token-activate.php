@@ -4,15 +4,16 @@
     <title>Student Token Activation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
+    body {
+        background: linear-gradient(to right, #3494E6, #EC6EAD);
+    }
         .otp-input {
             text-align: center;
             font-size: 20px;
             border: none;
             border-radius: 50%; /* makes the input field completely round */
-            background-color: #0d6efd; /* sets the background color to Eclipse */
+            /* sets the background color to Eclipse */
+            background-color: #0d6efd; 
             color: white; /* sets the text color to white */
             margin-right: 5px;
             margin-left: 5px;
@@ -71,18 +72,18 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     
                     <div class="form-group d-flex justify-content-center">
-                        <?= $form->field($model, 'code1', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '8'])->label(false) ?>
-                        <?= $form->field($model, 'code2', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '5'])->label(false) ?>
-                        <?= $form->field($model, 'code3', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '2'])->label(false) ?>
-                        <?= $form->field($model, 'code4', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '9'])->label(false) ?>
-                        <?= $form->field($model, 'code5', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '3'])->label(false) ?>
-                        <?= $form->field($model, 'code6', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => '6', 'oninput' => 'if(this.value.length>=1) { this.form.submit(); }'])->label(false) ?>
+                        <?= $form->field($model, 'code1', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'Z'])->label(false) ?>
+                        <?= $form->field($model, 'code2', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'Y'])->label(false) ?>
+                        <?= $form->field($model, 'code3', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'Z'])->label(false) ?>
+                        <?= $form->field($model, 'code4', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'R'])->label(false) ?>
+                        <?= $form->field($model, 'code5', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'S'])->label(false) ?>
+                        <?= $form->field($model, 'code6', ['template' => '{input}{hint}'])->textInput(['maxlength' => 1, 'class' => 'otp-input', 'placeholder' => 'T', 'oninput' => 'if(this.value.length>=1) { this.form.submit(); }'])->label(false) ?>
                     </div>
                     <br>
                     <hr>
                     <p style="font-size: 14px; color: #666; line-height: 1.6;" class="text-center">
-                        Box diatas berguna untuk menampung kode yang dikirimkan melalui email. Sebagai contoh
-                        jika kode yang dikirimkan melalui email adalah  <b><i>852936</i></b>, maka masukan kode tersebut seperti contoh diatas.</p>
+                         Sebagai contoh
+                        jika kode yang dikirimkan melalui email adalah  <b><i>ZYZRST</i></b>, maka masukan kode tersebut seperti contoh diatas.</p>
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>

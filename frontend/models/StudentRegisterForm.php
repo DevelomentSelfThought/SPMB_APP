@@ -98,7 +98,7 @@ class StudentRegisterForm extends Model {
     }
     //send email using mailgun api, case: registration form
     public function registerMessage($username, $token){
-        $link ='http://172.22.42.160/student/student-token-activate';
+        $link = \Yii::$app->urlManager->createAbsoluteUrl(['student/student-token-activate']);
         $logoUrl = 'https://i.imgur.com/RLYAEtG.jpg'; // replace with your logo URL
         $message = "
         <html>
@@ -143,7 +143,7 @@ class StudentRegisterForm extends Model {
     sendMail($email, $message){
         $api_key_res = $_ENV['SENDINBLUE_API_KEY_RES'];
         //for debugging purpose
-        Yii::info('sendMail function called : '.$api_key_res);
+        //Yii::info('sendMail function called : '.$api_key_res);
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.sendinblue.com/v3/smtp/email",
