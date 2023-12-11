@@ -53,14 +53,28 @@
 <div class="shadow-lg p-3 mb-5 bg-body rounded">
 <?php $form = ActiveForm::begin(['layout' => 'horizontal', 'options' => ['class' => 'my-form']]); ?>
 <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Orang Tua Calon Mahasiswa</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    
-<?php echo $form->field($model_student_data_o,'nama_ayah_kandung',
-    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-stickies-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nama Ayah Kandung')->textInput(['placeholder' => 'Contoh: Budi Santoso']); 
-?>
-<?php echo $form->field($model_student_data_o,'nama_ibu_kandung',
-    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-tags-fill text-muted" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Nama Ibu Kandung')->textInput(['placeholder' => 'Contoh: Siti Nurjanah']); 
-?>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group row">
+            <label for="nama_ayah_kandung" class="col-sm-4 col-form-label">Nama Ayah Kandung</label>
+            <div class="col-sm-8">
+                <?php echo $form->field($model_student_data_o,'nama_ayah_kandung',
+                    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                    <i class="bi bi-stickies-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['placeholder' => 'Contoh: Budi Santoso'])->label(false); 
+                ?>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="nama_ibu_kandung" class="col-sm-4 col-form-label">Nama Ibu Kandung</label>
+            <div class="col-sm-8">
+                <?php echo $form->field($model_student_data_o,'nama_ibu_kandung',
+                    ['inputTemplate' => '<div class="input-group"><span class="input-group-text">
+                    <i class="bi bi-tags-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->textInput(['placeholder' => 'Contoh: Siti Nurjanah'])->label(false); 
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
 <div class="col-12 col-md">
     <?php echo $form->field($model_student_data_o,'nik_ayah',

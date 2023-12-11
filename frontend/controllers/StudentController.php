@@ -79,6 +79,11 @@ class StudentController extends Controller // StudentController extends the Cont
                 return $this->redirect(['student/login']);
             }
         }
+        else {
+            // Handle the case when the action is not in the array
+            // For example, you can redirect the user to a 404 page
+            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        }
         return parent::beforeAction($action);
     }
 
@@ -102,135 +107,159 @@ class StudentController extends Controller // StudentController extends the Cont
     //action for logout
     public function actionLogout()
     {
-        Yii::$app->user->logout(); //logout the user
-        return $this->goHome(); //go to the previous page, customize this to go to the home page
+        try{
+            Yii::$app->user->logout(); //logout the user
+            return $this->goHome(); //go to the previous page, customize this to go to the home page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
+        }
     }
     //action for reset password
     public function actionResetPassword()
     {
-        $model_student_reset  = new StudentResetForm(); //create an instance of the StudentLoginForm class
-        if($model_student_reset->load(Yii::$app->request->post()) && 
-            $model_student_reset->resetPassword()){
-            return $this->redirect(['student/login']);
+        try{
+            $model_student_reset  = new StudentResetForm(); //create an instance of the StudentLoginForm class
+            if($model_student_reset->load(Yii::$app->request->post()) && 
+                $model_student_reset->resetPassword()){
+                return $this->redirect(['student/login']);
+            }
+            //$model_student_reset->password = ''; //clear the password
+            return $this->render('reset-password', ['model_student_reset' => $model_student_reset]); //render the reset password page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        //$model_student_reset->password = ''; //clear the password
-        return $this->render('reset-password', ['model_student_reset' => $model_student_reset]); //render the reset password page
     }
     //action for register student
     public function actionRegisterStudent(){ //action for handling registration form
-        $model_student_register = new StudentRegisterForm(); //create an instance of the StudentRegisterForm class
-        if($model_student_register->load(Yii::$app->request->post()) && $model_student_register->registerStudent()){
-            //if the form is submitted and the registration is successful
-            return $this->redirect(['student/student-token-activate']); //go to the next page, customize this to go to the home page
-        }
-        return $this->render('register-student',['model_student_register'=>$model_student_register]); //render the registration page
-
+        try{
+            $model_student_register = new StudentRegisterForm(); //create an instance of the StudentRegisterForm class
+            if($model_student_register->load(Yii::$app->request->post()) && $model_student_register->registerStudent()){
+                //if the form is submitted and the registration is successful
+                return $this->redirect(['student/student-token-activate']); //go to the next page, customize this to go to the home page
+            }
+            return $this->render('register-student',['model_student_register'=>$model_student_register]); //render the registration page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
+        } 
     }
     //action for token student form (for student to input the access token)
     public function actionTokenStudent() {
-        $model_student_token = new StudentTokenForm(); //create an instance of the StudentTokenForm class
-        //if the form is submitted and the access token is valid
-        if($model_student_token->load(Yii::$app->request->post()) && $model_student_token->validateAccessToken()){
-            return $this->goBack(); //go to the previous page, customize this to go to the home page
+        try{
+            $model_student_token = new StudentTokenForm(); //create an instance of the StudentTokenForm class
+            //if the form is submitted and the access token is valid
+            if($model_student_token->load(Yii::$app->request->post()) && $model_student_token->validateAccessToken()){
+                return $this->goBack(); //go to the previous page, customize this to go to the home page
+            }
+            return $this->render('token-student',['model_student_token'=>$model_student_token]); //render the token student page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('token-student',['model_student_token'=>$model_student_token]); //render the token student page
     }
     //action for insert data diri
     public function actionStudentDataDiri() { //action for personal information form
-        //action for personal information form
-
-        /*$model_student_data_diri = new StudentDataDiriForm(); //create an instance of the StudentDataDiriForm class
-        if($model_student_data_diri->load(Yii::$app->request->post())
-            && $model_student_data_diri->insertDataDiri()){
-            return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
-        }
-        return $this->render('student-data-diri',
-            ['model_student_data_diri'=>$model_student_data_diri]); //render the personal information page(data diri)
-        */
-        //major choose, to do: clean up this action
-        $model_student_major = new StudentMajorForm(); //create an instance of the StudentMajorForm class
-        if(!StudentMajorForm::isFilledMajor()) { //not yet filled
-            if($model_student_major->load(Yii::$app->request->post())) {
-                $this->uploadPasPhotoToAws($model_student_major, 'file_photo');
-                if($model_student_major->insertMajor()){
-                    return $this->redirect(['student/student-data-diri']); //go to the next page, customize this to go to the home page
+        try{
+            //major choose, to do: clean up this action
+            $model_student_major = new StudentMajorForm(); //create an instance of the StudentMajorForm class
+            if(!StudentMajorForm::isFilledMajor()) { //not yet filled
+                if($model_student_major->load(Yii::$app->request->post())) {
+                    $this->uploadPasPhotoToAws($model_student_major, 'file_photo');
+                    if($model_student_major->insertMajor()){
+                        return $this->redirect(['student/student-data-diri']); //go to the next page, customize this to go to the home page
+                    }
                 }
             }
-        }
-        $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
-        if($model_student_data_diri === null){
-            $model_student_data_diri = new StudentDataDiriForm();
-        }
-        if($model_student_data_diri->load(Yii::$app->request->post())){
-            if($model_student_data_diri->insertDataDiri()){
-                return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
+            $model_student_data_diri = StudentDataDiriForm::findDataDiri(); //create an instance of the StudentDataDiriForm class
+            if($model_student_data_diri === null){
+                $model_student_data_diri = new StudentDataDiriForm();
             }
+            if($model_student_data_diri->load(Yii::$app->request->post())){
+                if($model_student_data_diri->insertDataDiri()){
+                    return $this->redirect(['student/student-data-o-tua']); //go to the next page, customize this to go to the home page
+                }
+            }
+            return $this->render('student-data-diri',
+                ['model_student_data_diri'=>$model_student_data_diri,
+                'model_student_major'=>$model_student_major    
+            ]); //render the personal information page(data diri)
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-data-diri',
-            ['model_student_data_diri'=>$model_student_data_diri,
-            'model_student_major'=>$model_student_major    
-        ]); //render the personal information page(data diri)
     }
     //action for insert data orang tua
     public function actionStudentDataOTua() {
-        /*$model_student_data_o = new StudentDataOForm(); //create an instance of the StudentDataOForm class
-        if($model_student_data_o->load(Yii::$app->request->post())
-            && $model_student_data_o->insertDataOTua()){
-            return $this->redirect(['student/student-akademik']);        
-        }*/
-        $model_student_data_o = StudentDataOForm::findDataOTua(); //create an instance of the StudentDataDiriForm class
-        if($model_student_data_o === null){
-            $model_student_data_o = new StudentDataOForm();
+        try{
+            $model_student_data_o = StudentDataOForm::findDataOTua(); //create an instance of the StudentDataDiriForm class
+            if($model_student_data_o === null){
+                $model_student_data_o = new StudentDataOForm();
+            }
+            if($model_student_data_o->load(Yii::$app->request->post())
+                && $model_student_data_o->insertDataOTua()){
+                return $this->redirect(['student/student-akademik']);        
+            }
+            return $this->render('student-data-o-tua',
+                ['model_student_data_o'=>$model_student_data_o]); //render the parent information page(data orang tua)
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        if($model_student_data_o->load(Yii::$app->request->post())
-            && $model_student_data_o->insertDataOTua()){
-            return $this->redirect(['student/student-akademik']);        
-        }
-        return $this->render('student-data-o-tua',
-            ['model_student_data_o'=>$model_student_data_o]); //render the parent information page(data orang tua)
     }
     //action for insert extra activity
     public function actionStudentExtra(){
-        $model_student_extra = StudentExtraForm::findDataExtra(); //create an instance of the StudentExtraForm class
-        if($model_student_extra === null){
-            $model_student_extra = new StudentExtraForm();
+        try{    
+            $model_student_extra = StudentExtraForm::findDataExtra(); //create an instance of the StudentExtraForm class
+            if($model_student_extra === null){
+                $model_student_extra = new StudentExtraForm();
+            }
+            //$model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
+            if($model_student_extra->load(Yii::$app->request->post())
+                && $model_student_extra->insertStudentExtra()){
+                return $this->redirect(['student/student-prestasi']);
+            }
+            return $this->render('student-extra',
+                ['model_student_extra'=>$model_student_extra]); //render the extra activity page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        //$model_student_extra = new StudentExtraForm(); //create an instance of the StudentExtraForm class
-        if($model_student_extra->load(Yii::$app->request->post())
-            && $model_student_extra->insertStudentExtra()){
-            return $this->redirect(['student/student-prestasi']);
-        }
-        return $this->render('student-extra',
-            ['model_student_extra'=>$model_student_extra]); //render the extra activity page
     }
     //action for insert data akademik
     public function actionStudentAkademik(){
-        $model_student_akademik  = StudentAkademikForm::findDataPmdk(); //fetch akademik data
-        if($model_student_akademik === null){
-            $model_student_akademik = new StudentAkademikForm();
-        }
-        //$model_student_akademik = new StudentAkademikForm();
-        if($model_student_akademik->load(Yii::$app->request->post()))
-        {
-            $currentBatch  = $model_student_akademik::getCurrentBatch();
-            $filesToUpload = $currentBatch == self::UTBK ? ['file'] : self::PMDK_FILES;
-            $uploadFolderBase = $currentBatch == self::UTBK ? self::UPLOADS : self::UPLOADS_PMDK;
-            foreach($filesToUpload as $file){
+        try{
+            $model_student_akademik  = StudentAkademikForm::findDataPmdk(); //fetch akademik data
+            if($model_student_akademik === null){
+                $model_student_akademik = new StudentAkademikForm();
+            }
+            //$model_student_akademik = new StudentAkademikForm();
+            if($model_student_akademik->load(Yii::$app->request->post()))
+            {
+                $currentBatch  = $model_student_akademik::getCurrentBatch();
+                $filesToUpload = $currentBatch == self::UTBK ? ['file'] : self::PMDK_FILES;
+                $uploadFolderBase = $currentBatch == self::UTBK ? self::UPLOADS : self::UPLOADS_PMDK;
+                foreach($filesToUpload as $file){
+                    try {
+                        $this->uploadToAws($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
+                    } catch (\Exception $e) {
+                        Yii::$app->session->setFlash('error', $e->getMessage());
+                        return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
+                    }
+                }
                 try {
-                    $this->uploadToAws($model_student_akademik, $file, $uploadFolderBase, $currentBatch);
+                    if($model_student_akademik->insertStudentAkademik())
+                        return $this->redirect(['student/student-bahasa']);
                 } catch (\Exception $e) {
                     Yii::$app->session->setFlash('error', $e->getMessage());
-                    return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
                 }
             }
-            try {
-                if($model_student_akademik->insertStudentAkademik())
-                    return $this->redirect(['student/student-bahasa']);
-            } catch (\Exception $e) {
-                Yii::$app->session->setFlash('error', $e->getMessage());
-            }
+            return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-akademik', ['model_student_akademik'=>$model_student_akademik]);
     }
     //private function for uploadFIle, needed for actionStudentAkademik
     private function uploadFile($form, $file, $uploadFolderBase, $currentBatch){
@@ -325,66 +354,96 @@ class StudentController extends Controller // StudentController extends the Cont
     }
     //action for token activate, this is already cleaned up
     public function actionStudentTokenActivate(){
-        $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
-        if($model->load(Yii::$app->request->post()) ){
-            if($model->activate()){
-                return $this->redirect(['student/login']); //go to the next page, customize this to go to the home page
+            try{
+            $model = new StudentTokenActivate(); //create an instance of the StudentTokenActivateForm class
+            if($model->load(Yii::$app->request->post()) ){
+                if($model->activate()){
+                    return $this->redirect(['student/login']); //go to the next page, customize this to go to the home page
+                }
+                //otherwise, refresh the page
+                return $this->refresh();
             }
-            //otherwise, refresh the page
-            return $this->refresh();
+        
+            return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-    
-        return $this->render('student-token-activate', ['model' => $model]); //render the token activate page
     }
     //action for data bahasa, this is already cleaned up
     public function actionStudentBahasa(){
-        $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
-        if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
-            return $this->redirect(['student/student-extra']);
+        try{
+            $model = new StudentBahasaForm(); //create an instance of the StudentBahasaForm class
+            if($model->load(Yii::$app->request->post())&& $model->insertBahasaData()){
+                return $this->redirect(['student/student-extra']);
+            }
+            return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-bahasa',['model'=>$model]); //render the bahasa page
     }
     //action for data prestasi, to do more clean up on this action
     public function actionStudentPrestasi(){
-        $model = StudentPrestasiForm::findDataPrestasi();
-        if($model === null){
-            $model = new StudentPrestasiForm();
+        try{
+            $model = StudentPrestasiForm::findDataPrestasi();
+            if($model === null){
+                $model = new StudentPrestasiForm();
+            }
+            //$model  = new StudentPrestasiForm();
+            if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
+                return $this->redirect(['student/student-informasi']);
+            }
+            return $this->render('student-prestasi',['model'=>$model]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        //$model  = new StudentPrestasiForm();
-        if($model->load(Yii::$app->request->post()) && $model->insertPrestasiData()){
-            return $this->redirect(['student/student-informasi']);
-        }
-        return $this->render('student-prestasi',['model'=>$model]);
     }
     //action for store information, to do more clean up on this action
     public function actionStudentInformasi(){
-        $model = new \app\models\StudentInformasiForm();
-        //set flash message if the data is successfully inserted to database
-        if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
-            return $this->redirect(['student/student-biaya']);
+        try{
+            $model = new \app\models\StudentInformasiForm();
+            //set flash message if the data is successfully inserted to database
+            if($model->load(Yii::$app->request->post()) && $model->insertInformasiData()){
+                return $this->redirect(['student/student-biaya']);
+            }
+            return $this->render('student-informasi',['model'=>$model]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-informasi',['model'=>$model]);
     }
     //action for store biaya, to do more clean up on this action
     public function actionStudentBiaya(){
-        $model = new \app\models\StudentBiayaForm();
-        //set flash message if the data is successfully inserted to database
-        if($model->load(Yii::$app->request->post())){
-            //set flash message ok if the voucher is valid
-            if($model->validateVoucher()){
-                Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
+        try{
+            $model = new \app\models\StudentBiayaForm();
+            //set flash message if the data is successfully inserted to database
+            if($model->load(Yii::$app->request->post())){
+                //set flash message ok if the voucher is valid
+                if($model->validateVoucher()){
+                    Yii::$app->session->setFlash('ok', "Voucher berhasil digunakan, silahkan melakukan pembayaran");
+                }
             }
+            return $this->render('student-biaya',['model'=>$model]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-biaya',['model'=>$model]);
     }
     //action for pengunguman, to do more clean up on this action
     public function actionStudentPengumuman(){
-        $model = new \app\models\StudentPengumumanForm();
-        //set flash message if the data is successfully inserted to database
-        if($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()){
-            return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
+        try{
+            $model = new \app\models\StudentPengumumanForm();
+            //set flash message if the data is successfully inserted to database
+            if($model->load(Yii::$app->request->post()) && $model->insertPengumumanData()){
+                return $this->redirect(['student/student-biaya']); //to do: change this to pengumuman page
+            }
+            return $this->render('student-pengumuman',['model'=>$model]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
         }
-        return $this->render('student-pengumuman',['model'=>$model]);
     }
     //action for announcement, to do more clean up on this action
     public function actionStudentAnnouncement(){
@@ -393,7 +452,12 @@ class StudentController extends Controller // StudentController extends the Cont
         /*if($model->load(Yii::$app->request->post()) && $model->insertAnnouncementData()){
             return $this->redirect(['student/student-biaya']); //to do: change this to announcement page
         }*/
-        return $this->render('student-announcement',['model'=>$model]);
+        try{
+            return $this->render('student-announcement',['model'=>$model]);
+        }catch(\Exception $e){
+            Yii::$app->session->setFlash('error', 'An error occurred while processing your request. Please try again later.');
+            return $this->redirect(['student/error']);
+        }
     }
     //experimental test fetch data from my own api, case my public api
     public function actionShowDataApi($username,$password)
