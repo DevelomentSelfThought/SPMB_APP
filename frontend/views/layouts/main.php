@@ -84,7 +84,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <header id="header">
 <?php     
 NavBar::begin([
-    'brandLabel' => '<img src="/bground/itdel.jpg" class="logo"> ' . Yii::$app->name,
+    'brandLabel' => '<img src="https://coderassetmiller.s3.amazonaws.com/itdel.jpg" class="logo"> ' . Yii::$app->name,
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-expand-lg navbar-light bg-light my-navbar', // changed to light theme

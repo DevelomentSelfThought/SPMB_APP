@@ -65,7 +65,7 @@
 </style>
 </html>
 <?php
-//this page is intended to be used as a view for student personal information (data diri)
+//this page is intended to be used as a view for student personal academic (akademik)
 // Path: views/student/student-data-diri.php
 // current status is experimental, need more improvement with the design
 
@@ -139,6 +139,26 @@ use yii\web\JsExpression;
             ->label('Akreditas');       
         ?>
     </div>
+    <div class="col-12 col-md">
+    <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_un',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-book-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Pelajaran UN')
+    ->textInput(['placeholder'=>'Input jumlah pelajaran']); 
+    ?>
+    <p class="text-muted" style="font-size: 0.8rem;"><i>Jika telah memperoleh nilai UN</i></p>
+</div>
+<div class="col-12 col-md">
+    <?php echo $form->field($model_student_akademik,'jumlah_nilai_un',
+    [
+    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
+    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
+    <i class="bi bi-award-fill text-danger" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Nilai UN')
+    ->textInput(['placeholder'=>'Input jumlah nilai']); 
+    ?>
+    <p class="text-muted" style="font-size: 0.8rem;"><i>Jika telah memperoleh nilai UN</i></p>
+</div>
 </div>
     <!-- define it for batch utbk -->
     <?= Html::tag('div', '<i class="bi bi-server text-primary" style="font-size: 1rem;"></i><span class="text-primary fw-bold"> Form Data Nilai Rapor Semester '. toRoman(1).'-'.toRoman(5) .'</span>', ['class' => 'my-3 p-2 border-bottom']) ?>    <?php 
@@ -222,24 +242,7 @@ use yii\web\JsExpression;
     ->textInput(['placeholder'=>'Masukan jumlah nilai']); 
     ?>
     </div>
-    <div class="col">
-    <?php echo $form->field($model_student_akademik,'jumlah_pelajaran_un',
-    [
-    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
-    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-book-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Pelajaran Ujian Nasional')
-    ->textInput(['placeholder'=>'Masukan jumlah pelajaran']); 
-    ?>
-    </div>
-    <div class="col">
-    <?php echo $form->field($model_student_akademik,'nilai_un',
-    [
-    'template' => '<label style="white-space: nowrap;">{label}</label><div class="input-group">{input}</div>',
-    'inputTemplate' => '<div class="input-group"><span class="input-group-text">
-    <i class="bi bi-award-fill" style="font-size: 1rem;"></i></span>{input}</div>'])->label('Jumlah Nilai Ujian Nasional')
-    ->textInput(['placeholder'=>'Masukan jumlah nilai']); 
-    ?>
-    </div>
+
 </div>
 <?php } ?> 
 
@@ -651,7 +654,7 @@ $('.my-form').on('beforeSubmit', function(event) {
     // Delay the form submission
     setTimeout(function() {
         $('.my-form').yiiActiveForm('submitForm');
-    }, 1000);
+    }, 3000); //possible to remove this timeout after testing
 });
 JS;
 $this->registerJs($script);

@@ -9,7 +9,7 @@ class StudentAkademikForm extends Model {
     public $jurusan_sekolah;
     public $akreditasi_sekolah;
     public $jumlah_pelajaran_un;
-    public $nilai_un;
+    public $jumlah_nilai_un;
     public $file;
     //public data member for utbk
     public $no_utbk;
@@ -71,6 +71,9 @@ class StudentAkademikForm extends Model {
             [['jurusan_sekolah'], 'string', 'max' => 50],
             [['akreditasi_sekolah'], 'string', 'max' => 2],
             [['akreditasi_sekolah'], 'in', 'range' => self::$acreditation],
+            [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
+            ['jumlah_nilai_un', 'number', 'min' => 2, 'max' => 100],
+
         ];
         //if the current batch is utbk, add the following rules
         if($this->getCurrentBatch() == 'utbk'){
@@ -82,10 +85,9 @@ class StudentAkademikForm extends Model {
                 [['tanggal_ujian_utbk'], 'date', 'format' => 'php:Y-m-d', 'min' => '2021-12-01'],
                 [['nilai_kemampuan_umum', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 'nilai_kemampuan_bacaan'], 
                 'number', 'min' => 10, 'max' => 1000],
-                [['nilai_un', 'nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
+                [['nilai_kemampuan_umum', 'nilai_semester', 'nilai_kemampuan_kuantitatif', 'nilai_kemampuan_pengetahuan_umum', 
                 'nilai_kemampuan_bacaan'], 'number'],
                 [['jumlah_pelajaran'], 'integer', 'min' => 2, 'max' => 100],
-                [['jumlah_pelajaran_un'], 'integer', 'min' => 2, 'max' => 100],
                 [['file'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf'],
                 [['file'],'required'], //possible to be refactored, join with the common rules
                 //attribute for all file is safe
@@ -152,6 +154,8 @@ class StudentAkademikForm extends Model {
             'sekolah_dapodik_id'=>self::getSekolahDapodikId($this->sekolah),
             'jurusan_sekolah_id'=>$this->jurusan_sekolah,
             'akreditasi_sekolah'=>$this->akreditasi_sekolah,
+            'jumlah_pelajaran_un'=>$this->jumlah_pelajaran_un,
+            'jumlah_nilai_un'=>$this->jumlah_nilai_un,
         ],['user_id'=>StudentDataDiriForm::getCurrentUserId()])->execute();
     }
     //auxiliary function to update data nilai akademik to table t_nilai_rapor, condition getCurrenPendafarId()
