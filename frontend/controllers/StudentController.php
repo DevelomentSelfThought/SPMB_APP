@@ -262,7 +262,7 @@ class StudentController extends Controller // StudentController extends the Cont
         // Get the AWS S3 client
         $s3 = new \Aws\S3\S3Client([
             'version' => 'latest',
-            'region'  => 'ap-southeast-2', // Replace with your AWS region
+            'region'  => $_ENV['AWS_DEFAULT_REGION'], // Replace with your AWS region
             'credentials' => [
                 'key'    => $_ENV['AWS_ACCESS_KEY_ID'], // Replace with your AWS access key ID
                 'secret' => $_ENV['AWS_SECRET_ACCESS_KEY'], // Replace with your AWS secret access key
@@ -280,7 +280,7 @@ class StudentController extends Controller // StudentController extends the Cont
             $fileBaseName = Yii::$app->user->identity->username; //set the file base name
             try{
                 $result = $this->s3Identity()->putObject([
-                    'Bucket' => 'pmbdel', // Replace with your bucket name
+                    'Bucket' => $_ENV['AWS_BUCKET_NAME'], // Replace with your bucket name
                     'Key'    => md5($fileBaseName) . '/' . $uploadFolder.'.' . $form->$file->extension,
                     'Body'   => fopen($form->$file->tempName, 'r'),
                     //'ACL'    => 'public-read', // Set the file to be publicly readable
@@ -302,8 +302,8 @@ class StudentController extends Controller // StudentController extends the Cont
             $fileBaseName = Yii::$app->user->identity->username; //set the file base name
             try{
                 $result = $this->s3Identity()->putObject([
-                    'Bucket' => 'pmbdel', // Replace with your bucket name
-                    'Key'    => md5($fileBaseName) . 'pasPhoto'.'.' . $form->$file->extension,
+                    'Bucket' => $_ENV['AWS_BUCKET_NAME'], // Replace with your bucket name
+                    'Key'    =>  'pasPhoto'.'/'.md5($fileBaseName).'.' . $form->$file->extension,
                     'Body'   => fopen($form->$file->tempName, 'r'),
                     //'ACL'    => 'public-read', // Set the file to be publicly readable
                 ]);

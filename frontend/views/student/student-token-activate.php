@@ -4,17 +4,17 @@
     <title>Student Token Activation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <style>
-    body {
-        background: linear-gradient(to right, #3494E6, #EC6EAD);
-    }
+        body {
+            background: linear-gradient(to right, #3494E6, #EC6EAD);
+        }
         .otp-input {
             text-align: center;
             font-size: 20px;
-            border: none;
-            border-radius: 50%; /* makes the input field completely round */
-            /* sets the background color to Eclipse */
-            background-color: #0d6efd; 
-            color: white; /* sets the text color to white */
+            font-weight: bold;
+            border: 2px solid #28a745; /* Add border */
+            border-radius: 5px; /* Add border radius */
+            background-color: transparent; /* Remove background color */
+            color: #28a745; /* Change text color to match border */
             margin-right: 5px;
             margin-left: 5px;
             width: 40px;
@@ -28,22 +28,31 @@
                 margin-left: 2px;
             }
         }
+
         .otp-input:focus {
-            border-color: #6610f2;
+            border-color: #dc3545;
             outline: none;
             box-shadow: none;
         }
+
         .rounded-lg {
             border-radius: 1rem; /* 1rem = 16px */
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25); /* adds a 3D shadow effect */
-        }
-        .otp-input::placeholder {
-            color: white;
         }
         .custom-heading {
             font-size: 2.5rem;
             color: #333;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .otp-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #888; /* Change color to a lighter shade of gray */
+            opacity: 1; /* Firefox */
+        }
+        .otp-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #888;
+        }
+        .otp-input::-ms-input-placeholder { /* Microsoft Edge */
+            color: #888;
         }
 </style>
 </head>
@@ -81,7 +90,7 @@ $this->registerJs('$(document).ready(function(){$("#welcomeModal").modal("show")
                     </div>
                     <br>
                     <hr>
-                    <p style="font-size: 14px; color: #666; line-height: 1.6;" class="text-center">
+                    <p style="font-size: 12px; color: #666; line-height: 1.6;" class="text-center">
                          Sebagai contoh
                         jika kode yang dikirimkan melalui email adalah  <b><i>ZYZRST</i></b>, maka masukan kode tersebut seperti contoh diatas.</p>
                     <?php ActiveForm::end(); ?>

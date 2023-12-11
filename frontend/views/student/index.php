@@ -158,7 +158,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
                 <?= Html::a('Buat Akun', ['register-student'], ['class' => 'btn btn-primary full-width-btn']) ?>
         </div>
         <div class="col-lg-6 order-lg-1">
-            <img src="/bground/asset_prodi.png" class="img-fluid" alt="Responsive image">
+            <img src="https://coderassetmiller.s3.amazonaws.com/asset_prodi.png" class="img-fluid" alt="Responsive image">
         </div>
     </div>
 </div>
@@ -174,7 +174,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
                 serta membangun networking untuk modal kamu di masa depan. </p>
         </div>
         <div class="col-lg-6">
-            <img src="/bground/1.jpg" class="img-fluid" alt="Responsive image">
+            <img src="https://coderassetmiller.s3.amazonaws.com/1.jpg" class="img-fluid" alt="Responsive image">
         </div>
     </div>
 </div>
@@ -319,7 +319,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
             <div class="card h-100">
-                <img src="/bground/1.jpg" class="card-img-top" alt="Image 1">
+                <img src="https://coderassetmiller.s3.amazonaws.com/1.jpg" class="card-img-top" alt="Image 1">
                 <div class="card-body">
                     <h5 class="card-title">Title 1</h5>
                     <p class="card-text">This is a description of the first image.</p>
@@ -328,7 +328,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
         </div>
         <div class="col">
             <div class="card h-100">
-                <img src="/bground/2.jpg" class="card-img-top" alt="Image 2">
+                <img src="https://coderassetmiller.s3.amazonaws.com/2.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
                     <h5 class="card-title">Title 2</h5>
                     <p class="card-text">This is a description of the second image.</p>
@@ -337,7 +337,7 @@ $this->registerJs('$(document).ready(function(){$("#developmentModal").modal("sh
         </div>
         <div class="col">
             <div class="card h-100">
-                <img src="/bground/3.jpg" class="card-img-top" alt="Image 2">
+                <img src="https://coderassetmiller.s3.amazonaws.com/3.jpg" class="card-img-top" alt="Image 2">
                 <div class="card-body">
                     <h5 class="card-title">Title 3</h5>
                     <p class="card-text">This is a description of the third image.</p>
